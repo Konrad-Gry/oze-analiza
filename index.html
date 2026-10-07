@@ -1,0 +1,2253 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Konrad Grycner | Analiza OZE w Polsce 2018–2024</title>
+<meta name="description" content="Projekt portfolio: ekonomiczna analiza rozwoju OZE w polskim systemie elektroenergetycznym 2018–2024. Dane PSE, URE, GUS, TGE. Autor: Konrad Grycner.">
+<meta name="author" content="Konrad Grycner">
+<meta name="theme-color" content="#0f2a3d">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Jak OZE przebudowały polski system elektroenergetyczny | Konrad Grycner">
+<meta property="og:description" content="Trzy moduły analityczne: bilans systemu (PSE), technologie OZE (URE, GUS) i koszty integracji na rynku (TGE, curtailment, capture rate).">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b6e8a'/%3E%3Cpath d='M36 8L16 36h14l-4 20 22-30H34z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;750&display=swap" rel="stylesheet">
+<style>
+/* ---- wspólne tokeny (jedno źródło prawdy dla całego projektu) + moduł A ---- */
+:root{
+  
+  --bg:#f3f5f8; --surface:#ffffff; --surface2:#eef2f6; --text:#13202c; --muted:#58697a; --border:#dce3ea;
+  --accent:#0b6e8a; --accent-soft:#e1f1f6; --hl:rgba(11,110,138,.08); --shadow:0 1px 2px rgba(19,32,44,.06),0 4px 14px rgba(19,32,44,.05);
+  --hero1:#0f2a3d; --hero2:#0b6e8a;
+  --c-hard:#2f3640; --c-lig:#8b5a2b; --c-gas:#e0a21b; --c-wind:#14946c; --c-hydro:#3a7bc8; --c-ind:#a3acb6;
+  --c-prod:#0b6e8a; --c-cons:#7d8a97; --c-pos:#0b6e8a; --c-neg:#d9480f;
+  --ok:#14946c; --warn:#b7791f; --plan:#6b7a89;
+  --on-hard:#fff; --on-lig:#fff; --on-gas:#1b1b1b; --on-ind:#1b1b1b; --on-hydro:#fff; --on-wind:#fff;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+    --bg:#0d141b; --surface:#151f29; --surface2:#1b2733; --text:#e7edf2; --muted:#98a9b8; --border:#27384a;
+    --accent:#4cc3e0; --accent-soft:#11303b; --hl:rgba(76,195,224,.10); --shadow:0 1px 2px rgba(0,0,0,.4);
+    --hero1:#0b1c29; --hero2:#0f4a5e;
+    --c-hard:#b9c2cd; --c-lig:#c98d52; --c-gas:#f0b93a; --c-wind:#34c995; --c-hydro:#6aa6ec; --c-ind:#6b7886;
+    --c-prod:#4cc3e0; --c-cons:#8e9cab; --c-pos:#4cc3e0; --c-neg:#ff8a50;
+    --ok:#34c995; --warn:#e3b04b; --plan:#8e9cab;
+    --on-hard:#10202c; --on-lig:#10202c; --on-gas:#1b1b1b; --on-ind:#fff; --on-hydro:#10202c; --on-wind:#0b2a20;
+  }}
+:root[data-theme="dark"]{
+  --bg:#0d141b; --surface:#151f29; --surface2:#1b2733; --text:#e7edf2; --muted:#98a9b8; --border:#27384a;
+  --accent:#4cc3e0; --accent-soft:#11303b; --hl:rgba(76,195,224,.10); --shadow:0 1px 2px rgba(0,0,0,.4);
+  --hero1:#0b1c29; --hero2:#0f4a5e;
+  --c-hard:#b9c2cd; --c-lig:#c98d52; --c-gas:#f0b93a; --c-wind:#34c995; --c-hydro:#6aa6ec; --c-ind:#6b7886;
+  --c-prod:#4cc3e0; --c-cons:#8e9cab; --c-pos:#4cc3e0; --c-neg:#ff8a50;
+  --ok:#34c995; --warn:#e3b04b; --plan:#8e9cab;
+  --on-hard:#10202c; --on-lig:#10202c; --on-gas:#1b1b1b; --on-ind:#fff; --on-hydro:#10202c; --on-wind:#0b2a20;
+}
+#mod-a *,#mod-a *::before,#mod-a *::after{box-sizing:inherit}
+#mod-a{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.55;font-variant-numeric:tabular-nums}
+#mod-a .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+#mod-a a{color:var(--accent)}
+#mod-a .hero{background:linear-gradient(135deg,var(--hero1),var(--hero2));color:#fff;padding:34px 0 30px}
+#mod-a .hero .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.8;font-weight:600}
+#mod-a .hero h1{margin:8px 0 8px;font-size:clamp(25px,4.2vw,38px);line-height:1.15;font-weight:700;letter-spacing:-.01em}
+#mod-a .hero p.lede{margin:0 0 16px;max-width:780px;font-size:16px;opacity:.92}
+#mod-a .badges{display:flex;flex-wrap:wrap;gap:8px}
+#mod-a .badges span{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);padding:4px 11px;border-radius:999px;font-size:12.5px;font-weight:500}
+#mod-a .hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+#mod-a .theme-btn{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:6px 12px;font:inherit;font-size:12.5px;cursor:pointer;white-space:nowrap}
+#mod-a .theme-btn:hover{background:rgba(255,255,255,.24)}
+#mod-a .author{margin-top:14px;font-size:13px;opacity:.85}
+#mod-a nav.tabs{position:sticky;top:var(--navh);z-index:20;background:var(--surface);border-bottom:1px solid var(--border);box-shadow:var(--shadow)}
+#mod-a nav.tabs .wrap{display:flex;gap:2px;overflow-x:auto;scrollbar-width:thin}
+#mod-a .tab{flex:0 0 auto;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);font:inherit;font-weight:600;font-size:14px;padding:14px 14px 11px;cursor:pointer;white-space:nowrap}
+#mod-a .tab:hover{color:var(--text)}
+#mod-a .tab[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+#mod-a main{padding:22px 0 10px}
+#mod-a .panel{display:none}
+#mod-a .panel.on{display:block}
+#mod-a .grid{display:grid;gap:16px}
+#mod-a .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+#mod-a .g21{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}
+@media (max-width:880px){#mod-a .g2,#mod-a .g21{grid-template-columns:minmax(0,1fr)}}
+#mod-a .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 18px 16px;box-shadow:var(--shadow);min-width:0}
+#mod-a .card h2{margin:0 0 3px;font-size:16.5px;font-weight:650;letter-spacing:-.005em}
+#mod-a .card h3{margin:16px 0 4px;font-size:14px;font-weight:650}
+#mod-a .sub{margin:0 0 12px;color:var(--muted);font-size:13px}
+#mod-a .note{margin:10px 0 0;color:var(--muted);font-size:12.5px;line-height:1.5}
+#mod-a .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+#mod-a .kpi{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 14px 10px;box-shadow:var(--shadow);min-width:0}
+#mod-a .kpi .lab{font-size:12px;color:var(--muted);font-weight:600;line-height:1.3;min-height:31px}
+#mod-a .kpi .val{font-size:25px;font-weight:700;letter-spacing:-.02em;margin:4px 0 2px}
+#mod-a .kpi .s{font-size:12.3px;color:var(--muted)}
+#mod-a .kpi svg{display:block;width:100%;height:30px;margin-top:6px}
+#mod-a .chartbox .legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:2px 0 8px}
+#mod-a .lg{display:inline-flex;align-items:center;gap:7px;background:none;border:0;padding:2px 0;font:inherit;font-size:12.5px;color:var(--text);cursor:pointer}
+#mod-a .lg i{width:12px;height:12px;border-radius:3px;display:inline-block}
+#mod-a .lg i.dash{height:0;border-top:3px dashed;background:none!important;border-radius:0;width:16px}
+#mod-a .lg.off{opacity:.38;text-decoration:line-through}
+#mod-a .plot{position:relative;width:100%}
+#mod-a .plot svg{display:block;overflow:visible}
+#mod-a .plot text{font-family:inherit}
+#mod-a .tick{fill:var(--muted);font-size:11.5px}
+#mod-a .gl{stroke:var(--border);stroke-width:1}
+#mod-a line.axis0{stroke:var(--muted);stroke-width:1;opacity:.6}
+#mod-a rect.hl{fill:var(--hl)}
+#mod-a rect.blk{stroke:var(--surface);stroke-width:1}
+#mod-a circle.dot{stroke:var(--surface);stroke-width:1.5}
+#mod-a .vlab{fill:var(--text);font-size:11px;font-weight:600}
+#mod-a .tip{position:absolute;top:8px;z-index:5;pointer-events:none;background:var(--surface);border:1px solid var(--border);box-shadow:0 6px 24px rgba(0,0,0,.18);border-radius:10px;padding:8px 10px;font-size:12.5px;min-width:150px;max-width:290px}
+#mod-a .tip b{display:block;margin-bottom:4px}
+#mod-a .tip .r{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:1px 0}
+#mod-a .tip .r span:first-child{display:inline-flex;align-items:center;gap:6px}
+#mod-a .tip i{width:9px;height:9px;border-radius:2px;display:inline-block}
+#mod-a .tip .tot{border-top:1px solid var(--border);margin-top:4px;padding-top:4px;font-weight:600}
+#mod-a .segc{display:inline-flex;flex-wrap:wrap;max-width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:2px;gap:2px;margin:0 0 10px}
+#mod-a .segc button{border:0;background:none;color:var(--muted);font:inherit;font-size:12.5px;font-weight:600;padding:5px 11px;border-radius:7px;cursor:pointer}
+#mod-a .segc button[aria-pressed="true"]{background:var(--surface);color:var(--accent);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+#mod-a .hbar{display:flex;height:34px;border-radius:7px;overflow:hidden;border:1px solid var(--border)}
+#mod-a .hbar div{display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:600;color:#fff;overflow:hidden;white-space:nowrap}
+#mod-a .hrow{margin:10px 0 14px}
+#mod-a .hrow .hl2{display:flex;justify-content:space-between;font-size:12.5px;font-weight:600;margin-bottom:5px}
+#mod-a .hrow .hl2 span:last-child{color:var(--muted);font-weight:500}
+#mod-a ul.clean{margin:0;padding:0;list-style:none}
+#mod-a ul.clean li{position:relative;padding:8px 0 8px 18px;border-bottom:1px solid var(--border);font-size:14px}
+#mod-a ul.clean li:last-child{border-bottom:0}
+#mod-a ul.clean li::before{content:"";position:absolute;left:0;top:15px;width:7px;height:7px;border-radius:2px;background:var(--accent)}
+#mod-a .warnbox{border-left:4px solid var(--warn);background:var(--surface2);border-radius:0 10px 10px 0;padding:10px 14px;font-size:13.5px}
+#mod-a .warnbox p{margin:6px 0}
+#mod-a .tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+#mod-a table{border-collapse:collapse;width:100%;font-size:13px}
+#mod-a th,#mod-a td{padding:7px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+#mod-a th:first-child,#mod-a td:first-child{text-align:left;white-space:normal;min-width:190px}
+#mod-a thead th{font-weight:650;color:var(--muted);font-size:12px;border-bottom:2px solid var(--border);background:var(--surface)}
+#mod-a tbody tr:hover td{background:var(--surface2)}
+#mod-a tr.tot td{font-weight:700}
+#mod-a td.l{text-align:left;white-space:normal}
+#mod-a .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:650;color:#fff;white-space:nowrap}
+#mod-a .pill.ok{background:var(--ok)}
+#mod-a .pill.warn{background:var(--warn)}
+#mod-a .pill.plan{background:var(--plan)}
+#mod-a .pos{color:var(--ok);font-weight:600}
+#mod-a .neg{color:var(--c-neg);font-weight:600}
+#mod-a dl.def{margin:0}
+#mod-a dl.def dt{font-weight:650;margin-top:11px;font-size:13.5px}
+#mod-a dl.def dd{margin:2px 0 0;color:var(--muted);font-size:13.5px}
+#mod-a .src li{margin:5px 0;font-size:13.5px}
+#mod-a footer{max-width:var(--maxw);margin:10px auto 0;padding:18px 20px calc(30px + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:12.5px;border-top:1px solid var(--border)}
+@media (max-width:480px){#mod-a .kpi .val{font-size:21px;white-space:nowrap}
+#mod-a .kpi{padding:12px 12px 8px}
+#mod-a .wrap{padding:0 14px}
+#mod-a .card{padding:15px 14px 13px}}
+@media print{#mod-a nav.tabs,#mod-a .theme-btn{display:none}
+#mod-a .panel{display:block!important;break-inside:auto}
+#mod-a .card,#mod-a .kpi{box-shadow:none;break-inside:avoid}
+#mod-a .tip{display:none}
+#mod-a{background:#fff}}
+#mod-a .printing .panel{display:block}
+</style>
+<style>
+/* ---- moduł B ---- */
+#mod-b{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+#mod-b .mb{max-width:880px;margin:0 auto;padding:32px 16px 48px}
+#mod-b .mb h1{font-size:22px;font-weight:600;margin:0 0 4px}
+#mod-b .mb h2{font-size:17px;font-weight:600;margin:0 0 2px}
+#mod-b .mb .sub{color:var(--ink-2);margin:0 0 20px}
+#mod-b .mb section{background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:20px;margin:0 0 16px}
+#mod-b .mb .hero{background:linear-gradient(135deg,var(--hero1),var(--hero2));color:#fff;border-radius:12px;padding:22px 20px;margin:0 0 16px}
+#mod-b .mb .hero h1{color:#fff}
+#mod-b .mb .hero .sub{color:rgba(255,255,255,.8);margin:0}
+#mod-b .mb .q{color:var(--ink-2);margin:0 0 12px;font-size:14px}
+#mod-b .mb .verdict{margin:12px 0 0;padding-left:12px;border-left:2px solid var(--ink-3)}
+#mod-b .mb .verdict b{font-weight:600}
+#mod-b .mb .note{color:var(--ink-3);font-size:12.5px;margin:8px 0 0}
+#mod-b .mb .empty{border:1px dashed var(--line);color:var(--ink-3);padding:36px 12px;text-align:center;font-size:14px}
+#mod-b .mb .banner{border:1px solid var(--warn);color:var(--warn);padding:10px 12px;margin:0 0 20px;font-size:14px}
+#mod-b .mb .legend{display:flex;flex-wrap:wrap;gap:4px 16px;margin:0 0 6px;font-size:13px;color:var(--ink-2)}
+#mod-b .mb .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+#mod-b .mb .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:12px 0 0}
+#mod-b .mb .tile{background:var(--surface2);border-radius:8px;padding:10px 12px}
+#mod-b .mb .tile small{display:block;color:var(--ink-2);font-size:12px}
+#mod-b .mb .tile strong{font-size:20px;font-weight:600;font-variant-numeric:tabular-nums}
+#mod-b .mb .tile em{font-style:normal;color:var(--ink-3);font-size:12px}
+#mod-b .mb .wrap{position:relative}
+#mod-b .mb svg{display:block;width:100%;height:auto;overflow:visible}
+#mod-b .mb svg text{fill:var(--ink-2);font-size:11px;font-family:inherit}
+#mod-b .mb .grid{stroke:var(--line);stroke-width:1}
+#mod-b .mb .tip{position:absolute;pointer-events:none;background:var(--bg);border:1px solid var(--line);padding:6px 8px;font-size:12px;line-height:1.4;display:none;white-space:nowrap;z-index:2}
+#mod-b .mb details{margin-top:8px;font-size:13px}
+#mod-b .mb summary{cursor:pointer;color:var(--ink-2)}
+#mod-b .mb details,#mod-b .mb #b-kontrola-tab{overflow-x:auto;max-width:100%}
+#mod-b .mb table{border-collapse:collapse;width:100%;font-size:12.5px;margin-top:6px;font-variant-numeric:tabular-nums}
+#mod-b .mb th,#mod-b .mb td{text-align:right;padding:3px 6px;border-bottom:1px solid var(--line)}
+#mod-b .mb th:first-child,#mod-b .mb td:first-child{text-align:left}
+#mod-b .mb footer{padding:4px 4px 0;color:var(--ink-3);font-size:12.5px}
+</style>
+<style>
+/* ---- moduł C ---- */
+#mod-c *{box-sizing:border-box}
+#mod-c{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 var(--font);padding:0 16px 48px}
+#mod-c .wrap{max-width:calc(var(--maxw) - 40px);margin:0 auto}
+#mod-c header{padding:28px 0 8px}
+#mod-c .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+#mod-c h1{font-size:26px;line-height:1.2;margin:6px 0 8px}
+#mod-c h2{font-size:18px;margin:0 0 4px}
+#mod-c h3{font-size:15px;margin:18px 0 6px}
+#mod-c p{margin:6px 0}
+#mod-c .lead{color:var(--muted);max-width:70ch}
+#mod-c .top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+#mod-c button.theme{background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font:inherit;font-size:13px;cursor:pointer}
+#mod-c .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:16px 0}
+#mod-c .note{font-size:13px;color:var(--muted)}
+#mod-c .kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0}
+#mod-c .tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px}
+#mod-c .tile .v{font-size:26px;font-weight:650;line-height:1.1}
+#mod-c .tile .l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+#mod-c .tile .d{font-size:12.5px;color:var(--muted);margin-top:6px}
+#mod-c #c-status-bar{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:16px 0}
+#mod-c #c-status-bar summary{cursor:pointer;font-weight:600}
+#mod-c .pill{display:inline-block;border-radius:999px;padding:1px 9px;font-size:12px;font-weight:600;margin-right:6px}
+#mod-c .pill.ok{background:var(--ok-bg);color:var(--ok)}
+#mod-c .pill.warn{background:var(--warn-bg);color:var(--warn)}
+#mod-c .pill.fail{background:var(--fail-bg);color:var(--fail)}
+#mod-c .tests{list-style:none;padding:0;margin:10px 0 0}
+#mod-c .tests li{padding:6px 0;border-top:1px solid var(--line);font-size:13.5px}
+#mod-c .tests .opis{color:var(--muted);display:block;font-size:12.5px}
+#mod-c figure{margin:10px 0 0}
+#mod-c svg{width:100%;height:auto;display:block}
+#mod-c .grid{stroke:var(--line);stroke-width:1}
+#mod-c .ax{fill:var(--muted);font-size:11.5px}
+#mod-c .val{fill:var(--text);font-size:12px;font-weight:600}
+#mod-c .bar-price{fill:var(--c-price)}
+#mod-c .bar-pv{fill:var(--c-pv)}
+#mod-c .bar-wind{fill:var(--c-wind)}
+#mod-c .bar-neg{fill:var(--c-neg)}
+#mod-c .bar-soft{opacity:.62}
+#mod-c .marker{fill:var(--surface);stroke:var(--text);stroke-width:1.6}
+#mod-c .gap{fill:none;stroke:var(--muted);stroke-width:1.2;stroke-dasharray:4 3}
+#mod-c .gaptxt{fill:var(--muted);font-size:11px}
+#mod-c .line-pv{fill:none;stroke:var(--c-pv);stroke-width:2.4}
+#mod-c .line-wind{fill:none;stroke:var(--c-wind);stroke-width:2.4}
+#mod-c .dot-pv{fill:var(--c-pv)}
+#mod-c .dot-wind{fill:var(--c-wind)}
+#mod-c blockquote{margin:8px 0;padding:10px 14px;border-left:3px solid var(--accent);background:var(--bg);border-radius:0 8px 8px 0}
+#mod-c .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--muted);margin:6px 0}
+#mod-c .sw{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+#mod-c .cap{display:grid;grid-template-columns:104px repeat(6,1fr);gap:4px;font-size:12.5px;margin-top:10px}
+#mod-c .cap div{padding:8px 4px;text-align:center;border-radius:6px;background:var(--bg);border:1px dashed var(--line);color:var(--muted)}
+#mod-c .cap .h{background:none;border:none;font-weight:600;color:var(--text)}
+#mod-c .cap .unv{border-style:dashed;color:var(--muted)}
+#mod-c .cap .v{background:var(--surface);border:1px solid var(--line);color:var(--text);font-variant-numeric:tabular-nums}
+#mod-c .cap .r{text-align:left;font-weight:600;color:var(--text);background:none;border:none}
+#mod-c table{width:100%;border-collapse:collapse;font-size:13px}
+#mod-c th,#mod-c td{text-align:left;padding:6px 8px;border-top:1px solid var(--line);vertical-align:top}
+#mod-c th{font-size:12px;color:var(--muted);font-weight:600}
+#mod-c td.n{text-align:right;font-variant-numeric:tabular-nums}
+#mod-c .scroll{overflow-x:auto}
+#mod-c a{color:var(--accent)}
+#mod-c ul.m{padding-left:20px;margin:6px 0}
+#mod-c ul.m li{margin:5px 0}
+#mod-c label.chk{font-size:13px;color:var(--muted);display:inline-flex;gap:6px;align-items:center;cursor:pointer}
+#mod-c select{font:inherit;font-size:13px;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:4px 6px}
+#mod-c footer{margin-top:28px;font-size:12.5px;color:var(--muted)}
+@media (max-width:560px){#mod-c{padding:0 16px 40px}
+#mod-c h1{font-size:22px}
+#mod-c .cap{grid-template-columns:78px repeat(6,1fr);font-size:11px}
+#mod-c .tile .v{font-size:22px}}
+</style>
+<style>
+/* ===================== WSPÓLNY SZKIELET (root, nawigator, widoki) ===================== */
+:root{--maxw:1120px;--navh:60px;color-scheme:light dark}
+:root[data-theme="light"]{color-scheme:light}
+:root[data-theme="dark"]{color-scheme:dark}
+@media (max-width:760px){:root{--navh:56px}}
+html{scroll-padding-top:calc(var(--navh) + 56px);-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.55}
+#app{min-height:100vh}
+.skip{position:absolute;left:-999px;top:8px;background:var(--surface);color:var(--text);padding:8px 12px;border-radius:8px;z-index:100}
+.skip:focus{left:8px}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---- nagłówek / nawigator ---- */
+.site-head{position:sticky;top:0;z-index:50;background:var(--surface);background:color-mix(in srgb,var(--surface) 88%,transparent);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--border)}
+.site-head .in{max-width:var(--maxw);margin:0 auto;padding:0 20px;height:var(--navh);display:flex;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);min-width:0}
+.brand .mono{flex:0 0 auto;width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,var(--hero1),var(--hero2));color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700;letter-spacing:.03em;box-shadow:0 2px 8px rgba(11,110,138,.35)}
+.brand .bt{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.brand .bt b{font-size:14.5px;font-weight:700;white-space:nowrap}
+.brand .bt small{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dtabs{position:relative;display:flex;gap:2px;margin-left:auto;background:var(--surface2);border:1px solid var(--border);padding:3px;border-radius:999px}
+.dtabs button{position:relative;z-index:1;border:0;background:none;font-size:13.5px;font-weight:600;color:var(--muted);padding:7px 15px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:color .25s}
+.dtabs button:hover{color:var(--text)}
+.dtabs button[aria-selected="true"]{color:#fff}
+.dtabs .ind{position:absolute;z-index:0;top:3px;bottom:3px;left:0;width:0;border-radius:999px;background:linear-gradient(135deg,var(--hero1),var(--hero2));box-shadow:0 2px 10px rgba(11,110,138,.35);transition:transform .38s cubic-bezier(.4,0,.2,1),width .38s cubic-bezier(.4,0,.2,1)}
+.tbtn{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:600;cursor:pointer}
+.tbtn:hover{background:var(--surface2)}
+.prog{position:fixed;left:0;right:0;top:var(--navh);height:3px;z-index:49;background:transparent;pointer-events:none}
+.prog i{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--accent),var(--c-wind))}
+
+/* ---- dolny pasek (telefon) ---- */
+.bnav{display:none;position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--surface);border-top:1px solid var(--border);padding-bottom:env(safe-area-inset-bottom,0px);box-shadow:0 -4px 18px rgba(0,0,0,.08)}
+.bnav .row{position:relative;display:flex}
+.bnav button{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:2px;border:0;background:none;color:var(--muted);font-size:11px;font-weight:600;padding:9px 0 8px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.bnav button svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.bnav button svg,.bnav button span{pointer-events:none}
+.bnav button{touch-action:manipulation}
+.bnav button[aria-selected="true"]{color:var(--accent)}
+.bnav button[aria-selected="true"] svg{transform:translateY(-1px) scale(1.08)}
+.bnav .ind{position:absolute;top:0;left:0;height:3px;width:0;border-radius:0 0 3px 3px;background:var(--accent);transition:transform .38s cubic-bezier(.4,0,.2,1),width .38s cubic-bezier(.4,0,.2,1)}
+@media (max-width:760px){
+  .dtabs{display:none}
+  .bnav{display:block}
+  .tbtn{margin-left:auto}
+  .site-head .in{padding:0 14px;gap:10px}
+}
+@media (max-width:420px){.brand .bt small{display:none}.tbtn .tl{display:none}}
+
+/* ---- widoki ---- */
+.view{display:none}
+.view.active{display:block;animation:vin .42s cubic-bezier(.2,.7,.2,1)}
+.view:focus{outline:none}
+@keyframes vin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .view.active{animation:none}
+  *{transition-duration:.01ms!important}
+}
+
+/* ---- widok Start ---- */
+.st{max-width:var(--maxw);margin:0 auto;padding:20px 20px 24px}
+.st-hero{position:relative;overflow:hidden;border-radius:22px;color:#fff;padding:48px 34px 34px;background:radial-gradient(900px 420px at 88% -10%,rgba(76,195,224,.38),transparent 60%),radial-gradient(600px 320px at 0% 115%,rgba(20,148,108,.32),transparent 60%),linear-gradient(135deg,var(--hero1),var(--hero2))}
+.st-hero::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:38px 38px;-webkit-mask-image:linear-gradient(120deg,transparent 35%,#000);mask-image:linear-gradient(120deg,transparent 35%,#000)}
+.st-hero>*{position:relative;z-index:1}
+.st-eyebrow{font-size:12px;letter-spacing:.13em;text-transform:uppercase;font-weight:600;opacity:.82}
+.st-hero h1{margin:12px 0 14px;font-size:clamp(29px,5.4vw,52px);line-height:1.07;letter-spacing:-.025em;font-weight:750;max-width:22ch}
+.st-hero .lede{margin:0 0 22px;max-width:66ch;font-size:clamp(15px,1.6vw,17px);opacity:.92}
+.st-author{display:flex;align-items:center;gap:12px;margin:0 0 24px}
+.st-author .av{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);display:grid;place-items:center;font-weight:700;font-size:15px}
+.st-author b{display:block;font-size:15.5px}
+.st-author span.r{font-size:13px;opacity:.82}
+.st-cta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:11px 20px;font-size:14px;font-weight:650;cursor:pointer;border:1px solid transparent;text-decoration:none;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn.pri{background:#fff;color:#0f2a3d}
+.btn.gh{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.32)}
+.btn.gh:hover{background:rgba(255,255,255,.2)}
+.st-badges{display:flex;flex-wrap:wrap;gap:8px}
+.st-badges span{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:4px 11px;border-radius:999px;font-size:12.5px;font-weight:500}
+
+.kpis3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0 0}
+.kc{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:3px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px 16px 14px;box-shadow:var(--shadow);cursor:pointer;color:var(--text);transition:transform .22s,border-color .22s,box-shadow .22s;min-width:0}
+.kc:hover{transform:translateY(-3px);border-color:var(--accent)}
+.kc .kt{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.kc .kv{font-size:clamp(28px,3.6vw,38px);font-weight:750;letter-spacing:-.025em;line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+.kc .kl{font-size:13.5px;font-weight:600;line-height:1.3}
+.kc .kd{font-size:12.5px;color:var(--muted);line-height:1.4}
+
+.sec{margin:38px 0 0}
+.sec>h2{margin:0 0 4px;font-size:clamp(20px,2.4vw,25px);letter-spacing:-.015em}
+.sec>.sub{margin:0 0 16px;color:var(--muted);max-width:75ch}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.step{display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:var(--shadow);min-width:0}
+.step .n{width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:750;font-size:14px}
+.step h3{margin:2px 0 0;font-size:17px;letter-spacing:-.01em}
+.step .qq{margin:0;color:var(--muted);font-style:italic;font-size:14px}
+.step p{margin:0;font-size:14px}
+.step .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.step .tags span{font-size:11.5px;background:var(--surface2);border:1px solid var(--border);color:var(--muted);border-radius:999px;padding:2px 9px}
+.step .go{margin-top:auto;align-self:flex-start;background:none;border:0;color:var(--accent);font-weight:650;font-size:14px;padding:6px 0 0;cursor:pointer}
+.step .go:hover{text-decoration:underline}
+
+.hcard{background:var(--surface);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.hrow{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:6px 16px;padding:15px 18px;border-top:1px solid var(--border);align-items:start}
+.hrow:first-child{border-top:0}
+.hrow .hid{font-weight:750;color:var(--accent)}
+.hrow .ht{font-weight:600;font-size:14.5px}
+.hrow .he{color:var(--muted);font-size:13.5px;margin-top:2px}
+.hrow .hs{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.hrow .hs button{background:none;border:0;color:var(--accent);font-weight:600;font-size:12.5px;cursor:pointer;padding:0}
+.hrow .hs button:hover{text-decoration:underline}
+.chip{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:650;white-space:nowrap;border:1px solid currentColor}
+.chip.ok{color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}
+.chip.warn{color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent)}
+.chip.info{color:var(--plan);background:color-mix(in srgb,var(--plan) 14%,transparent)}
+
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.box{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:var(--shadow)}
+.box h3{margin:0 0 8px;font-size:16.5px}
+ul.ck{margin:0;padding:0;list-style:none}
+ul.ck li{position:relative;padding:7px 0 7px 22px;font-size:14px;border-bottom:1px solid var(--border)}
+ul.ck li:last-child{border-bottom:0}
+ul.ck li::before{content:"";position:absolute;left:2px;top:15px;width:8px;height:8px;border-radius:3px;background:var(--accent)}
+ul.ck.warnl li::before{background:var(--warn)}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.tools span{background:var(--surface2);border:1px solid var(--border);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:550}
+
+@media (max-width:860px){
+  .kpis3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps,.two{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:560px){
+  .st{padding:14px 14px 20px}
+  .st-hero{padding:32px 20px 24px;border-radius:18px}
+  .kc{padding:13px 13px 12px}
+  .hrow{grid-template-columns:minmax(0,1fr);padding:14px}
+  .hrow .hs{flex-direction:row;align-items:center;justify-content:space-between}
+}
+
+/* ---- stopka ---- */
+.site-foot{max-width:var(--maxw);margin:20px auto 0;padding:20px 20px calc(30px + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:12.5px;border-top:1px solid var(--border)}
+@media (max-width:760px){.site-foot{padding-bottom:calc(92px + env(safe-area-inset-bottom,0px));margin-top:12px;padding-left:14px;padding-right:14px}}
+
+/* ===================== DOSTOSOWANIA MODUŁÓW ===================== */
+#mod-b,#mod-c{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+#mod-b{--ink:var(--text);--ink-2:var(--muted);--ink-3:var(--muted);--line:var(--border);--c-pv:#3a7bc8;--c-pvm:#9dc0ea;--c-pvl:#6d4fb3;--c-bio:#9a7b2f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #mod-b{--c-pv:#6aa6ec;--c-pvm:#3d6a99;--c-pvl:#a38be0;--c-bio:#d1b25a}}
+:root[data-theme="dark"] #mod-b{--c-pv:#6aa6ec;--c-pvm:#3d6a99;--c-pvl:#a38be0;--c-bio:#d1b25a}
+#mod-c{--line:var(--border);--radius:12px;--font:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--c-pv:#3a7bc8;--c-price:var(--accent);--fail:#b3261e;--ok-bg:#e8f3e9;--warn-bg:#fbf0dc;--fail-bg:#fbe7e5}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #mod-c{--c-pv:#6aa6ec;--fail:#ff8f86;--ok-bg:#1d2f20;--warn-bg:#33290f;--fail-bg:#3a1f1d}}
+:root[data-theme="dark"] #mod-c{--c-pv:#6aa6ec;--fail:#ff8f86;--ok-bg:#1d2f20;--warn-bg:#33290f;--fail-bg:#3a1f1d}
+
+/* A */
+#mod-a .wrap{max-width:var(--maxw)}
+#mod-a .hero{margin:20px auto 0;width:min(calc(100% - 40px),calc(var(--maxw) - 40px));border-radius:22px;padding:34px 0 28px}
+#mod-a .hero .wrap{padding:0 30px}
+#mod-a .amain{padding-top:22px}
+@media (max-width:560px){#mod-a .hero{width:calc(100% - 28px);border-radius:18px}#mod-a .hero .wrap{padding:0 20px}}
+/* B */
+#mod-b .mb{max-width:var(--maxw);padding:20px 20px 56px}
+#mod-b .mb .hero{border-radius:22px;padding:34px 30px;margin-bottom:18px}
+#mod-b .mb .hero h1{font-size:clamp(25px,4.2vw,38px);line-height:1.15;font-weight:700;letter-spacing:-.01em}
+#mod-b .mb .hero .sub{font-size:16px;max-width:780px}
+#mod-b .mb svg rect[data-i]{touch-action:pan-y}
+@media (max-width:560px){#mod-b .mb{padding:14px 14px 56px}#mod-b .mb .hero{padding:24px 20px;border-radius:18px}#mod-b .mb section{padding:16px 14px}}
+/* C */
+#mod-c{padding:0 20px 56px}
+#mod-c header{background:linear-gradient(135deg,var(--hero1),var(--hero2));color:#fff;border-radius:22px;padding:34px 30px;margin-top:20px}
+#mod-c header .eyebrow{color:rgba(255,255,255,.78)}
+#mod-c header h1{font-size:clamp(25px,4.2vw,36px);letter-spacing:-.01em}
+#mod-c header .lead{color:rgba(255,255,255,.9);font-size:16px}
+#mod-c header .lead code{background:rgba(255,255,255,.16);padding:0 5px;border-radius:5px}
+@media (max-width:560px){#mod-c{padding:0 14px 56px}#mod-c header{padding:24px 20px;border-radius:18px}#mod-c .card{padding:15px 14px}}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Przejdź do treści</a>
+<div id="app">
+
+<header class="site-head">
+  <div class="in">
+    <a class="brand" href="#start" data-go="start" aria-label="Strona główna projektu">
+      <span class="mono">KG</span>
+      <span class="bt"><b>Konrad Grycner</b><small>Analiza OZE w Polsce · 2018–2024</small></span>
+    </a>
+    <div class="dtabs" id="dtabs" role="tablist" aria-label="Moduły projektu"></div>
+    <button class="tbtn" id="themeBtn" type="button" aria-label="Przełącz motyw jasny/ciemny"><span aria-hidden="true">◐</span><span class="tl" id="themeLbl">Auto</span></button>
+  </div>
+</header>
+<div class="prog" aria-hidden="true"><i id="progBar"></i></div>
+
+<main id="main">
+
+<!-- ================= START ================= -->
+<section class="view active" id="view-start" tabindex="-1" aria-label="Start">
+  <div class="st">
+    <div class="st-hero">
+      <div class="st-eyebrow">Projekt portfolio · Energetyka i rynek energii</div>
+      <h1>Jak OZE przebudowały polski system elektroenergetyczny</h1>
+      <p class="lede">Trzy moduły analityczne, jedno pytanie badawcze: jak zmieniła się rola odnawialnych źródeł w polskim systemie elektroenergetycznym, które technologie za tym stoją i jakie koszty ekonomiczne to wygenerowało dla rynku energii. Dane operatora systemu (PSE), regulatora (URE), GUS, giełdy (TGE) oraz zbiorów europejskich (ACER, Bruegel).</p>
+      <div class="st-author">
+        <div class="av">KG</div>
+        <div><b>Konrad Grycner</b><span class="r">Student Ekobiznesu, Uniwersytet Ekonomiczny we Wrocławiu</span></div>
+      </div>
+      <div class="st-cta">
+        <button class="btn pri" type="button" data-go="a">Zacznij od modułu A →</button>
+        <a class="btn gh" href="#st-method">Jak sprawdzałem dane</a>
+      </div>
+      <div class="st-badges"><span>Okres 2018–2024</span><span>PSE · URE · GUS · TGE</span><span>Każda liczba ze źródłem</span><span>HTML + JS + SVG, bez bibliotek</span></div>
+    </div>
+
+    <div class="kpis3" aria-label="Kluczowe wyniki">
+      <button class="kc" type="button" data-go="a"><span class="kt">Moduł A · system</span><span class="kv"><span class="cnt" data-to="25.3" data-dec="1" data-suf="%">25,3%</span></span><span class="kl">udział „wiatrowych i innych odnawialnych” w produkcji, 2024</span><span class="kd">w 2018 r.: 7,2% (kategoria zbiorcza PSE)</span></button>
+      <button class="kc" type="button" data-go="a"><span class="kt">Moduł A · system</span><span class="kv"><span class="cnt" data-to="62.9" data-dec="1" data-suf="%">62,9%</span></span><span class="kl">udział węgla kamiennego i brunatnego, 2024</span><span class="kd">w 2018 r.: 79,6%</span></button>
+      <button class="kc" type="button" data-go="b"><span class="kt">Moduł B · technologie</span><span class="kv"><span class="cnt" data-to="43" data-dec="0" data-pre="×">×43</span></span><span class="kl">wzrost mocy fotowoltaiki 2018→2024</span><span class="kd">0,5 → 21,3 GW (wiatr lądowy: 5,9 → 10,5 GW)</span></button>
+      <button class="kc" type="button" data-go="c"><span class="kt">Moduł C · rynek</span><span class="kv"><span class="cnt" data-to="186" data-dec="0" data-suf=" h">186 h</span></span><span class="kl">godzin z ujemną ceną na RDN w 2024</span><span class="kd">pierwsze takie ceny na RDN: czerwiec 2023</span></button>
+      <button class="kc" type="button" data-go="c"><span class="kt">Moduł C · rynek</span><span class="kv"><span class="cnt" data-to="0.75" data-dec="2">0,75</span></span><span class="kl">capture rate PV w 2024</span><span class="kd">w 2023 r.: 0,90 (Bruegel, ACER)</span></button>
+      <button class="kc" type="button" data-go="c"><span class="kt">Moduł C · rynek</span><span class="kv"><span class="cnt" data-to="722" data-dec="0" data-suf=" GWh">722 GWh</span></span><span class="kl">nierynkowego redysponowania OZE na polecenie OSP, 2024</span><span class="kd">w 2023 r.: 66 GWh (sprawozdania URE)</span></button>
+    </div>
+
+    <div class="sec">
+      <h2>Opowieść w trzech krokach</h2>
+      <p class="sub">Każdy moduł odpowiada na kolejne pytanie. Razem prowadzą od zmiany w miksie, przez jej źródło, do kosztów dla rynku.</p>
+      <div class="steps">
+        <article class="step">
+          <div class="n">1</div>
+          <h3>Moduł A · System</h3>
+          <p class="qq">Co zmieniło się w bilansie energii?</p>
+          <p>Produkcja brutto jest prawie bez zmian (165,2 → 167,0 TWh), ale miks inny: udział węgla spadł z 79,6% do 62,9%, a kategorii „wiatrowe i inne odnawialne” wzrósł z 7,2% do 25,3%. Moc tej kategorii wzrosła ×4,8.</p>
+          <div class="tags"><span>PSE · KSE</span><span>bilans</span><span>wymiana transgraniczna</span></div>
+          <button class="go" type="button" data-go="a">Otwórz moduł A →</button>
+        </article>
+        <article class="step">
+          <div class="n">2</div>
+          <h3>Moduł B · Technologie</h3>
+          <p class="qq">Która technologia za tym stoi?</p>
+          <p>Fotowoltaika: +20,8 GW (CAGR ≈ 87%), wiatr lądowy: +4,7 GW (CAGR ≈ 10%). Po 2021 r. szybciej rosną instalacje powyżej 50 kW: udział mikroinstalacji w mocy PV spadł z 78% do 60%.</p>
+          <div class="tags"><span>URE</span><span>GUS</span><span>moc i produkcja</span><span>wskaźnik wykorzystania mocy</span></div>
+          <button class="go" type="button" data-go="b">Otwórz moduł B →</button>
+        </article>
+        <article class="step">
+          <div class="n">3</div>
+          <h3>Moduł C · Rynek</h3>
+          <p class="qq">Ile kosztuje integracja OZE?</p>
+          <p>Capture rate PV spadł z 0,90 do 0,75 (2023→2024), godzin z ujemną ceną na RDN przybyło z 0 (2022) do 186 (2024), a nierynkowe redysponowanie wzrosło z 66 do 722 GWh (2023→2024).</p>
+          <div class="tags"><span>TGE</span><span>URE</span><span>Bruegel · ACER</span><span>curtailment</span></div>
+          <button class="go" type="button" data-go="c">Otwórz moduł C →</button>
+        </article>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>Hipotezy projektu i ich status</h2>
+      <p class="sub">Sześć hipotez, sprawdzonych na danych z modułów. Status opisuje, co dane pokazują, a nie, co autor chciałby pokazać.</p>
+      <div class="hcard">
+        <div class="hrow"><span class="hid">H1</span><div><div class="ht">PV była najszybciej rosnącą technologią OZE (moc)</div><div class="he">PV +20,8 GW i CAGR ≈ 87% w latach 2018–2024; wiatr lądowy +4,7 GW i CAGR ≈ 10%.</div></div><div class="hs"><span class="chip ok">Potwierdzona</span><button type="button" data-go="b">Moduł B →</button></div></div>
+        <div class="hrow"><span class="hid">H2</span><div><div class="ht">Moc wiatru na lądzie rosła wolno w porównaniu z PV</div><div class="he">CAGR produkcji 2018–2024: PV ≈ 97%, wiatr ≈ 12% (GUS). Produkcję wiatru wygładza pogoda, więc wnioski czyta się razem ze wskaźnikiem wykorzystania mocy.</div></div><div class="hs"><span class="chip ok">Potwierdzona</span><button type="button" data-go="b">Moduł B →</button></div></div>
+        <div class="hrow"><span class="hid">H3</span><div><div class="ht">Po 2021 r. wzrost PV przesunął się z mikroinstalacji na większe instalacje</div><div class="he">Przyrost mocy powyżej 50 kW: 0,5 → 2,3 GW/rok; udział mikroinstalacji w mocy PV: 78% (2021) → 60% (2024). Przyczyn (zasady rozliczeń, ceny) nie testowano.</div></div><div class="hs"><span class="chip info">Wspierana opisowo</span><button type="button" data-go="b">Moduł B →</button></div></div>
+        <div class="hrow"><span class="hid">H4</span><div><div class="ht">Moc OZE rosła szybciej niż produkcja z OZE</div><div class="he">Zbiorczo (A): moc ×4,8, produkcja ×3,5. Po technologiach (B): produkcja PV (×59) i wiatru (×1,9) rosła nie wolniej niż moc (×43 i ×1,8). Wynik zależy od poziomu agregacji i definicji.</div></div><div class="hs"><span class="chip warn">Niejednoznaczna</span><button type="button" data-go="a">Moduł A →</button></div></div>
+        <div class="hrow"><span class="hid">H5</span><div><div class="ht">Pojawiły się koszty integracji OZE (kanibalizacja, ujemne ceny, curtailment)</div><div class="he">Mocne wsparcie w latach 2023–2024. Capture rate 2019–2022 to seria pomocnicza o podwyższonej niepewności (szacunki referencyjne Energy-Charts), co moduł C oznacza wprost.</div></div><div class="hs"><span class="chip ok">Potwierdzona (2023–24)</span><button type="button" data-go="c">Moduł C →</button></div></div>
+        <div class="hrow"><span class="hid">H6</span><div><div class="ht">Wzrost OZE współwystępował ze spadkiem produkcji z węgla</div><div class="he">2018–2024: węgiel −26,5 TWh, wiatrowe i inne odnawialne +30,3 TWh. To współwystępowanie, nie dowód przyczynowości (ceny CO₂ i paliw, popyt, wymiana).</div></div><div class="hs"><span class="chip warn">Współwystępowanie</span><button type="button" data-go="a">Moduł A →</button></div></div>
+      </div>
+    </div>
+
+    <div class="sec" id="st-method">
+      <h2>Jak dbałem o jakość danych</h2>
+      <p class="sub">W analizie energetycznej najłatwiej o wniosek, który „ładnie wygląda”, a nie wynika z danych. Dlatego przyjąłem reguły, które są widoczne w modułach.</p>
+      <div class="two">
+        <div class="box">
+          <h3>Co zrobiłem</h3>
+          <ul class="ck">
+            <li><b>Jedna zmienna, jedno źródło.</b> Nie łączę szeregów z różnych źródeł w jednym wskaźniku.</li>
+            <li><b>Każda liczba ma źródło:</b> raport i strona PDF (A), klucz źródła w rejestrze rekordów (B, C).</li>
+            <li><b>Automatyczna walidacja:</b> 15 testów spójności w Excelu (A), testy w kodzie z ostrzeżeniami o lukach i rozbieżnościach (C).</li>
+            <li><b>Luki są jawne:</b> „ND” zamiast zera tam, gdzie danych nie ma.</li>
+            <li><b>Rozbieżności źródeł zostają widoczne</b> (PSE vs Forum Energii, URE vs PSE), zamiast być „poprawiane”.</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Ograniczenia, o których mówię wprost</h3>
+          <ul class="ck warnl">
+            <li>„Wiatrowe i inne odnawialne” to kategoria PSE, nie oficjalny udział OZE.</li>
+            <li>Capture rate 2019–2022 w module C to seria pomocnicza o podwyższonej niepewności (oznaczona gwiazdką, bez weryfikacji na pierwotnym zbiorze).</li>
+            <li>Współwystępowanie to nie przyczynowość; rok 2022 jako punkt zwrotny pozostaje hipotezą.</li>
+            <li>Brak roku 2025 oraz danych godzinowych: mechanizm „szczytu południowego” opisują tylko źródła jakościowo.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="box" style="margin-top:14px">
+        <h3>Narzędzia i dalszy rozwój</h3>
+        <p style="margin:0;color:var(--muted);font-size:14px">Excel (baza danych, kontrola jakości, metodologia), HTML, JavaScript i SVG bez bibliotek zewnętrznych (ten portfel). Kolejne kroki: raport w Power BI, uzupełnienie o rok 2025, dane godzinowe dla ocen mechanizmu kanibalizacji.</p>
+        <div class="tools"><span>Excel</span><span>JavaScript</span><span>SVG</span><span>HTML/CSS</span><span>Power BI (w przygotowaniu)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MODUŁ A ================= -->
+<section class="view" id="view-a" tabindex="-1" aria-label="Moduł A: system">
+<div id="mod-a">
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <div class="eyebrow">Projekt portfolio · Analiza rynku energii</div>
+      
+    </div>
+    <h1>Polski system elektroenergetyczny 2018–2024</h1>
+    <p class="lede">Moduł A: produkcja, moc i wymiana energii elektrycznej według danych operatora systemu przesyłowego (PSE). Dashboard pokazuje, co dane mówią, czego nie mówią i gdzie kończy się ich wiarygodność.</p>
+    <div class="badges">
+      <span>Źródło: PSE, raporty KSE 2018 · 2021 · 2024</span>
+      <span>Dane operatywne, brutto</span>
+      <span>Zakres: 2018–2024</span>
+      <span>15 testów spójności: wszystkie OK</span>
+    </div>
+    <div class="author" id="a-author" hidden></div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sekcje dashboardu">
+  <div class="wrap" role="tablist" id="a-tablist">
+    <button class="tab" role="tab" data-p="overview" aria-selected="true">Przegląd</button>
+    <button class="tab" role="tab" data-p="structure" aria-selected="false">Struktura produkcji</button>
+    <button class="tab" role="tab" data-p="capacity" aria-selected="false">Moc a produkcja</button>
+    <button class="tab" role="tab" data-p="exchange" aria-selected="false">Wymiana i zużycie</button>
+    <button class="tab" role="tab" data-p="period" aria-selected="false">Przed i po 2022</button>
+    <button class="tab" role="tab" data-p="data" aria-selected="false">Dane</button>
+    <button class="tab" role="tab" data-p="method" aria-selected="false">Metodologia i źródła</button>
+  </div>
+</nav>
+
+<div class="wrap amain">
+
+<!-- ================= PRZEGLĄD ================= -->
+<section class="panel on" id="a-p-overview">
+  <div class="kpis" id="a-kpis"></div>
+  <div class="grid g21">
+    <div class="card">
+      <h2>Produkcja i zużycie krajowe</h2>
+      <p class="sub">TWh, brutto. Oś pionowa zaczyna się od 140 TWh.</p>
+      <div id="a-c-prodcons"></div>
+      <p class="note">Zużycie krajowe wg definicji PSE = produkcja + saldo wymiany z zagranicą.</p>
+    </div>
+    <div class="card">
+      <h2>Miks produkcji: 2018 a 2024</h2>
+      <p class="sub">Udział w produkcji brutto, %.</p>
+      <div id="a-c-mix"></div>
+      <p class="note">W 2018 r. kategoria „Przemysłowe" jest jeszcze wykazywana osobno (od 2021 r. brak w raportach PSE).</p>
+    </div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card">
+      <h2>Co pokazują dane</h2>
+      <p class="sub">Opis liczb z modułu A, bez przypisywania przyczyn.</p>
+      <ul class="clean" id="a-obs"></ul>
+    </div>
+    <div class="card">
+      <h2>Czego te dane nie mówią</h2>
+      <p class="sub">Granice interpretacji.</p>
+      <div class="warnbox">
+        <p><b>Współwystępowanie to nie przyczyna.</b> Spadek produkcji z węgla idzie w parze ze wzrostem produkcji z wiatrowych i innych odnawialnych. To nie dowodzi, że jedno wynika z drugiego: znaczenie mogły mieć ceny uprawnień do emisji CO₂ i paliw, popyt, wymiana z zagranicą i dostępność jednostek. Tych zmiennych nie ma jeszcze w module A.</p>
+        <p><b>Kategoria zbiorcza.</b> „Wiatrowe i inne odnawialne" to kategoria PSE, nie oficjalny udział OZE. Nie rozdziela fotowoltaiki, wiatru, biomasy i biogazu.</p>
+        <p><b>Rok 2022 jako punkt zwrotny</b> jest hipotezą. Po nim w danych są tylko trzy lata.</p>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h2>Pytania badawcze: status w module A</h2>
+    <p class="sub">Które hipotezy projektu da się dziś sprawdzić na danych systemowych.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Hipoteza</th><th style="text-align:left">Status</th><th style="text-align:left">Co jest potrzebne / gdzie sprawdzić</th></tr></thead>
+      <tbody>
+        <tr><td class="l">H1. PV była najszybciej rosnącą technologią OZE (moc)</td><td class="l"><span class="pill plan">Planowane</span></td><td class="l">Podział mocy na technologie (moduł B)</td></tr>
+        <tr><td class="l">H2. Moc wiatru na lądzie rosła wolno w porównaniu z PV</td><td class="l"><span class="pill plan">Planowane</span></td><td class="l">Podział mocy na technologie (moduł B)</td></tr>
+        <tr><td class="l">H3. Po 2022 r. zmienił się charakter wzrostu PV (mikroinstalacje → farmy)</td><td class="l"><span class="pill plan">Planowane</span></td><td class="l">Dane o mocy prosumenckiej i farmach (moduł B)</td></tr>
+        <tr><td class="l">H4. Moc OZE rosła szybciej niż produkcja z OZE</td><td class="l"><span class="pill warn">Częściowo</span></td><td class="l">Poziom zbiorczy: zakładka „Moc a produkcja"</td></tr>
+        <tr><td class="l">H5. Pojawiły się koszty integracji OZE (ujemne ceny, ograniczenia pracy)</td><td class="l"><span class="pill plan">Planowane</span></td><td class="l">Ceny godzinowe TGE i dane PSE o ograniczeniach</td></tr>
+        <tr><td class="l">H6. Wzrost OZE współwystępował ze spadkiem produkcji z węgla</td><td class="l"><span class="pill warn">Częściowo</span></td><td class="l">Współwystępowanie, nie przyczynowość: zakładka „Wymiana i zużycie"</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- ================= STRUKTURA ================= -->
+<section class="panel" id="a-p-structure">
+  <div class="card">
+    <h2>Produkcja energii elektrycznej wg rodzajów źródeł</h2>
+    <p class="sub">Brutto. Kliknij pozycję w legendzie, aby ją ukryć; najedź na słupek, aby zobaczyć wartości.</p>
+    <div class="segc" id="a-seg-stack" role="group" aria-label="Jednostka">
+      <button type="button" data-v="abs" aria-pressed="true">TWh</button>
+      <button type="button" data-v="pct" aria-pressed="false">Udział, %</button>
+    </div>
+    <div id="a-c-stack"></div>
+    <p class="note">„Wodne zawodowe" obejmują prawdopodobnie elektrownie szczytowo-pompowe (hipoteza, patrz Metodologia), więc nie są wliczane do OZE. Kategoria „Przemysłowe" nie występuje w raportach od 2021 r.; suma ogółem pozostaje porównywalna, podział na kategorie między 2020 a 2021 r. nie.</p>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h2>Udziały: węgiel, gaz, wiatrowe i inne odnawialne</h2>
+    <p class="sub">Udział w produkcji ogółem, %.</p>
+    <div id="a-c-shares"></div>
+    <p class="note">Węgiel = kamienny + brunatny (elektrownie zawodowe cieplne). W latach 2018–2020 w mianowniku jest też produkcja elektrowni przemysłowych.</p>
+  </div>
+</section>
+
+<!-- ================= MOC A PRODUKCJA ================= -->
+<section class="panel" id="a-p-capacity">
+  <div class="grid g2">
+    <div class="card">
+      <h2>Moc elektrowni krajowych, stan na 31.12</h2>
+      <p class="sub">GW. Przełącz definicję mocy.</p>
+      <div class="segc" id="a-seg-cap" role="group" aria-label="Rodzaj mocy">
+        <button type="button" data-v="I" aria-pressed="true">Zainstalowana</button>
+        <button type="button" data-v="O" aria-pressed="false">Osiągalna</button>
+      </div>
+      <div id="a-c-capstack"></div>
+      <p class="note">Moc zainstalowana jest definicją podstawową projektu; osiągalna służy do kontroli. Nie łączymy ich w jednym wskaźniku.</p>
+    </div>
+    <div class="card">
+      <h2>Indeks 2018 = 100: moc a produkcja</h2>
+      <p class="sub">Dla wybranej grupy źródeł. Moc zainstalowana na 31.12, produkcja roczna brutto.</p>
+      <div class="segc" id="a-seg-idx" role="group" aria-label="Grupa źródeł">
+        <button type="button" data-v="wind" aria-pressed="true">Wiatrowe i inne odn.</button>
+        <button type="button" data-v="hard" aria-pressed="false">Węgiel kamienny</button>
+        <button type="button" data-v="lig" aria-pressed="false">Węgiel brunatny</button>
+        <button type="button" data-v="gas" aria-pressed="false">Gaz</button>
+      </div>
+      <div id="a-c-index"></div>
+      <p class="note" id="a-idx-note"></p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h2>Wykorzystanie mocy (przybliżone)</h2>
+    <p class="sub">Produkcja ÷ (moc zainstalowana na 31.12 × 8760 h), %.</p>
+    <div id="a-c-cf"></div>
+    <p class="note">Wskaźnik jest przybliżony: przy szybkim wzroście mocy w ciągu roku (moc na 31.12 w mianowniku) bywa zaniżony. Kategoria „wiatrowe i inne odnawialne" łączy technologie o różnym wykorzystaniu mocy, więc zmiana wskaźnika odzwierciedla też zmianę składu źródeł.</p>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h2>Tempo zmian 2018–2024 (CAGR)</h2>
+    <p class="sub">Średnioroczne tempo wzrostu i wartości bezwzględne.</p>
+    <div class="tw" id="a-cagr"></div>
+    <p class="note">CAGR przy niskiej bazie bywa mylący (np. gaz, wiatrowe i inne odn.), dlatego obok są wartości bezwzględne.</p>
+  </div>
+</section>
+
+<!-- ================= WYMIANA ================= -->
+<section class="panel" id="a-p-exchange">
+  <div class="grid g2">
+    <div class="card">
+      <h2>Import i eksport energii elektrycznej</h2>
+      <p class="sub">TWh, przepływy fizyczne.</p>
+      <div id="a-c-flows"></div>
+    </div>
+    <div class="card">
+      <h2>Saldo wymiany z zagranicą</h2>
+      <p class="sub">TWh. Wartość dodatnia = import netto, ujemna = eksport netto.</p>
+      <div id="a-c-saldo"></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h2>Produkcja z węgla, gazu i wiatrowych i innych odnawialnych</h2>
+    <p class="sub">TWh, brutto. Podstawa dla hipotezy H6 (współwystępowanie, nie przyczynowość).</p>
+    <div id="a-c-fuels"></div>
+    <p class="note" id="a-fuel-note"></p>
+  </div>
+</section>
+
+<!-- ================= PRZED I PO 2022 ================= -->
+<section class="panel" id="a-p-period">
+  <div class="card">
+    <h2>Średnie roczne: 2018–2021 a 2022–2024</h2>
+    <p class="sub">Porównanie dwóch okresów. Podział w 2022 r. to założenie robocze, nie wynik testu.</p>
+    <div class="tw" id="a-t-avg"></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h2>Równe okna: przyrost 2018→2021 a 2021→2024</h2>
+    <p class="sub">Dwa okna po trzy lata, co usuwa wpływ różnej długości okresów.</p>
+    <div class="tw" id="a-t-win"></div>
+    <p class="note">Okres po 2022 r. obejmuje tylko trzy obserwacje, a lata 2022–2023 wyróżniają się kryzysem cen paliw i zmianami w wymianie z zagranicą, więc wnioski o trwałej zmianie struktury wymagają dodatkowych zmiennych (ceny, uprawnienia CO₂, popyt).</p>
+  </div>
+</section>
+
+<!-- ================= DANE ================= -->
+<section class="panel" id="a-p-data">
+  <div class="card"><h2>Produkcja energii elektrycznej brutto, TWh</h2><p class="sub">Źródło: PSE, tabele 6.1 raportów KSE. „brak" = nie wykazano w raporcie.</p><div class="tw" id="a-d-prod"></div></div>
+  <div class="card" style="margin-top:16px"><h2>Moc zainstalowana i osiągalna, stan na 31.12, MW</h2><p class="sub">Źródło: PSE, tabele 1.1 i 1.2 raportów KSE.</p><div class="tw" id="a-d-cap"></div></div>
+  <div class="card" style="margin-top:16px"><h2>Wymiana z zagranicą i zużycie krajowe, TWh</h2><p class="sub">Źródło: PSE, tabele 6.1 i 7.3 raportów KSE.</p><div class="tw" id="a-d-ex"></div>
+    <p class="note">Dane są zgodne z arkuszem Dane_dlugie w pliku Excel projektu (moduł A), gdzie przy każdej liczbie podano raport źródłowy i stronę PDF.</p></div>
+</section>
+
+<!-- ================= METODOLOGIA ================= -->
+<section class="panel" id="a-p-method">
+  <div class="grid g2">
+    <div class="card">
+      <h2>Zakres i pytanie badawcze</h2>
+      <p class="sub">Projekt: ekonomiczna analiza rozwoju OZE w Polsce w latach 2018–2025.</p>
+      <p style="margin:0 0 8px;font-size:14px">Jak zmieniła się rola odnawialnych źródeł energii w polskim systemie elektroenergetycznym, które technologie i czynniki napędzały tę zmianę i jakie miała ona konsekwencje ekonomiczne dla rynku energii?</p>
+      <p class="note">Moduł A obejmuje wyłącznie dane systemowe (PSE) za lata 2018–2024 w sektorze energii elektrycznej. Pozostałe elementy (technologie OZE, ceny, ograniczenia pracy OZE, rok 2025) to kolejne moduły.</p>
+      <h3>Źródła</h3>
+      <ul class="src clean">
+        <li>PSE, Raport 2018 KSE (dane za 2016–2018): <a href="https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2018" target="_blank" rel="noopener">strona raportu</a></li>
+        <li>PSE, Raport 2021 KSE (2019–2021): <a href="https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2021" target="_blank" rel="noopener">strona raportu</a></li>
+        <li>PSE, Raport 2024 KSE (2022–2024; wymiana 1990–2024): <a href="https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2024" target="_blank" rel="noopener">strona raportu</a></li>
+        <li>Kontrola krzyżowa (źródło wtórne): Forum Energii, <a href="https://www.forum-energii.eu/transformacja-energetyczna-w-polsce-edycja-2026" target="_blank" rel="noopener">Rocznik 2026</a> i <a href="https://www.forum-energii.eu/transformacja-energetyczna-w-polsce-edycja-2024" target="_blank" rel="noopener">Edycja 2024</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Definicje przyjęte w projekcie</h2>
+      <dl class="def">
+        <dt>Produkcja</dt><dd>Brutto, rok kalendarzowy (dane operatywne OSP).</dd>
+        <dt>Moc zainstalowana i osiągalna</dt><dd>Stan na 31.12. Zainstalowana jest definicją podstawową, osiągalna służy kontroli.</dd>
+        <dt>„Wiatrowe i inne odnawialne"</dt><dd>Zbiorcza kategoria PSE bez podziału na PV, wiatr, biomasę i biogaz. Nie jest równoważna oficjalnemu udziałowi OZE.</dd>
+        <dt>„Wodne zawodowe"</dt><dd>Prawdopodobnie wraz z elektrowniami szczytowo-pompowymi (wniosek z porównania z Forum Energii: w 2024 r. wodne 2,1 plus szczytowo-pompowe 1,0 TWh daje 3,1 TWh wobec 3,06 TWh u PSE). Do potwierdzenia w metodologii PSE.</dd>
+        <dt>Saldo wymiany</dt><dd>Wartość dodatnia = import netto. Przepływy fizyczne.</dd>
+        <dt>Jedna zmienna, jedno źródło</dt><dd>Nie łączymy szeregów z różnych źródeł w jednym wskaźniku.</dd>
+      </dl>
+    </div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card">
+      <h2>Jakość danych i kontrola</h2>
+      <ul class="clean">
+        <li>15 testów spójności w Excelu (sumy składników, bilans saldo–zużycie, brak podwójnego liczenia); wszystkie OK przy tolerancji ±2 jednostki zaokrągleń.</li>
+        <li>Wartości za lata nakładające się w różnych raportach PSE (produkcja ogółem i „wiatrowe i inne odnawialne" 2018–2021) są identyczne.</li>
+        <li>Dane PSE to pomiary ruchowe OSP. Raport informuje, że mogą różnić się od ostatecznych danych statystycznych przedsiębiorstw.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Ograniczenia i plan rozwoju</h2>
+      <ul class="clean">
+        <li><b>Brak podziału OZE na technologie</b> (PV, wiatr, biomasa, biogaz). Blokuje H1–H3.</li>
+        <li><b>Kategoria „elektrownie przemysłowe"</b> znika od 2021 r. Przyczyna nie została potwierdzona.</li>
+        <li><b>Brak roku 2025</b> w module A.</li>
+        <li><b>Brak cen i godzin z cenami ujemnymi</b> (TGE) oraz danych o ograniczeniach pracy OZE.</li>
+      </ul>
+      <h3>Kolejne kroki</h3>
+      <ul class="clean">
+        <li>Moduł B: struktura technologii OZE (PV z podziałem na prosumencką, wiatr, biomasa, biogaz).</li>
+        <li>Moduł C: ceny RDN, godziny z cenami ujemnymi, ograniczenia pracy OZE.</li>
+        <li>Uzupełnienie o rok 2025 i raport w Power BI.</li>
+      </ul>
+      <h3>Narzędzia</h3>
+      <p class="note" style="margin-top:2px">Excel (baza danych, kontrola jakości, metodologia), HTML i JavaScript (ten dashboard). Raport w Power BI w przygotowaniu.</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h2>PSE a Forum Energii (kontrola, nie do łączenia szeregów)</h2>
+    <p class="sub">Produkcja ogółem brutto, TWh.</p>
+    <div class="tw" id="a-t-fe"></div>
+    <p class="note">PSE jest niższe od Forum Energii w produkcji ogółem w każdym roku. Węgiel brunatny zgadza się niemal dokładnie, natomiast węgiel kamienny i gaz różnią się wyraźnie, więc węgiel, gaz i saldo liczone są wyłącznie z PSE.</p>
+  </div>
+</section>
+
+</div>
+
+
+
+</div>
+</section>
+
+<!-- ================= MODUŁ B ================= -->
+<section class="view" id="view-b" tabindex="-1" aria-label="Moduł B: technologie">
+<div id="mod-b">
+
+<div class="mb" id="b-modul-b">
+  <div class="hero"><h1>Moduł B – technologie OZE w Polsce 2018–2024</h1>
+  <p class="sub">Rozbicie kategorii PSE „wiatrowe i inne odnawialne” na fotowoltaikę (mikroinstalacje i instalacje powyżej 50 kW), wiatr lądowy oraz biomasę i biogaz.</p></div>
+  <div id="b-status"></div>
+
+  <section id="b-h1">
+    <h2>H1 · Czy fotowoltaika rosła najszybciej pod kątem mocy?</h2>
+    <p class="q">Moc zainstalowana na 31.12, indeks 2018 = 100. „Najszybciej” oceniamy dwoma miarami: przyrostem bezwzględnym (GW) i tempem względnym (CAGR) – mogą wskazywać różne technologie.</p>
+    <div id="b-h1-tiles" class="tiles"></div>
+    <div id="b-h1-chart"></div>
+    <p class="verdict" id="b-h1-verdict"></p>
+  </section>
+
+  <section id="b-h2">
+    <h2>H2 · Jak dynamika wiatru wypada na tle PV?</h2>
+    <p class="q">Produkcja brutto (indeks 2018 = 100, skala log.) oraz współczynnik wykorzystania mocy = produkcja / (moc średnia × 8760 h). Pokazuje, czy produkcja rosła szybciej niż moc, czy tylko za nią nadążała.</p>
+    <div id="b-h2-chart-prod"></div>
+    <div id="b-h2-chart-cf"></div>
+    <p class="verdict" id="b-h2-verdict"></p>
+    <p class="note" id="b-h2-note"></p>
+  </section>
+
+  <section id="b-h3">
+    <h2>H3 · Mikroinstalacje a instalacje powyżej 50 kW po 2022 roku</h2>
+    <p class="q">Moc PV wg segmentu (mikro ≤50 kW; powyżej 50 kW = małe i duże instalacje z rejestrów URE), GW. Linia przerywana: granica 31.12.2021 (stan przed zmianą zasad rozliczeń prosumentów w 2022 r.). Porównujemy lata 2018→2021 z 2021→2024.</p>
+    <div id="b-h3-chart"></div>
+    <div id="b-h3-tiles" class="tiles"></div>
+    <p class="verdict" id="b-h3-verdict"></p>
+  </section>
+
+  <section id="b-kontrola">
+    <h2>Kontrola względem Modułu A</h2>
+    <p class="q">Suma technologii z Modułu B zestawiona z kategorią PSE „wiatrowe i inne odnawialne” (A). To tylko kontrola rzędu wielkości – źródła są różne, więc szeregów nie łączymy.</p>
+    <div id="b-kontrola-tab"></div>
+  </section>
+
+  <section id="b-metodologia">
+    <h2>Metodologia i ograniczenia</h2>
+    <ul style="margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:13.5px">
+      <li><b>Okno „po 2022”:</b> stan na 31.12.2021 → 31.12.2024 (3 lata) kontra 31.12.2018 → 31.12.2021. Moc zainstalowana jest stanem na koniec roku, więc rok 2022 nie jest pojedynczym punktem odcięcia.</li>
+      <li><b>Energia wytworzona a wprowadzona do sieci.</b> Raporty URE o mikroinstalacjach podają energię <i>wprowadzoną do sieci</i> (8,55 TWh w 2024 r.), nie całą produkcję: prosumenci rozliczają się saldowo, a autokonsumpcja nie jest mierzona licznikiem sieciowym. Do analizy H2 używamy dlatego produkcji z GUS (Tablica 9; 17,7 TWh z PV w 2024 r.), która jest wielkością całkowitą. GUS nie opisuje w publikacji metody ujęcia autokonsumpcji, więc niepewność tej serii jest większa niż dla wiatru.</li>
+      <li><b>Segmenty PV:</b> całe PV pochodzi z URE. Mikroinstalacje (≤ 50 kW) – raporty URE o mikroinstalacjach (2018–2024). Instalacje powyżej 50 kW (małe i duże) – PV w rejestrach URE: tabela „Moc zainstalowana 2005–2022” (2018–2022) oraz „Mapa OZE” (31.12.2023 i 31.12.2024; suma mocy rekordów). Suma obu segmentów zgadza się z GUS (moc osiągalna) w granicach −1% do +5% i z danymi IEO za 2020–2022 w granicach ok. 1%. Podziału na małe (≤ 1 MW) i duże (> 1 MW) w rejestrach URE dla 2018–2022 nie ma; dla 2023–2024 wynosi on z mapy (duże: 1,61 → 4,00 GW).</li>
+      <li><b>Biomasa i biogaz</b> są w wykresach jedną pozycją (suma dwóch serii URE). Dla 2023–2024 „biomasa” to rekordy BM oraz ITPO (instalacje termicznego przekształcania odpadów) z Mapy OZE; to założenie dobrane tak, by zachować ciągłość z serią URE 2018–2022 (BM bez ITPO dałoby skok o −15% w 2023). GUS podaje biopaliwa stałe na poziomie ok. połowy tej wartości, bo stosuje inną definicję. Produkcja biomasy i biogazu jest poza zakresem H1–H3.</li>
+      <li><b>Ciągłość szeregów i kontrola.</b> Seria PV powyżej 50 kW zmienia źródło między 2022 (tabela URE) a 2023 (Mapa OZE); przyrost 2022→2023 (+2,0 GW) może częściowo wynikać z różnicy zakresu, bo IEO podaje dla tego roku ok. +2,6 GW. Moc PV z Modułu B (mikro + powyżej 50 kW) odbiega od mocy osiągalnej GUS o −12,6% (2018), −4,6% (2019), −1,3% (2020), +4,9% (2021) i +2,3% (2022); GUS podaje moc osiągalną, nie zainstalowaną. Moc mikroinstalacji PV na 31.12.2024 (12 735,47 MW) pochodzi z raportu URE za 2024 r.</li>
+      <li>Zasada projektu: jedna zmienna to jedno źródło. Szeregów z różnych źródeł (np. PSE i Forum Energii) nie łączymy w jeden wskaźnik.</li>
+    </ul>
+  </section>
+
+  <footer id="b-stopka"></footer>
+</div>
+
+
+</div>
+</section>
+
+<!-- ================= MODUŁ C ================= -->
+<section class="view" id="view-c" tabindex="-1" aria-label="Moduł C: rynek">
+<div id="mod-c">
+
+<div class="wrap">
+<header>
+  <div class="top">
+    <div>
+      <div class="eyebrow">Ekonomiczna analiza OZE w Polsce · Moduł C · hipoteza H5 · lata 2019–2024</div>
+      <h1>Rynek i integracja OZE w KSE: ceny TGE, ceny ujemne, redysponowanie</h1>
+    </div>
+    
+  </div>
+  <p class="lead">Moduł mierzy rynkowe i techniczne koszty szybkiego wzrostu OZE: kanibalizację cenową oraz brak elastyczności sieci. Każda liczba pochodzi z rekordu w <code>DANE_C</code> z kluczem <code>zrodlo</code>; luki są pokazane wprost, a nie uzupełniane szacunkami.</p>
+</header>
+
+<section class="card" id="c-h5"><h2>Hipoteza H5</h2><blockquote id="c-h5-tresc"></blockquote><div id="c-h5-operacj"></div></section>
+<section id="c-status-bar" aria-live="polite"></section>
+<section class="kpi" id="c-kpi"></section>
+
+<section class="card">
+  <h2>1. Średnia roczna cena energii na RDN (TGE)</h2>
+  <p class="note">Średnia ważona wolumenem, zł/MWh. Rok 2022 to szczyt kryzysu gazowego, więc spadek średniej ceny do 2024 nie jest miarą kanibalizacji (patrz sekcja 4).</p>
+  <div class="legend"><span><i class="sw" style="background:var(--c-price)"></i>źródło pierwotne</span><span><i class="sw" style="background:var(--c-price);opacity:.62"></i>źródło wtórne lub wartość pochodna</span></div>
+  <figure id="c-w-rdn"></figure>
+</section>
+
+<section class="card">
+  <h2>2. Godziny z ujemną ceną na RDN</h2>
+  <p class="note">Seria główna: komunikat Axpo Polska (liczbę 186 h dla 2024 r. przywołuje też Enerad jako dane URE). Wartość dla 2023 r. to prawdopodobnie dolne oszacowanie (inna definicja fixingu, patrz metodologia). Kółka to serie kontrolne; różnice wynikają z definicji (godziny RDN, okresy 15-minutowe, RCE na rynku bilansującym).</p>
+  <label class="chk"><input type="checkbox" id="c-chk-kontrolne" checked> pokaż serie kontrolne</label>
+  <figure id="c-w-neg"></figure>
+</section>
+
+<section class="card">
+  <h2>3. Nierynkowe redysponowanie OZE na polecenie OSP (PSE)</h2>
+  <p class="note">GWh rocznie, według sprawozdań Prezesa URE. Oficjalna seria zaczyna się od 2023 r. Nierynkowe ograniczenia wiatru zaczęły się pod koniec grudnia 2022 r., więc dla 2019–2021 wartości są prawdopodobnie bliskie zeru, ale nie jest to udokumentowane (stąd „brak”, a nie 0); rok 2022 wymaga danych z raportów PSE.</p>
+  <div class="legend"><span><i class="sw" style="background:var(--c-pv)"></i>fotowoltaika</span><span><i class="sw" style="background:var(--c-wind)"></i>wiatr</span></div>
+  <figure id="c-w-curt"></figure>
+</section>
+
+<section class="card">
+  <h2>4. Capture rate PV i wiatru (kanibalizacja cenowa)</h2>
+  <p class="note">Capture price = średnia cena rynkowa ważona godzinową generacją (Bruegel, na danych ENTSO-E). Capture rate = capture price ÷ średnia cena day-ahead; dla Polski policzony tylko dla 2023–2024, bo dla wcześniejszych lat brak mianownika w dostępnych źródłach. Stosunek PV do wiatru nie wymaga mianownika i obejmuje 2020–2024.</p>
+  <div class="legend"><span><i class="sw" style="background:var(--c-pv)"></i>PV</span><span><i class="sw" style="background:var(--c-wind)"></i>wiatr</span></div>
+  <figure id="c-w-cap"></figure>
+  <div class="cap" id="c-cap"></div>
+  <p class="note" id="c-cap-note"></p>
+</section>
+
+<section class="card">
+  <h2>5. Wnioski wobec H5</h2>
+  <div id="c-wnioski"></div>
+</section>
+
+<section class="card">
+  <h2>Rejestr rekordów (DANE_C)</h2>
+  <p class="note"><label>Wskaźnik: <select id="c-filtr"></select></label></p>
+  <div class="scroll"><table id="c-tab-dane"></table></div>
+</section>
+
+<section class="card">
+  <h2>Rejestr źródeł (ZRODLA_C)</h2>
+  <div class="scroll"><table id="c-tab-zrodla"></table></div>
+</section>
+
+<section class="card">
+  <h2>Metodologia i ograniczenia</h2>
+  <div id="c-metodologia"></div>
+</section>
+
+<footer>Moduł C · dane zebrane 7.10.2026 · standard: HTML + JS + SVG bez bibliotek zewnętrznych · walidacja: <code>walidacjaC()</code> w konsoli.</footer>
+</div>
+
+<!-- ============ BLOK 1: DANE I WALIDACJA (bez DOM, testowalny w Node) ============ -->
+
+</div>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  Opracowanie własne: Konrad Grycner. Dane: PSE (raporty KSE 2018, 2021, 2024), URE, GUS, TGE, ACER, Bruegel. Wersja z 7 października 2026 r. Projekt ma charakter analityczno-edukacyjny i nie stanowi rekomendacji inwestycyjnej.
+</footer>
+
+<nav class="bnav" aria-label="Moduły projektu"><div class="row" id="brow" role="tablist"></div></nav>
+</div>
+
+<script>
+/* Wyciszenie nieszkodliwego komunikatu przeglądarki (pętla ResizeObserver) – musi być pierwszym skryptem */
+(function(){
+  function quiet(e){
+    var m=(e&&(e.message||(e.reason&&e.reason.message)))||'';
+    if(typeof m==='string'&&m.indexOf('ResizeObserver loop')!==-1){
+      if(e.stopImmediatePropagation)e.stopImmediatePropagation();
+      if(e.preventDefault)e.preventDefault();
+      return true;
+    }
+  }
+  window.addEventListener('error',quiet,true);
+  window.addEventListener('unhandledrejection',quiet,true);
+  var prev=window.onerror;
+  window.onerror=function(msg){
+    if(typeof msg==='string'&&msg.indexOf('ResizeObserver loop')!==-1)return true;
+    return prev?prev.apply(this,arguments):false;
+  };
+})();
+</script>
+<script>
+
+(function(){
+"use strict";
+var AUTHOR = "Autor: Konrad Grycner"; // tu można dopisać uczelnię, LinkedIn itp.
+
+/* ---------------- DANE (jak w arkuszu Dane_dlugie, jednostki źródłowe) ---------------- */
+var Y=[2018,2019,2020,2021,2022,2023,2024];
+var RAW={
+  prodGWh:{hard:[82375,78190,71546,93037,87761,76607,69112],lig:[49072,41502,37969,45367,46978,34571,35844],
+    gas:[9590,12099,13924,13366,10002,13650,16768],hydro:[2197,2454,2698,2830,2815,3592,3057],
+    wind:[11958,14344,16372,18984,27602,35209,42208],ind:[10022,10178,9799,null,null,null,null],
+    total:[165214,158767,152308,173583,175157,163629,166990]},
+  consGWh:[170932,169391,165532,174402,173479,167518,168956],
+  saldoGWh:[5718,10624,13224,820,-1679,3889,1966],
+  impMWh:[13839161,17869022,20433667,15099973,15237514,15182921,15212338],
+  expMWh:[8121272,7245308,7209715,14280452,16916204,11293460,13246510],
+  capI:{hard:[23215,23159,22747,24611,24897,25111,23711],lig:[8752,8382,8478,8262,8262,8284,8249],
+    gas:[2330,2788,2782,3317,3288,4732,5976],hydro:[2341,2346,2356,2380,2421,2426,2430],
+    wind:[6621,7490,10229,15086,21578,27217,31823],ind:[2680,2634,2645,null,null,null,null],
+    total:[45939,46799,49238,53656,60446,67770,72188]},
+  capO:{hard:[23069,23225,22642,24792,24703,24911,23643],lig:[8806,8436,8546,8327,8327,8314,8249],
+    gas:[2316,2763,2763,3256,3256,4617,5851],hydro:[2391,2399,2406,2501,2501,2505,2520],
+    wind:[6452,7485,10057,15505,20791,25963,31236],ind:[2615,2682,2681,null,null,null,null],
+    total:[45650,46991,49095,54382,59578,66311,71498]},
+  feTotal:[170.1,164.0,157.7,179.6,179.6,166.4,172.6]
+};
+function div(a,k){var o={};Object.keys(a).forEach(function(key){o[key]=a[key].map(function(v){return v==null?null:v/k;});});return o;}
+var P=div(RAW.prodGWh,1000), CI=div(RAW.capI,1000), CO=div(RAW.capO,1000);
+var cons=RAW.consGWh.map(function(v){return v/1000;}), saldo=RAW.saldoGWh.map(function(v){return v/1000;});
+var imp=RAW.impMWh.map(function(v){return v/1e6;}), exp=RAW.expMWh.map(function(v){return v/1e6;});
+var tot=P.total, coal=P.hard.map(function(v,i){return v+P.lig[i];});
+function sh(a){return a.map(function(v,i){return v==null?null:v/tot[i]*100;});}
+var SH={coal:sh(coal),gas:sh(P.gas),wind:sh(P.wind),hydro:sh(P.hydro),hard:sh(P.hard),lig:sh(P.lig)};
+
+/* ---------------- FORMATOWANIE ---------------- */
+function NF(d){return new Intl.NumberFormat('pl-PL',{minimumFractionDigits:d,maximumFractionDigits:d});}
+var n0=NF(0),n1=NF(1),n2=NF(2),n3=NF(3);
+function f0(v){return v==null?'brak':n0.format(v);} function f1(v){return v==null?'brak':n1.format(v);} function f2(v){return v==null?'brak':n2.format(v);}
+function sg(v,d){d=(d==null?1:d);var t=NF(d).format(Math.abs(v));var z=(parseFloat(t.replace(/\s/g,'').replace(',','.'))===0);var s=z?'':(v>0?'+':'−');return s+t;}
+function chg(a){return (a[a.length-1]/a[0]-1)*100;}
+function cagr(a){return (Math.pow(a[a.length-1]/a[0],1/(a.length-1))-1)*100;}
+function avg(a,i,j){var s=0,c=0;for(var k=i;k<=j;k++){if(a[k]!=null){s+=a[k];c++;}}return s/c;}
+
+/* ---------------- NARZĘDZIA SVG ---------------- */
+var NS='http://www.w3.org/2000/svg';
+function S(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var k in attrs){if(Object.prototype.hasOwnProperty.call(attrs,k))e.setAttribute(k,attrs[k]);}if(parent)parent.appendChild(e);return e;}
+function niceScale(min,max,n){
+  var span=(max-min)||1, step0=span/n, mag=Math.pow(10,Math.floor(Math.log10(step0))), norm=step0/mag;
+  var step=(norm<1.5?1:(norm<3?2:(norm<7?5:10)))*mag;
+  var lo=Math.floor(min/step+1e-9)*step, hi=Math.ceil(max/step-1e-9)*step, ticks=[];
+  for(var v=lo;v<=hi+step/2;v+=step)ticks.push(+v.toFixed(10));
+  return {lo:lo,hi:hi,ticks:ticks,step:step};
+}
+var charts=[];
+function Chart(el,cfg){
+  this.el=el;this.cfg=cfg;this.hidden=new Set();
+  el.innerHTML='';el.classList.add('chartbox');
+  if(cfg.legend!==false){this.leg=document.createElement('div');this.leg.className='legend';el.appendChild(this.leg);}
+  this.plot=document.createElement('div');this.plot.className='plot';el.appendChild(this.plot);
+  this.tip=document.createElement('div');this.tip.className='tip';this.tip.hidden=true;
+  this.buildLegend();
+  var self=this;this._w=0;
+  if(window.ResizeObserver){new ResizeObserver(function(){var w=self.plot.clientWidth;if(w!==self._w){self._w=w;self.draw();}}).observe(this.plot);}
+  charts.push(this);this.draw();
+}
+Chart.prototype.buildLegend=function(){
+  if(!this.leg)return;var self=this;this.leg.innerHTML='';
+  this.cfg.series.forEach(function(s){
+    var b=document.createElement('button');b.type='button';b.className='lg'+(self.hidden.has(s.id)?' off':'');
+    var i=document.createElement('i');i.style.background=s.color;if(s.dash){i.className='dash';i.style.borderTopColor=s.color;}
+    var t=document.createElement('span');t.textContent=s.label;b.appendChild(i);b.appendChild(t);
+    b.addEventListener('click',function(){
+      if(self.hidden.has(s.id))self.hidden.delete(s.id);
+      else if(self.cfg.series.length-self.hidden.size>1)self.hidden.add(s.id);
+      self.buildLegend();self.draw();
+    });
+    self.leg.appendChild(b);
+  });
+};
+Chart.prototype.draw=function(){
+  var cfg=this.cfg,plot=this.plot,W=plot.clientWidth;if(!W)return;
+  var self=this,H=cfg.height||320,m={l:cfg.ml||46,r:12,t:14,b:30};
+  var iw=W-m.l-m.r,ih=H-m.t-m.b,n=cfg.x.length,bw=iw/n;
+  var vis=cfg.series.filter(function(s){return !self.hidden.has(s.id);});
+  var mode=cfg.mode||'abs',type=cfg.type,lo=0,hi=1,sc;
+  if(type==='stack'){
+    this.sums=cfg.x.map(function(_,i){return vis.reduce(function(a,s){return a+(s.vals[i]||0);},0);});
+    if(mode==='pct'){sc={lo:0,hi:100,ticks:[0,25,50,75,100],step:25};}
+    else{sc=niceScale(0,Math.max.apply(null,this.sums),5);}
+  }else{
+    var all=[];vis.forEach(function(s){s.vals.forEach(function(v){if(v!=null)all.push(v);});});
+    lo=Math.min.apply(null,all);hi=Math.max.apply(null,all);
+    if(type!=='line'||cfg.zero)lo=Math.min(lo,0);
+    if(cfg.yMin!=null)lo=cfg.yMin;if(cfg.yMax!=null)hi=cfg.yMax;
+    sc=niceScale(lo,hi,5);
+  }
+  function y(v){return m.t+ih*(1-(v-sc.lo)/(sc.hi-sc.lo));}
+  var svg=S('svg',{width:W,height:H,viewBox:'0 0 '+W+' '+H,role:'img','aria-label':cfg.aria||''});
+  var af=cfg.axisFmt||function(v){return sc.step<1?n1.format(v):n0.format(v);};
+  sc.ticks.forEach(function(t){
+    var yy=y(t);S('line',{x1:m.l,x2:W-m.r,y1:yy,y2:yy,'class':(t===0?'axis0':'gl')},svg);
+    var tx=S('text',{x:m.l-8,y:yy+3.8,'text-anchor':'end','class':'tick'},svg);tx.textContent=af(t);
+  });
+  cfg.x.forEach(function(xv,i){var tx=S('text',{x:m.l+bw*(i+.5),y:H-9,'text-anchor':'middle','class':'tick'},svg);tx.textContent=xv;});
+  var hl=S('rect',{'class':'hl',x:m.l,y:m.t,width:bw,height:ih,visibility:'hidden'},svg);
+  var lbl=cfg.lblFmt||function(v){return n1.format(v);};
+  if(type==='line'){
+    vis.forEach(function(s){
+      var d='',pen=false;
+      s.vals.forEach(function(v,i){if(v==null){pen=false;return;}d+=(pen?'L':'M')+(m.l+bw*(i+.5)).toFixed(1)+' '+y(v).toFixed(1);pen=true;});
+      var p=S('path',{d:d,fill:'none','stroke-width':2.6,'stroke-linejoin':'round','stroke-linecap':'round'},svg);p.style.stroke=s.color;if(s.dash)p.setAttribute('stroke-dasharray','6 4');
+      s.vals.forEach(function(v,i){if(v==null)return;var c=S('circle',{cx:m.l+bw*(i+.5),cy:y(v),r:3.6,'class':'dot'},svg);c.style.fill=s.color;});
+    });
+  }else if(type==='stack'){
+    cfg.x.forEach(function(_,i){
+      var acc=0,t=self.sums[i]||1;
+      vis.forEach(function(s){
+        var v=s.vals[i];if(!v)return;var val=(mode==='pct')?v/t*100:v;
+        var y0=y(acc),y1=y(acc+val);acc+=val;
+        var r=S('rect',{x:m.l+bw*i+bw*.14,width:bw*.72,y:y1,height:Math.max(0,y0-y1),'class':'blk'},svg);r.style.fill=s.color;
+      });
+      if(mode!=='pct'&&bw>44){var tt=S('text',{x:m.l+bw*(i+.5),y:y(acc)-5,'text-anchor':'middle','class':'vlab'},svg);tt.textContent=lbl(acc);}
+    });
+  }else if(type==='group'){
+    var k=vis.length,gw=bw*.74/k;
+    vis.forEach(function(s,j){s.vals.forEach(function(v,i){
+      if(v==null)return;var r=S('rect',{x:m.l+bw*i+bw*.13+gw*j,width:gw-1.5,y:y(v),height:Math.max(0,y(0)-y(v)),rx:2},svg);r.style.fill=s.color;
+      if(bw>=70){var tt=S('text',{x:m.l+bw*i+bw*.13+gw*j+(gw-1.5)/2,y:y(v)-4,'text-anchor':'middle','class':'vlab'},svg);tt.textContent=lbl(v);}
+    });});
+  }else if(type==='bar'){
+    var s0=vis[0];
+    s0.vals.forEach(function(v,i){
+      if(v==null)return;var top=Math.min(y(v),y(0)),h=Math.abs(y(v)-y(0));
+      var r=S('rect',{x:m.l+bw*i+bw*.18,width:bw*.64,y:top,height:Math.max(1,h),rx:3},svg);r.style.fill=(v>=0?s0.color:s0.neg);
+      var tt=S('text',{x:m.l+bw*(i+.5),y:(v>=0?top-5:top+h+13),'text-anchor':'middle','class':'vlab'},svg);tt.textContent=sg(v,2);
+    });
+  }
+  var ov=S('rect',{x:m.l,y:m.t,width:iw,height:ih,fill:'transparent',style:'touch-action:pan-y;cursor:crosshair'},svg);
+  function move(ev){
+    var r=svg.getBoundingClientRect();var px=ev.clientX-r.left;
+    var i=Math.floor((px-m.l)/bw);i=Math.max(0,Math.min(n-1,i));
+    hl.setAttribute('x',m.l+bw*i);hl.setAttribute('visibility','visible');
+    self.showTip(i,vis,m.l+bw*(i+.5),W);
+  }
+  ov.addEventListener('pointermove',move);ov.addEventListener('pointerdown',move);
+  ov.addEventListener('pointerleave',function(ev){if(ev.pointerType==='touch')return;hl.setAttribute('visibility','hidden');self.tip.hidden=true;});
+  plot.innerHTML='';plot.appendChild(svg);plot.appendChild(this.tip);
+};
+Chart.prototype.showTip=function(i,vis,xpos,W){
+  var cfg=this.cfg,unit=cfg.unit||'',mode=cfg.mode||'abs',h='<b>'+cfg.x[i]+'</b>',self=this;
+  var fmt=cfg.tipFmt||function(v){return n2.format(v)+' '+unit;};
+  vis.forEach(function(s){
+    var v=s.vals[i],val;
+    if(v==null){val='brak';}
+    else if(cfg.type==='stack'&&mode==='pct'){val=n1.format(v/(self.sums[i]||1)*100)+'% ('+n1.format(v)+' '+unit+')';}
+    else{val=fmt(v);}
+    h+='<div class="r"><span><i style="background:'+s.color+'"></i>'+s.label+'</span><span>'+val+'</span></div>';
+  });
+  if(cfg.type==='stack'&&mode!=='pct'){h+='<div class="r tot"><span>Razem</span><span>'+n1.format(self.sums[i])+' '+unit+'</span></div>';}
+  this.tip.innerHTML=h;this.tip.hidden=false;
+  var tw=this.tip.offsetWidth;var left=(xpos>W*.55)?xpos-tw-14:xpos+14;
+  this.tip.style.left=Math.max(0,left)+'px';
+};
+
+/* ---------------- WYKRESY ---------------- */
+var C={hard:'var(--c-hard)',lig:'var(--c-lig)',gas:'var(--c-gas)',ind:'var(--c-ind)',hydro:'var(--c-hydro)',wind:'var(--c-wind)',prod:'var(--c-prod)',cons:'var(--c-cons)',pos:'var(--c-pos)',neg:'var(--c-neg)'};
+var LB={hard:'Węgiel kamienny',lig:'Węgiel brunatny',gas:'Gaz',ind:'Przemysłowe (do 2020)',hydro:'Wodne zawodowe (z ESP)',wind:'Wiatrowe i inne odnawialne (PSE)'};
+var ORDER=['hard','lig','gas','ind','hydro','wind'];
+function serSet(src){return ORDER.map(function(k){return {id:k,label:LB[k],color:C[k],vals:src[k]};});}
+var $=function(id){return document.getElementById('a-'+id);};
+
+new Chart($('c-prodcons'),{type:'line',x:Y,unit:'TWh',yMin:140,height:300,
+  aria:'Produkcja i zużycie krajowe energii elektrycznej 2018–2024, TWh',
+  series:[{id:'p',label:'Produkcja brutto',color:C.prod,vals:tot},{id:'c',label:'Zużycie krajowe',color:C.cons,dash:true,vals:cons}]});
+
+var stackChart=new Chart($('c-stack'),{type:'stack',x:Y,unit:'TWh',height:380,mode:'abs',series:serSet(P),
+  aria:'Struktura produkcji energii elektrycznej wg rodzajów źródeł, 2018–2024'});
+new Chart($('c-shares'),{type:'line',x:Y,unit:'%',zero:true,height:320,
+  tipFmt:function(v){return n1.format(v)+'%';},axisFmt:function(v){return n0.format(v)+'%';},
+  aria:'Udziały węgla, gazu oraz wiatrowych i innych odnawialnych w produkcji, 2018–2024',
+  series:[{id:'coal',label:'Węgiel (kamienny + brunatny)',color:C.hard,vals:SH.coal},{id:'gas',label:'Gaz',color:C.gas,vals:SH.gas},{id:'wind',label:'Wiatrowe i inne odnawialne (PSE)',color:C.wind,vals:SH.wind}]});
+
+var capChart=new Chart($('c-capstack'),{type:'stack',x:Y,unit:'GW',height:360,series:serSet(CI),
+  aria:'Moc elektrowni krajowych na 31.12 wg rodzajów, GW'});
+var idxKey='wind';
+function idxSeries(k){
+  var ci=CI[k].map(function(v){return v/CI[k][0]*100;}),pr=P[k].map(function(v){return v/P[k][0]*100;});
+  return [{id:'cap',label:'Moc zainstalowana',color:C.hard,vals:ci},{id:'prod',label:'Produkcja',color:C.wind,vals:pr}];
+}
+var idxChart=new Chart($('c-index'),{type:'line',x:Y,unit:'',height:330,tipFmt:function(v){return n0.format(v);},series:idxSeries('wind'),
+  aria:'Indeks mocy zainstalowanej i produkcji, 2018 = 100'});
+function idxNote(){
+  var s=idxSeries(idxKey),a=s[0].vals[6],b=s[1].vals[6];
+  var txt=LB[idxKey]+': w 2024 r. indeks mocy zainstalowanej wynosi '+n0.format(a)+', indeks produkcji '+n0.format(b)+' (2018 = 100). ';
+  txt+=(a>b?'Moc rosła szybciej niż produkcja':'Produkcja rosła szybciej niż moc')+' (różnica '+n0.format(Math.abs(a-b))+' pkt). ';
+  if(idxKey==='wind')txt+='To poziom zbiorczy: kategoria łączy PV i wiatr o różnym wykorzystaniu mocy, więc wynik nie rozstrzyga o poszczególnych technologiach.';
+  $('idx-note').textContent=txt;
+}
+idxNote();
+function cf(k){return P[k].map(function(v,i){return v/(CI[k][i]*8.76)*100;});}
+new Chart($('c-cf'),{type:'line',x:Y,unit:'%',zero:true,height:300,tipFmt:function(v){return n1.format(v)+'%';},axisFmt:function(v){return n0.format(v)+'%';},
+  aria:'Przybliżone wykorzystanie mocy zainstalowanej, %',
+  series:[{id:'hard',label:'Węgiel kamienny',color:C.hard,vals:cf('hard')},{id:'lig',label:'Węgiel brunatny',color:C.lig,vals:cf('lig')},{id:'gas',label:'Gaz',color:C.gas,vals:cf('gas')},{id:'wind',label:'Wiatrowe i inne odn.',color:C.wind,vals:cf('wind')}]});
+
+new Chart($('c-flows'),{type:'group',x:Y,unit:'TWh',zero:true,height:320,lblFmt:function(v){return n1.format(v);},
+  aria:'Import i eksport energii elektrycznej, TWh',
+  series:[{id:'imp',label:'Import',color:C.pos,vals:imp},{id:'exp',label:'Eksport',color:C.neg,vals:exp}]});
+new Chart($('c-saldo'),{type:'bar',x:Y,unit:'TWh',height:320,legend:false,tipFmt:function(v){return sg(v,2)+' TWh';},
+  aria:'Saldo wymiany energii elektrycznej, TWh',
+  series:[{id:'s',label:'Saldo (import netto)',color:C.pos,neg:C.neg,vals:saldo}]});
+new Chart($('c-fuels'),{type:'line',x:Y,unit:'TWh',zero:true,height:340,
+  aria:'Produkcja z węgla, gazu oraz wiatrowych i innych odnawialnych, TWh',
+  series:[{id:'coal',label:'Węgiel (kamienny + brunatny)',color:C.hard,vals:coal},{id:'gas',label:'Gaz',color:C.gas,vals:P.gas},{id:'wind',label:'Wiatrowe i inne odnawialne (PSE)',color:C.wind,vals:P.wind},{id:'cons',label:'Zużycie krajowe',color:C.cons,dash:true,vals:cons}]});
+(function(){
+  var i21=3,i24=6;
+  $('fuel-note').textContent='Od 2021 do 2024 r. produkcja z węgla zmieniła się o '+sg(coal[i24]-coal[i21])+' TWh, z wiatrowych i innych odnawialnych o '+sg(P.wind[i24]-P.wind[i21])+' TWh, z gazu o '+sg(P.gas[i24]-P.gas[i21])+' TWh; zużycie krajowe o '+sg(cons[i24]-cons[i21])+' TWh, saldo wymiany z '+sg(saldo[i21],2)+' do '+sg(saldo[i24],2)+' TWh. To opis współwystępowania zmian. Przyczyny wymagają danych o cenach i popycie.';
+})();
+
+/* ---------------- Miks 2018 vs 2024 (paski poziome) ---------------- */
+(function(){
+  var el=$('c-mix'),keys=ORDER,h='';
+  [0,6].forEach(function(i){
+    var segs=keys.map(function(k){var v=P[k][i];return {k:k,v:v==null?0:v};}).filter(function(s){return s.v>0;});
+    h+='<div class="hrow"><div class="hl2"><span>'+Y[i]+'</span><span>'+f1(tot[i])+' TWh</span></div><div class="hbar" role="img" aria-label="Miks produkcji '+Y[i]+'">';
+    segs.forEach(function(s){var p=s.v/tot[i]*100;h+='<div style="width:'+p+'%;background:'+C[s.k]+';color:var(--on-'+s.k+')" title="'+LB[s.k]+': '+n1.format(p)+'%">'+(p>=6?n0.format(p)+'%':'')+'</div>';});
+    h+='</div></div>';
+  });
+  h+='<div class="legend" style="display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px">';
+  keys.forEach(function(k){h+='<span style="display:inline-flex;align-items:center;gap:7px;font-size:12.5px"><i style="width:12px;height:12px;border-radius:3px;background:'+C[k]+';display:inline-block"></i>'+LB[k]+'</span>';});
+  h+='</div>';el.innerHTML=h;
+
+})();
+
+/* ---------------- KPI ---------------- */
+function spark(vals,color){
+  var v=vals.filter(function(x){return x!=null;}),mn=Math.min.apply(null,v),mx=Math.max.apply(null,v),w=100,h=28,d='';
+  vals.forEach(function(x,i){if(x==null)return;var px=i/(vals.length-1)*w,py=h-3-(x-mn)/((mx-mn)||1)*(h-6);d+=(d?'L':'M')+px.toFixed(1)+' '+py.toFixed(1);});
+  return '<svg viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none" aria-hidden="true"><path d="'+d+'" fill="none" stroke="'+color+'" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+}
+(function(){
+  var cards=[
+    {lab:'Produkcja brutto, 2024',val:f1(tot[6])+' TWh',sub:sg(chg(tot))+'% vs 2018',sp:tot,col:C.prod},
+    {lab:'Wiatrowe i inne odnawialne (PSE), 2024',val:f1(P.wind[6])+' TWh',sub:'udział '+f1(SH.wind[6])+'% (2018: '+f1(SH.wind[0])+'%)',sp:P.wind,col:C.wind},
+    {lab:'Węgiel kamienny i brunatny, 2024',val:f1(coal[6])+' TWh',sub:'udział '+f1(SH.coal[6])+'% (2018: '+f1(SH.coal[0])+'%)',sp:coal,col:C.hard},
+    {lab:'Gaz, 2024',val:f1(P.gas[6])+' TWh',sub:'udział '+f1(SH.gas[6])+'% (2018: '+f1(SH.gas[0])+'%)',sp:P.gas,col:C.gas},
+    {lab:'Moc zainstalowana: wiatrowe i inne odn., 2024',val:f1(CI.wind[6])+' GW',sub:'×'+f1(CI.wind[6]/CI.wind[0])+' vs 2018 ('+f1(CI.wind[0])+' GW)',sp:CI.wind,col:C.wind},
+    {lab:'Saldo wymiany z zagranicą, 2024',val:sg(saldo[6],2)+' TWh',sub:(saldo[6]>0?'import netto':'eksport netto'),sp:saldo,col:C.pos}
+  ];
+  $('kpis').innerHTML=cards.map(function(c){return '<div class="kpi"><div class="lab">'+c.lab+'</div><div class="val">'+c.val+'</div><div class="s">'+c.sub+'</div>'+spark(c.sp,c.col)+'</div>';}).join('');
+})();
+
+/* ---------------- Obserwacje (opis danych) ---------------- */
+(function(){
+  var imax=tot.indexOf(Math.max.apply(null,tot));
+  var impY=[],expY=[];saldo.forEach(function(v,i){(v>0?impY:expY).push(Y[i]);});
+  var o=[
+    'Produkcja brutto: '+f1(tot[0])+' TWh w 2018 r. i '+f1(tot[6])+' TWh w 2024 r. ('+sg(chg(tot))+'%); maksimum '+f1(tot[imax])+' TWh w '+Y[imax]+' r. Zużycie krajowe: '+f1(cons[0])+' → '+f1(cons[6])+' TWh.',
+    'Węgiel kamienny i brunatny: udział w produkcji spadł z '+f1(SH.coal[0])+'% do '+f1(SH.coal[6])+'%; produkcja z '+f1(coal[3])+' TWh w 2021 r. do '+f1(coal[6])+' TWh w 2024 r. ('+sg(coal[6]-coal[3])+' TWh).',
+    'Wiatrowe i inne odnawialne (kategoria PSE): produkcja '+f1(P.wind[0])+' → '+f1(P.wind[6])+' TWh (×'+f1(P.wind[6]/P.wind[0])+'), średnio '+f1(cagr(P.wind))+'% rocznie; udział z '+f1(SH.wind[0])+'% do '+f1(SH.wind[6])+'%.',
+    'Gaz: produkcja '+f1(P.gas[0])+' → '+f1(P.gas[6])+' TWh, udział '+f1(SH.gas[0])+'% → '+f1(SH.gas[6])+'%; w 2022 r. produkcja spadła z '+f1(P.gas[3])+' do '+f1(P.gas[4])+' TWh, a w 2024 r. była najwyższa w całym okresie.',
+    'Wymiana: import netto w latach '+impY.join(', ')+'; eksport netto w '+expY.join(', ')+' r. ('+sg(saldo[4],2)+' TWh).',
+    'Moc zainstalowana „wiatrowych i innych odnawialnych": '+f1(CI.wind[0])+' → '+f1(CI.wind[6])+' GW (×'+f1(CI.wind[6]/CI.wind[0])+'), przy produkcji ×'+f1(P.wind[6]/P.wind[0])+'.'
+  ];
+  $('obs').innerHTML=o.map(function(t){return '<li>'+t+'</li>';}).join('');
+})();
+
+/* ---------------- Tabele ---------------- */
+function table(head,rows,opt){
+  opt=opt||{};
+  var h='<table><thead><tr>'+head.map(function(x,i){return '<th'+(i===0?'':'')+'>'+x+'</th>';}).join('')+'</tr></thead><tbody>';
+  rows.forEach(function(r){h+='<tr'+(r.tot?' class="tot"':'')+'>'+r.c.map(function(x,i){return '<td'+(opt.left&&opt.left.indexOf(i)>-1?' class="l"':'')+'>'+x+'</td>';}).join('')+'</tr>';});
+  return h+'</tbody></table>';
+}
+function yrs(){return Y.map(String);}
+(function(){
+  /* CAGR */
+  var g=[['hard','Węgiel kamienny'],['lig','Węgiel brunatny'],['gas','Gaz'],['hydro','Wodne zawodowe (z ESP)'],['wind','Wiatrowe i inne odn. (PSE)']];
+  var rows=g.map(function(a){var k=a[0];return {c:[a[1],f1(P[k][0]),f1(P[k][6]),sg(cagr(P[k]))+'%',f2(CI[k][0]),f2(CI[k][6]),sg(cagr(CI[k]))+'%']};});
+  rows.push({tot:true,c:['Razem (ogółem)',f1(tot[0]),f1(tot[6]),sg(cagr(tot))+'%',f2(CI.total[0]),f2(CI.total[6]),sg(cagr(CI.total))+'%']});
+  $('cagr').innerHTML=table(['Grupa','Prod. 2018, TWh','Prod. 2024, TWh','CAGR prod.','Moc 2018, GW','Moc 2024, GW','CAGR mocy'],rows);
+
+  /* średnie okresów */
+  function row(lab,a,d,unit,pp){
+    var b=avg(a,0,3),c=avg(a,4,6),dl=c-b;
+    return {c:[lab,f1(b),f1(c),sg(dl)+(pp?' p.p.':' '+unit),pp?'–':sg((c/b-1)*100)+'%']};
+  }
+  var ra=[row('Produkcja ogółem',tot,0,'TWh'),row('Węgiel (kamienny + brunatny)',coal,0,'TWh'),row('Gaz',P.gas,0,'TWh'),row('Wiatrowe i inne odnawialne (PSE)',P.wind,0,'TWh'),
+    row('Zużycie krajowe',cons,0,'TWh'),row('Saldo wymiany (średnio, + import)',saldo,0,'TWh'),
+    row('Udział węgla w produkcji',SH.coal,0,'',true),row('Udział wiatrowych i innych odn.',SH.wind,0,'',true),
+    row('Moc zainstalowana: wiatrowe i inne odn.',CI.wind,0,'GW')];
+  $('t-avg').innerHTML=table(['Wielkość','Średnia 2018–2021','Średnia 2022–2024','Różnica','Zmiana, %'],ra);
+  /* równe okna */
+  function win(lab,a,unit,d){var x=a[3]-a[0],z=a[6]-a[3];return {c:[lab,sg(x,d)+' '+unit,sg(z,d)+' '+unit,(z/x>0&&isFinite(z/x))?'×'+f1(z/x):'–']};}
+  var wr=[win('Produkcja: wiatrowe i inne odn. (PSE)',P.wind,'TWh'),win('Moc zainstalowana: wiatrowe i inne odn.',CI.wind,'GW',2),win('Produkcja: węgiel (kam. + bru.)',coal,'TWh'),
+    win('Produkcja: gaz',P.gas,'TWh'),win('Zużycie krajowe',cons,'TWh'),win('Produkcja ogółem',tot,'TWh')];
+  $('t-win').innerHTML=table(['Wielkość','Przyrost 2018→2021','Przyrost 2021→2024','Relacja okien'],wr);
+
+  /* dane */
+  var order=['hard','lig','gas','hydro','wind','ind'];
+  var pr=order.map(function(k){return {c:[LB[k]].concat(P[k].map(f2))};});
+  pr.push({tot:true,c:['Produkcja ogółem'].concat(tot.map(f2))});
+  $('d-prod').innerHTML=table(['Kategoria'].concat(yrs()),pr);
+  var cr=[];
+  [['Zainstalowana',RAW.capI],['Osiągalna',RAW.capO]].forEach(function(p){
+    cr.push({tot:true,c:['Moc '+p[0].toLowerCase()].concat(Y.map(function(){return '';}))});
+    order.forEach(function(k){cr.push({c:['&nbsp;&nbsp;'+LB[k]].concat(p[1][k].map(f0))});});
+    cr.push({tot:true,c:['&nbsp;&nbsp;Ogółem'].concat(p[1].total.map(f0))});
+  });
+  $('d-cap').innerHTML=table(['Kategoria'].concat(yrs()),cr);
+  $('d-ex').innerHTML=table(['Wielkość'].concat(yrs()),[
+    {c:['Import (przepływy fizyczne)'].concat(imp.map(f2))},{c:['Eksport (przepływy fizyczne)'].concat(exp.map(f2))},
+    {c:['Saldo (+ import netto)'].concat(saldo.map(function(v){return sg(v,2);}))},{tot:true,c:['Krajowe zużycie energii elektrycznej'].concat(cons.map(f2))}]);
+  /* PSE vs FE */
+  var diff=RAW.feTotal.map(function(v,i){return v-tot[i];});
+  $('t-fe').innerHTML=table(['TWh'].concat(yrs()),[
+    {c:['PSE: produkcja ogółem'].concat(tot.map(f1))},{c:['Forum Energii: produkcja ogółem'].concat(RAW.feTotal.map(f1))},
+    {tot:true,c:['Różnica (FE − PSE)'].concat(diff.map(function(v){return sg(v,1);}))}]);
+})();
+
+/* ---------------- Przełączniki ---------------- */
+function segWire(id,cb){
+  var box=$(id);
+  box.addEventListener('click',function(e){
+    var b=e.target.closest('button');if(!b)return;
+    Array.prototype.forEach.call(box.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+    cb(b.getAttribute('data-v'));
+  });
+}
+segWire('seg-stack',function(v){stackChart.cfg.mode=v;stackChart.draw();});
+segWire('seg-cap',function(v){capChart.cfg.series=serSet(v==='I'?CI:CO);capChart.buildLegend();capChart.draw();});
+segWire('seg-idx',function(v){idxKey=v;idxChart.cfg.series=idxSeries(v);idxChart.hidden.clear();idxChart.buildLegend();idxChart.draw();idxNote();});
+
+/* ---------------- Podzakładki modułu A ---------------- */
+var tabs=Array.prototype.slice.call(document.querySelectorAll('#mod-a .tab'));
+var panels=Array.prototype.slice.call(document.querySelectorAll('#mod-a .panel'));
+function show(id){
+  if(!panels.some(function(p){return p.id==='a-p-'+id;}))id='overview';
+  tabs.forEach(function(t){t.setAttribute('aria-selected',t.getAttribute('data-p')===id?'true':'false');});
+  panels.forEach(function(p){p.classList.toggle('on',p.id==='a-p-'+id);});
+  charts.forEach(function(c){c.draw();});
+  try{window.dispatchEvent(new CustomEvent('subtab',{detail:{view:'a',sub:id}}));}catch(e){}
+}
+function toTop(){
+  var m=document.querySelector('#mod-a .amain'),nav=document.querySelector('#mod-a nav.tabs');
+  var nh=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--navh'))||60;
+  var target=m.getBoundingClientRect().top+window.pageYOffset-nh-nav.offsetHeight-8;
+  if(window.pageYOffset>target)window.scrollTo({top:Math.max(0,target),behavior:'smooth'});
+}
+tabs.forEach(function(t){t.addEventListener('click',function(){show(t.getAttribute('data-p'));toTop();});});
+window.PortfolioA={show:show,redraw:function(){charts.forEach(function(c){c.draw();});}};
+
+/* ---------------- Autor, druk ---------------- */
+if(AUTHOR){var a=$('author');a.textContent=AUTHOR;a.hidden=false;}
+window.addEventListener('beforeprint',function(){document.body.classList.add('printing');charts.forEach(function(c){c.draw();});});
+window.addEventListener('afterprint',function(){document.body.classList.remove('printing');});
+})();
+
+</script>
+<script>
+(function(){
+
+/* =====================================================================
+   1. DANE  –  jedyne miejsce do uzupełnienia
+   Format długi (1 wiersz = 1 rok × 1 technologia × 1 wielkość).
+   kat:    'pv_mikro' | 'pv_duze' | 'wiatr' | 'bio'
+   obszar: 'Moc' (GW, stan na 31.12) | 'Produkcja' (TWh, rok)
+   miara (opcjonalnie, tylko Produkcja): 'wytworzona' | 'wprowadzona' (do sieci). Mikroinstalacje URE raportują energię WPROWADZONĄ.
+   Zasada projektu: jedna zmienna – jedno źródło. Każdy wiersz ma `zrodlo`.
+   Przykład wiersza:  {rok:2018, obszar:'Moc', kat:'wiatr', wartosc: 0.0, zrodlo:'B1'}   <- liczba tylko z raportu!
+   ===================================================================== */
+const DANE_B = [
+  /* Moc: GW (z MW), Produkcja: TWh (z GWh). pv_mikro: URE (raporty o mikroinstalacjach); pv_wiecej: PV w rejestrach URE powyżej 50 kW (małe + duże); pv_duze (>1 MW) – tylko 2023–2024, memo. */
+  {rok:2018, obszar:'Moc', kat:'pv_mikro', wartosc:0.344239, zrodlo:'B5'},
+  {rok:2018, obszar:'Moc', kat:'pv_wiecej', wartosc:0.146995, zrodlo:'B1'},
+  {rok:2018, obszar:'Moc', kat:'wiatr', wartosc:5.864443, zrodlo:'B1'},
+  {rok:2018, obszar:'Moc', kat:'biomasa', wartosc:1.36287, zrodlo:'B1'},
+  {rok:2018, obszar:'Moc', kat:'biogaz', wartosc:0.237618, zrodlo:'B1'},
+  {rok:2019, obszar:'Moc', kat:'pv_mikro', wartosc:0.990506, zrodlo:'B5'},
+  {rok:2019, obszar:'Moc', kat:'pv_wiecej', wartosc:0.477679, zrodlo:'B1'},
+  {rok:2019, obszar:'Moc', kat:'wiatr', wartosc:5.917243, zrodlo:'B1'},
+  {rok:2019, obszar:'Moc', kat:'biomasa', wartosc:1.492875, zrodlo:'B1'},
+  {rok:2019, obszar:'Moc', kat:'biogaz', wartosc:0.245366, zrodlo:'B1'},
+  {rok:2020, obszar:'Moc', kat:'pv_mikro', wartosc:3.015413, zrodlo:'B5'},
+  {rok:2020, obszar:'Moc', kat:'pv_wiecej', wartosc:0.887434, zrodlo:'B1'},
+  {rok:2020, obszar:'Moc', kat:'wiatr', wartosc:6.347111, zrodlo:'B1'},
+  {rok:2020, obszar:'Moc', kat:'biomasa', wartosc:1.512885, zrodlo:'B1'},
+  {rok:2020, obszar:'Moc', kat:'biogaz', wartosc:0.255699, zrodlo:'B1'},
+  {rok:2021, obszar:'Moc', kat:'pv_mikro', wartosc:6.089432, zrodlo:'B5'},
+  {rok:2021, obszar:'Moc', kat:'pv_wiecej', wartosc:1.693191, zrodlo:'B1'},
+  {rok:2021, obszar:'Moc', kat:'wiatr', wartosc:7.224971, zrodlo:'B1'},
+  {rok:2021, obszar:'Moc', kat:'biomasa', wartosc:1.41875, zrodlo:'B1'},
+  {rok:2021, obszar:'Moc', kat:'biogaz', wartosc:0.257349, zrodlo:'B1'},
+  {rok:2022, obszar:'Moc', kat:'pv_mikro', wartosc:9.307179, zrodlo:'B5'},
+  {rok:2022, obszar:'Moc', kat:'pv_wiecej', wartosc:3.147861, zrodlo:'B1'},
+  {rok:2022, obszar:'Moc', kat:'wiatr', wartosc:8.28787, zrodlo:'B1'},
+  {rok:2022, obszar:'Moc', kat:'biomasa', wartosc:1.478675, zrodlo:'B1'},
+  {rok:2022, obszar:'Moc', kat:'biogaz', wartosc:0.276248, zrodlo:'B1'},
+  {rok:2023, obszar:'Moc', kat:'pv_mikro', wartosc:11.316129, zrodlo:'B4'},
+  {rok:2023, obszar:'Moc', kat:'pv_wiecej', wartosc:5.179778, zrodlo:'B15'},
+  {rok:2023, obszar:'Moc', kat:'pv_duze', wartosc:1.607742, zrodlo:'B15'},
+  {rok:2023, obszar:'Moc', kat:'wiatr', wartosc:9.560474, zrodlo:'B15'},
+  {rok:2023, obszar:'Moc', kat:'biomasa', wartosc:1.421538, zrodlo:'B15'},
+  {rok:2023, obszar:'Moc', kat:'biogaz', wartosc:0.295262, zrodlo:'B15'},
+  {rok:2024, obszar:'Moc', kat:'pv_mikro', wartosc:12.73547, zrodlo:'B6'},
+  {rok:2024, obszar:'Moc', kat:'pv_wiecej', wartosc:8.556441, zrodlo:'B13'},
+  {rok:2024, obszar:'Moc', kat:'pv_duze', wartosc:4.003377, zrodlo:'B13'},
+  {rok:2024, obszar:'Moc', kat:'wiatr', wartosc:10.522449, zrodlo:'B13'},
+  {rok:2024, obszar:'Moc', kat:'biomasa', wartosc:1.448193, zrodlo:'B13'},
+  {rok:2024, obszar:'Moc', kat:'biogaz', wartosc:0.313344, zrodlo:'B13'},
+  {rok:2018, obszar:'Produkcja', kat:'pv', wartosc:0.3005, zrodlo:'B16'},
+  {rok:2018, obszar:'Produkcja', kat:'wiatr', wartosc:12.7988, zrodlo:'B16'},
+  {rok:2019, obszar:'Produkcja', kat:'pv', wartosc:0.7107, zrodlo:'B16'},
+  {rok:2019, obszar:'Produkcja', kat:'wiatr', wartosc:15.1068, zrodlo:'B16'},
+  {rok:2020, obszar:'Produkcja', kat:'pv', wartosc:1.9579, zrodlo:'B10'},
+  {rok:2020, obszar:'Produkcja', kat:'wiatr', wartosc:15.8001, zrodlo:'B10'},
+  {rok:2021, obszar:'Produkcja', kat:'pv', wartosc:3.9345, zrodlo:'B10'},
+  {rok:2021, obszar:'Produkcja', kat:'wiatr', wartosc:16.2336, zrodlo:'B10'},
+  {rok:2022, obszar:'Produkcja', kat:'pv', wartosc:8.3097, zrodlo:'B10'},
+  {rok:2022, obszar:'Produkcja', kat:'wiatr', wartosc:19.7795, zrodlo:'B10'},
+  {rok:2023, obszar:'Produkcja', kat:'pv', wartosc:11.1071, zrodlo:'B10'},
+  {rok:2023, obszar:'Produkcja', kat:'wiatr', wartosc:24.1764, zrodlo:'B10'},
+  {rok:2024, obszar:'Produkcja', kat:'pv', wartosc:17.6628, zrodlo:'B10'},
+  {rok:2024, obszar:'Produkcja', kat:'wiatr', wartosc:24.9452, zrodlo:'B10'}
+];
+
+const ZRODLA_B = [
+  {id:'B1',  opis:'URE, „Moc zainstalowana (MW) w instalacjach OZE 2005–2022”, tabela mocy wg rodzaju źródła – wiatr, biomasa, biogaz oraz PV w rejestrach URE (powyżej 50 kW), 2018–2022'},
+  {id:'B4',  opis:'URE, raport o mikroinstalacjach za 2023 r., Tabela 3, s. 11 – PV 31.12.2023: 11 316,129 MW'},
+  {id:'B5',  opis:'URE, raporty o mikroinstalacjach za 2018–2022 (art. 6a): PV 31.12.2018 344,239 (Tab. 3, s. 3); 2019 990,506 (Tab. 3, s. 3); 2020 3 015,413 (Tab. 3, s. 8); 2021 6 089,432 (Tab. 3, s. 9); 2022 9 307,179 MW (Tab. 1, s. 2)'},
+  {id:'B6',  opis:'URE, „Wytwarzanie energii elektrycznej w mikroinstalacjach w 2024 r.”, Tab. 1 – PV mikro 31.12.2024: 12 735,47 MW; energia wprowadzona do sieci 8,55 TWh (tylko kontrola)'},
+  {id:'B10', opis:'GUS, „Energia ze źródeł odnawialnych w 2024 r.”, Tablica 9, s. 37 – produkcja z wiatru i PV 2020–2024'},
+  {id:'B16', opis:'GUS, „Energia ze źródeł odnawialnych w 2022 r.” (publikacja z 2023 r.), Tablica 7, s. 46 – produkcja energii elektrycznej: wiatr 12 798,8 / 15 106,8 GWh, ogniwa fotowoltaiczne 300,5 / 710,7 GWh (2018 / 2019)'},
+  {id:'B13', opis:'URE, „Mapa OZE” – stan na 31.12.2024 (rejestr instalacji koncesjonowanych i małych, bez mikroinstalacji): suma mocy wg rodzaju OZE'},
+  {id:'B15', opis:'URE, „Mapa OZE” – stan na 31.12.2023 (jw.)'}
+];
+
+/* Dane z Modułu A (arkusz Dane_dlugie, PSE KSE) – kategoria zbiorcza, do kontroli */
+const A_ZBIORCZA = {
+  moc:  {2018:6.621, 2019:7.490, 2020:10.229, 2021:15.086, 2022:21.578, 2023:27.217, 2024:31.823}, // GW zainstalowana
+  prod: {2018:11.958, 2019:14.344, 2020:16.372, 2021:18.984, 2022:27.602, 2023:35.209, 2024:42.208} // TWh
+};
+
+/* =====================================================================
+   2. KONFIGURACJA
+   ===================================================================== */
+const LATA = [2018,2019,2020,2021,2022,2023,2024];
+const TECH = {
+  pv:   {nazwa:'Fotowoltaika (ogółem)', kol:'var(--c-pv)'},
+  wiatr:{nazwa:'Wiatr lądowy',          kol:'var(--c-wind)'},
+  bio:  {nazwa:'Biomasa i biogaz',      kol:'var(--c-bio)'}
+};
+const SEG = {
+  pv_mikro: {nazwa:'PV – mikroinstalacje (≤50 kW)',                 kol:'var(--c-pv)'},
+  pv_wiecej:{nazwa:'PV – powyżej 50 kW (rejestry URE: małe i duże)', kol:'var(--c-pvl)'}
+};
+
+/* =====================================================================
+   3. LOGIKA  –  czyste funkcje na DANE_B
+   ===================================================================== */
+const get = (obszar,kat,rok)=>{ const r=DANE_B.find(d=>d.obszar===obszar&&d.kat===kat&&d.rok===rok); return r?r.wartosc:null; };
+function seria(obszar,kod){            // kod: 'pv'|'wiatr'|'bio'|'pv_mikro'|'pv_duze'
+  return LATA.map(y=>{
+    if(obszar==='Produkcja') return get(obszar,kod,y);   // produkcja: 'pv' (całkowita) i 'wiatr'
+    if(kod==='bio'){ const a=get(obszar,'biomasa',y), b=get(obszar,'biogaz',y); return (a==null||b==null)?null:a+b; }
+    if(kod==='pv'){ const a=get(obszar,'pv_mikro',y), b=get(obszar,'pv_wiecej',y); return (a==null||b==null)?null:a+b; }
+    return get(obszar,kod,y);
+  });
+}
+const idx = s => (s[0]==null||s[0]<=0)?s.map(()=>null):s.map(v=>v==null?null:v/s[0]*100);
+const cagr = (a,b,n)=> (a>0&&b!=null)?Math.pow(b/a,1/n)-1:null;
+const cf = (prod,moc)=> (prod==null||moc==null||moc<=0)?null:prod*1000/(moc*8760);
+const fmt = (v,d=1)=> v==null?'–':v.toLocaleString('pl-PL',{minimumFractionDigits:d,maximumFractionDigits:d});
+const pct = (v,d=0)=> v==null?'–':(v*100).toLocaleString('pl-PL',{minimumFractionDigits:d,maximumFractionDigits:d})+'%';
+const ma = (arr)=>arr.every(v=>v!=null);   // kompletna seria?
+const $ = id=>document.getElementById('b-'+id);
+const empty = (el,txt)=>{ el.innerHTML='<div class="empty">'+txt+'</div>'; };
+
+/* =====================================================================
+   4. WYKRESY SVG (bez bibliotek)
+   ===================================================================== */
+let W=640,H=280;const M={l:44,r:12,t:12,b:26};
+function skala(min,max){ return v=>M.t+(H-M.t-M.b)*(1-(v-min)/(max-min||1)); }
+const xPos = i => M.l+(W-M.l-M.r)*(i/(LATA.length-1));
+function ticks(max,n=4){ const st=Math.pow(10,Math.floor(Math.log10(max/n||1))); const m=[1,2,2.5,5,10].find(k=>max/(k*st)<=n)*st; const t=[]; for(let v=0;v<=max+1e-9;v+=m)t.push(v); if(t[t.length-1]<max)t.push(t[t.length-1]+m); return t; }
+
+function legenda(items){ return '<div class="legend">'+items.map(i=>`<span><i style="background:${i.kol}"></i>${i.nazwa}</span>`).join('')+'</div>'; }
+
+function tabela(naglowek,wiersze,d=1){
+  return '<details><summary>Tabela danych</summary><table><tr><th>'+naglowek+'</th>'+LATA.map(y=>`<th>${y}</th>`).join('')+'</tr>'+
+    wiersze.map(w=>`<tr><td>${w.nazwa}</td>${w.v.map(v=>`<td>${fmt(v,d)}</td>`).join('')}</tr>`).join('')+'</table></details>';
+}
+
+/* Wykres liniowy: series=[{nazwa,kol,v:[...]}], jednostka do tooltipu */
+function liniowy(el,series,{jedn='',d=1,baza100=false,tytul='',nota=''}={}){
+  if(!series.some(s=>s.v.some(v=>v!=null))) return empty(el,'Brak danych – uzupełnij <code>DANE_B</code>.');
+  const all=series.flatMap(s=>s.v).filter(v=>v!=null);
+  let y,g='';
+  if(baza100){   /* indeks: skala logarytmiczna (PV startuje z niskiej bazy i spłaszczyłaby resztę) */
+    const hiL=Math.max(...all), tk=[100,200,500,1000,2000,5000,10000,20000,50000,100000].filter(t=>t<=hiL*1.4);
+    const top=tk[tk.length-1]*(hiL>tk[tk.length-1]?2:1), lg=Math.log10, lo=Math.min(100,...all)*0.95;
+    y=v=>M.t+(H-M.t-M.b)*(1-(lg(Math.max(v,lo))-lg(lo))/(lg(Math.max(top,hiL*1.1))-lg(lo)));
+    tk.forEach(t=>{ const yy=y(t); g+=`<line class="grid" x1="${M.l}" x2="${W-M.r}" y1="${yy}" y2="${yy}"/><text x="${M.l-6}" y="${yy+4}" text-anchor="end">${t.toLocaleString('pl-PL')}</text>`; });
+    g+=`<text x="${M.l}" y="${M.t-2}">skala log.</text>`;
+  } else {
+    const hi=Math.max(...all)*1.05, tk=ticks(hi); y=skala(0,tk[tk.length-1]);
+    tk.forEach(t=>{ const yy=y(t); g+=`<line class="grid" x1="${M.l}" x2="${W-M.r}" y1="${yy}" y2="${yy}"/><text x="${M.l-6}" y="${yy+4}" text-anchor="end">${fmt(t,t%1?1:0)}</text>`; });
+  }
+  LATA.forEach((a,i)=>{ g+=`<text x="${xPos(i)}" y="${H-8}" text-anchor="middle">${a}</text>`; });
+  let lines='';
+  series.forEach(s=>{
+    let seg=[],paths=[]; s.v.forEach((v,i)=>{ if(v==null){ if(seg.length)paths.push(seg); seg=[]; } else seg.push([xPos(i),y(v)]); }); if(seg.length)paths.push(seg);
+    paths.forEach(p=>{ lines+=`<path d="M${p.map(q=>q.join(',')).join('L')}" fill="none" stroke="${s.kol}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`; });
+    const li=s.v.map((v,i)=>v!=null?i:-1).filter(i=>i>=0).pop();
+    if(li!=null&&li>=0){ lines+=`<circle cx="${xPos(li)}" cy="${y(s.v[li])}" r="4" fill="${s.kol}" stroke="var(--bg)" stroke-width="2"/>`; }
+  });
+  const uid='c'+Math.random().toString(36).slice(2,7);
+  el.innerHTML=(tytul?`<div class="q" style="margin:8px 0 2px">${tytul}</div>`:'')+legenda(series)+
+    `<div class="wrap"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${tytul}">${g}${lines}<line id="${uid}x" x1="0" x2="0" y1="${M.t}" y2="${H-M.b}" stroke="var(--ink-3)" stroke-dasharray="3 3" style="display:none"/>`+
+    LATA.map((a,i)=>`<rect data-i="${i}" x="${xPos(i)-(W-M.l-M.r)/12}" width="${(W-M.l-M.r)/6}" y="${M.t}" height="${H-M.t-M.b}" fill="transparent"/>`).join('')+
+    `</svg><div class="tip" id="${uid}t"></div></div>`+tabela(tytul||'Seria',series.map(s=>({nazwa:s.nazwa,v:s.v})),d);
+  hover(el,uid,i=>`<b>${LATA[i]}</b><br>`+series.map(s=>`<span style="color:${s.kol}">●</span> ${s.nazwa}: ${fmt(s.v[i],d)} ${jedn}`).join('<br>')+(nota?`<br><small style="color:var(--muted)">${nota}</small>`:''),i=>xPos(i));
+}
+
+/* Słupki skumulowane: segs=[{nazwa,kol,v:[..]}] (spód → góra), marker=indeks lat PRZED którym rysujemy linię przerywaną */
+function skumulowany(el,segs,{jedn='GW',marker=null,tytul=''}={}){
+  if(!segs.some(s=>s.v.some(v=>v!=null))) return empty(el,'Brak danych – uzupełnij <code>DANE_B</code> (pv_mikro, pv_duze).');
+  const sum=LATA.map((_,i)=>segs.reduce((a,s)=>a+(s.v[i]||0),0));
+  const tk=ticks(Math.max(...sum)*1.05), y=skala(0,tk[tk.length-1]);
+  const bw=(W-M.l-M.r)/LATA.length, ww=bw*0.62;
+  let g='';
+  tk.forEach(t=>{ const yy=y(t); g+=`<line class="grid" x1="${M.l}" x2="${W-M.r}" y1="${yy}" y2="${yy}"/><text x="${M.l-6}" y="${yy+4}" text-anchor="end">${fmt(t,t%1?1:0)}</text>`; });
+  let bars='';
+  LATA.forEach((a,i)=>{
+    const x=M.l+bw*i+(bw-ww)/2; let acc=0;
+    g+=`<text x="${x+ww/2}" y="${H-8}" text-anchor="middle">${a}</text>`;
+    segs.forEach((s,k)=>{ const v=s.v[i]; if(v==null)return; const y1=y(acc+v),y0=y(acc)-2; acc+=v;
+      const r=(k===segs.length-1)?4:0;
+      bars+=`<path d="M${x},${y0}V${y1+r}${r?`Q${x},${y1} ${x+r},${y1}H${x+ww-r}Q${x+ww},${y1} ${x+ww},${y1+r}`:`V${y1}H${x+ww}`}V${y0}Z" fill="${s.kol}"/>`; });
+  });
+  if(marker!=null){ const xm=M.l+bw*marker; bars+=`<line x1="${xm}" x2="${xm}" y1="${M.t}" y2="${H-M.b}" stroke="var(--ink-3)" stroke-dasharray="4 3"/><text x="${xm+4}" y="${M.t+10}">po 31.12.2021</text>`; }
+  const uid='s'+Math.random().toString(36).slice(2,7);
+  el.innerHTML=legenda(segs)+`<div class="wrap"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${tytul}">${g}${bars}`+
+    LATA.map((a,i)=>`<rect data-i="${i}" x="${M.l+bw*i}" width="${bw}" y="${M.t}" height="${H-M.t-M.b}" fill="transparent"/>`).join('')+
+    `</svg><div class="tip" id="${uid}t"></div></div>`+tabela('GW',segs.map(s=>({nazwa:s.nazwa,v:s.v})),2);
+  hover(el,uid,i=>`<b>${LATA[i]}</b><br>`+segs.map(s=>`<span style="color:${s.kol}">●</span> ${s.nazwa}: ${fmt(s.v[i],2)} ${jedn}`).join('<br>')+`<br>Razem: ${fmt(sum[i],2)} ${jedn}`,null);
+}
+
+function hover(el,uid,html,xf){
+  const tip=document.getElementById(uid+'t'), wrap=tip.parentElement, cx=document.getElementById(uid+'x');
+  el.querySelectorAll('rect[data-i]').forEach(r=>{
+    r.addEventListener('mousemove',e=>{
+      const i=+r.dataset.i; tip.innerHTML=html(i); tip.style.display='block';
+      const b=wrap.getBoundingClientRect(); tip.style.left=Math.min(e.clientX-b.left+12,b.width-tip.offsetWidth-4)+'px'; tip.style.top=(e.clientY-b.top+12)+'px';
+      if(cx&&xf){ cx.setAttribute('x1',xf(i)); cx.setAttribute('x2',xf(i)); cx.style.display=''; }
+    });
+    r.addEventListener('mouseleave',()=>{ tip.style.display='none'; if(cx)cx.style.display='none'; });
+  });
+}
+
+/* =====================================================================
+   5. PANELE
+   ===================================================================== */
+function status(){
+  const wym=[['Moc','Moc [GW]',['pv_mikro','pv_wiecej','wiatr','biomasa','biogaz']],['Produkcja','Produkcja [TWh]',['pv','wiatr']]];
+  const braki=[]; wym.forEach(([o,n,ks])=>ks.forEach(k=>{ const m=LATA.filter(y=>get(o,k,y)==null).length; if(m)braki.push(`${n} · ${k}: brak ${m}/${LATA.length} lat`); }));
+  $('status').innerHTML = braki.length
+    ? `<div class="banner"><b>Dane niekompletne.</b> ${braki.join(' · ')}</div>` : '';
+}
+
+function h1(){
+  const defs=[['pv','pv'],['wiatr','wiatr'],['bio','bio']];
+  const S=defs.map(([k,c])=>({k,nazwa:TECH[k].nazwa,kol:TECH[k].kol,moc:seria('Moc',c)}));
+  liniowy($('h1-chart'),S.map(s=>({nazwa:s.nazwa,kol:s.kol,v:idx(s.moc)})),{jedn:'(2018=100)',d:0,baza100:true,tytul:'Moc zainstalowana, indeks 2018 = 100'});
+  const info=S.map(s=>{ const a=s.moc[0],b=s.moc[LATA.length-1]; return {...s,a,b,dg:(a!=null&&b!=null)?b-a:null,c:cagr(a,b,LATA.length-1)}; });
+  $('h1-tiles').innerHTML=info.map(i=>`<div class="tile"><small>${i.nazwa}</small><strong>${i.dg==null?'–':'+'+fmt(i.dg,1)+' GW'}</strong><br><em>CAGR ${pct(i.c,0)} · ${fmt(i.a,1)} → ${fmt(i.b,1)} GW</em></div>`).join('');
+  const ok=info.filter(i=>i.dg!=null);
+  if(ok.length<3){ $('h1-verdict').textContent='Wniosek pojawi się po uzupełnieniu mocy PV, wiatru i biomasy dla 2018 i 2024.'; return; }
+  const abs=[...ok].sort((a,b)=>b.dg-a.dg)[0], rel=[...ok].sort((a,b)=>b.c-a.c)[0];
+  $('h1-verdict').innerHTML = abs.k==='pv'&&rel.k==='pv'
+    ? `<b>H1 potwierdzona.</b> PV jest pierwsza zarówno pod względem przyrostu (+${fmt(abs.dg,1)} GW), jak i tempa (CAGR ${pct(rel.c)}).`
+    : `<b>H1 częściowo.</b> Największy przyrost bezwzględny: ${abs.nazwa} (+${fmt(abs.dg,1)} GW). Najwyższe tempo względne: ${rel.nazwa} (CAGR ${pct(rel.c)}). Miary wskazują różne technologie – to trzeba opisać, nie ukrywać.`;
+}
+
+function h2(){
+  const mocPV=seria('Moc','pv'), mocW=seria('Moc','wiatr'), prPV=seria('Produkcja','pv'), prW=seria('Produkcja','wiatr');
+  const NOTA_PV='Produkcja wg GUS (2018–19: Tablica 7 z publikacji za 2022 r.; 2020–24: Tablica 9 z publikacji za 2024 r.). Współczynnik liczony na mocy zainstalowanej z Modułu B; GUS podaje moc osiągalną (tablice mocy osiągalnej).';
+  liniowy($('h2-chart-prod'),[{nazwa:'PV',kol:TECH.pv.kol,v:idx(prPV)},{nazwa:'Wiatr lądowy',kol:TECH.wiatr.kol,v:idx(prW)}],{jedn:'(2018=100)',d:0,baza100:true,tytul:'Produkcja, indeks 2018 = 100',nota:NOTA_PV});
+  /* współczynnik wykorzystania mocy liczony na mocy średniej z dwóch stanów 31.12 (PV szybko rośnie w ciągu roku); dla 2018 brak stanu z 31.12.2017 */
+  const mAvg=m=>m.map((v,i)=>(i===0||v==null||m[i-1]==null)?null:(v+m[i-1])/2);
+  const aPV=mAvg(mocPV), aW=mAvg(mocW);
+  const cfPV=LATA.map((_,i)=>cf(prPV[i],aPV[i])), cfW=LATA.map((_,i)=>cf(prW[i],aW[i]));
+  liniowy($('h2-chart-cf'),[{nazwa:'PV',kol:TECH.pv.kol,v:cfPV.map(v=>v==null?null:v*100)},{nazwa:'Wiatr lądowy',kol:TECH.wiatr.kol,v:cfW.map(v=>v==null?null:v*100)}],{jedn:'%',d:1,tytul:'Współczynnik wykorzystania mocy, % (moc średnia z dwóch stanów 31.12; od 2019)',nota:NOTA_PV});
+  $('h2-note').innerHTML='<b>Uwaga do PV:</b> produkcja PV i wiatru pochodzi z GUS (2018–2019: GUS „Energia ze źródeł odnawialnych w 2022 r.”, Tablica 7, s. 46; 2020–2024: GUS za 2024 r., Tablica 9; obie publikacje zgodne z dokładnością do 0,1 GWh dla lat wspólnych). Publikacja GUS nie opisuje, jak ujęto autokonsumpcję prosumentów. Dane URE o mikroinstalacjach pokazują tylko energię <i>wprowadzoną do sieci</i> (8,55 TWh w 2024 r.) i służą wyłącznie do kontroli.';
+  const n=LATA.length-1, cp=cagr(prPV[0],prPV[n],n), cw=cagr(prW[0],prW[n],n);
+  if(cp==null||cw==null){ $('h2-verdict').textContent='Wniosek pojawi się po uzupełnieniu produkcji PV i wiatru (2018 i 2024).'; return; }
+  const hrs=v=>v==null?'–':fmt(v*8760,0)+' h';
+  const [kt]=cp>cw?['PV']:['wiatr'];
+  $('h2-verdict').innerHTML=`<b>Produkcja:</b> CAGR PV ${pct(cp)} vs wiatr ${pct(cw)} – szybciej rosła produkcja z ${kt==='PV'?'PV':'wiatru'}. `+
+    `Współczynnik wykorzystania mocy w ${LATA[n]}: PV ${pct(cfPV[n],1)} (${hrs(cfPV[n])}/rok), wiatr ${pct(cfW[n],1)} (${hrs(cfW[n])}/rok). Produkcja wiatru zależy od pogody w danym roku, więc oba wykresy czytaj razem.`;
+}
+
+function h3(){
+  const mi=seria('Moc','pv_mikro'), wi=seria('Moc','pv_wiecej'), du=seria('Moc','pv_duze');
+  skumulowany($('h3-chart'),[{nazwa:SEG.pv_mikro.nazwa,kol:SEG.pv_mikro.kol,v:mi},{nazwa:SEG.pv_wiecej.nazwa,kol:SEG.pv_wiecej.kol,v:wi}],{marker:4,tytul:'Moc PV wg segmentu'});
+  const i18=0,i21=3,i24=6, ok=[mi[i18],mi[i21],mi[i24],wi[i18],wi[i21],wi[i24]].every(v=>v!=null);
+  if(!ok){ $('h3-verdict').textContent='Wniosek pojawi się po uzupełnieniu mocy PV (mikro i powyżej 50 kW) dla 2018, 2021 i 2024.'; return; }
+  const r=(a)=>[(a[i21]-a[i18])/3,(a[i24]-a[i21])/3];
+  const [m1,m2]=r(mi),[d1,d2]=r(wi);
+  const sh=i=>mi[i]/(mi[i]+wi[i]);
+  const haveD=du[5]!=null&&du[6]!=null;
+  $('h3-tiles').innerHTML=
+    `<div class="tile"><small>Mikro: przyrost / rok</small><strong>${fmt(m1,2)} → ${fmt(m2,2)}</strong><br><em>GW/rok, 2018–21 → 2021–24</em></div>`+
+    `<div class="tile"><small>Powyżej 50 kW: przyrost / rok</small><strong>${fmt(d1,2)} → ${fmt(d2,2)}</strong><br><em>GW/rok, 2018–21 → 2021–24</em></div>`+
+    `<div class="tile"><small>Udział mikro w mocy PV</small><strong>${pct(sh(i18))} → ${pct(sh(i21))} → ${pct(sh(i24))}</strong><br><em>2018 → 2021 → 2024</em></div>`+
+    (haveD?`<div class="tile"><small>w tym duże (&gt;1 MW)</small><strong>${fmt(du[5],2)} → ${fmt(du[6],2)}</strong><br><em>GW, 2023 → 2024 (×${fmt(du[6]/du[5],1)})</em></div>`:'');
+  const dsh=(sh(i24)-sh(i21))*100;
+  $('h3-verdict').innerHTML=`<b>Po 2021:</b> tempo przyrostu mikroinstalacji ${m2>m1?'wzrosło':'spadło'} (${fmt(m1,2)} → ${fmt(m2,2)} GW/rok), instalacji powyżej 50 kW ${d2>d1?'wzrosło':'spadło'} (${fmt(d1,2)} → ${fmt(d2,2)} GW/rok). Udział mikroinstalacji ${dsh>=0?'wzrósł':'spadł'} o ${fmt(Math.abs(dsh),1)} p.p. `+
+    `<span style="color:var(--ink-3)">Zestawienie nie dowodzi przyczyny (zmiana zasad rozliczeń, ceny, dostępność sieci) – to osobne hipotezy do sprawdzenia.</span>`;
+}
+
+function kontrola(){
+  const pv=seria('Moc','pv'), w=seria('Moc','wiatr'), b=seria('Moc','bio');
+  const suma=LATA.map((_,i)=>(pv[i]==null||w[i]==null||b[i]==null)?null:pv[i]+w[i]+b[i]);
+  if(suma.every(v=>v==null)) return empty($('kontrola-tab'),'Brak danych do zestawienia.');
+  $('kontrola-tab').innerHTML='<table><tr><th>Moc, GW</th>'+LATA.map(y=>`<th>${y}</th>`).join('')+'</tr>'+
+   `<tr><td>B: PV + wiatr + biomasa i biogaz</td>${suma.map(v=>`<td>${fmt(v,1)}</td>`).join('')}</tr>`+
+   `<tr><td>A: wiatrowe i inne odn. (PSE)</td>${LATA.map(y=>`<td>${fmt(A_ZBIORCZA.moc[y],1)}</td>`).join('')}</tr>`+
+   `<tr><td>Różnica B − A</td>${LATA.map((y,i)=>`<td>${suma[i]==null?'–':fmt(suma[i]-A_ZBIORCZA.moc[y],1)}</td>`).join('')}</tr></table>`+
+   '<p class="note">Duża rozbieżność jest sygnałem do wyjaśnienia w Metodologii (zakres kategorii PSE, mikroinstalacje poza ewidencją OSP, moc zainstalowana vs osiągalna) – nie do „poprawiania” liczb.</p>';
+}
+
+function stopka(){
+  $('stopka').innerHTML='<b>Źródła i zastrzeżenia.</b> '+(ZRODLA_B.length?ZRODLA_B.map(z=>`[${z.id}] ${z.opis}`).join(' · '):'Rejestr źródeł Modułu B jest pusty – uzupełnij <code>ZRODLA_B</code>.')+
+   ' Moduł A: PSE, Raport KSE 2018/2021/2024 (dane operatywne, brutto). Opracowanie własne. „Biomasa i biogaz” to jedna pozycja; definicje mikroinstalacji (do 50 kW) i granice segmentów podaj za źródłem.';
+}
+
+function setDims(w){W=Math.max(300,Math.min(1000,w));H=W<480?240:300;M.l=W<480?38:44;}
+function renderAll(){status();h1();h2();h3();kontrola();stopka();}
+renderAll();
+(function(){
+  var probe=$('h1-chart'),last=0;
+  function chk(){var w=probe.clientWidth;if(w&&w!==last){last=w;setDims(w);renderAll();}}
+  if(typeof ResizeObserver!=='undefined')new ResizeObserver(function(){requestAnimationFrame(chk);}).observe(probe);
+  window.addEventListener('resize',chk);
+})();
+
+})();
+</script>
+<script>
+(function(){
+
+const LATA = [2019, 2020, 2021, 2022, 2023, 2024];
+
+const WSK = {
+  rdn_cena_sr:     { nazwa: 'Średnia roczna cena RDN (ważona wolumenem)', jed: 'zł/MWh' },
+  ujemne_godziny:  { nazwa: 'Godziny z ujemną ceną na RDN', jed: 'h/rok' },
+  curt_osp_razem:  { nazwa: 'Redysponowanie nierynkowe OZE na polecenie OSP, razem', jed: 'GWh/rok' },
+  curt_osp_pv:     { nazwa: 'Redysponowanie nierynkowe PV na polecenie OSP', jed: 'GWh/rok' },
+  curt_osp_wiatr:  { nazwa: 'Redysponowanie nierynkowe wiatru na polecenie OSP', jed: 'GWh/rok' },
+  curt_osd_pv:     { nazwa: 'Redysponowanie nierynkowe PV z inicjatywy OSD', jed: 'GWh/rok' },
+  curt_osd_wiatr:  { nazwa: 'Redysponowanie nierynkowe wiatru z inicjatywy OSD', jed: 'GWh/rok' },
+  capture_price_pv_eur:    { nazwa: 'Capture price PV (cena rynkowa ważona generacją)', jed: 'EUR/MWh' },
+  capture_price_wiatr_eur: { nazwa: 'Capture price wiatru (cena rynkowa ważona generacją)', jed: 'EUR/MWh' },
+  dayahead_sr_eur: { nazwa: 'Średnia cena day-ahead w PL (mianownik capture rate)', jed: 'EUR/MWh' },
+  pv_do_wiatru_mv: { nazwa: 'Stosunek capture price PV do wiatru', jed: 'wsp.' },
+  moc_wiatr_inne_oze_mw: { nazwa: 'Moc zainstalowana: elektrownie wiatrowe i inne odnawialne w KSE (stan 31.12)', jed: 'MW' },
+  capture_pv:      { nazwa: 'Capture rate PV (cena profilu ÷ cena średnia)', jed: 'wsp.' },
+  capture_wiatr:   { nazwa: 'Capture rate wiatru (cena profilu ÷ cena średnia)', jed: 'wsp.' }
+};
+
+/* Hipoteza H5 w brzmieniu przyjętym w projekcie. */
+const H5_C = {
+  tresc: 'Dynamiczny przyrost mocy pogodowych (PV i wiatru) w KSE po 2021 r. generuje rosnące koszty integracji systemowej, objawiające się kanibalizacją cenową profilu wytwórczego (spadek Capture Rate), skokowym wzrostem liczby godzin z cenami ujemnymi oraz koniecznością nierynkowego ograniczania generacji (curtailment).',
+  ocena: 'Potwierdzona (silne wsparcie empiryczne w latach 2023–2024)'
+};
+
+/* Rejestr źródeł. weryf: co faktycznie otwarto podczas zbierania danych. */
+const ZRODLA_C = [
+  { id:'TGE_2024', nazwa:'Podsumowanie działalności TGE w 2024 r. (informacja prasowa)', wydawca:'Towarowa Giełda Energii', typ:'oficjalne', weryf:'dokument otwarty', dostep:'2026-10-07',
+    url:'https://tge.pl/pub/TGE/komunikaty/2025/2025.01.07_podsumowanie%20dzialalnosci%20tge%20w%202024.pdf' },
+  { id:'TGE_2023', nazwa:'Summary of trading activity at TGE in 2023 (informacja prasowa: średnioważona cena BASE na DAM 533,62 PLN/MWh, −262,55 vs 2022)', wydawca:'Towarowa Giełda Energii', typ:'oficjalne', weryf:'dokument otwarty', dostep:'2026-10-07',
+    url:'https://tge.pl/pub/TGE/komunikaty/2024/01/2024.01.05_summary%20of%20trading%20activity%20at%20tge%20in%202023.pdf' },
+  { id:'GW_TGE_2022', nazwa:'Wyraźny spadek cen energii elektrycznej na TGE (cytuje TGE: średnia RDN 2022 = 796,17, wzrost o 395,00 vs 2021)', wydawca:'Gramwzielone.pl (za TGE)', typ:'media', weryf:'fragment z wyszukiwarki',  dostep:'2026-10-07',
+    url:'https://www.gramwzielone.pl/trendy/109943/wyrazny-spadek-cen-energii-elektrycznej-na-tge' },
+  { id:'GW_TGE_2023', nazwa:'Wyraźny spadek cen energii na koniec 2023 r. (cytuje TGE: średnia RDN 2023 = 533,62, o 262,55 niżej niż 2022)', wydawca:'Gramwzielone.pl (za TGE)', typ:'media', weryf:'fragment z wyszukiwarki', dostep:'2026-10-07',
+    url:'https://www.gramwzielone.pl/?p=20177531' },
+  { id:'MINPAN_2023', nazwa:'Ceny energii elektrycznej: Polska vs UE (poster; średnie roczne RDN-Base 2019–2022 wg TGE)', wydawca:'Grudziński i in., IGSMiE PAN', typ:'opracowanie naukowe', weryf:'fragment z wyszukiwarki', dostep:'2026-10-07',
+    url:'https://se.min-pan.krakow.pl/pelne_teksty36/k36_poster/k36_poster_grudzinski_inni.pdf' },
+  { id:'BANKIER_PAP', nazwa:'Ujemne ceny prądu. Po raz pierwszy taka sytuacja w Polsce (PAP, 10.06.2023)', wydawca:'Bankier.pl / PAP', typ:'media', weryf:'fragment z wyszukiwarki', dostep:'2026-10-07',
+    url:'https://www.bankier.pl/wiadomosc/Ujemne-ceny-pradu-Po-raz-pierwszy-taka-sytuacja-w-Polsce-8557940.html' },
+  { id:'FORSAL_2023', nazwa:'Przez pomyłkę prąd potaniał tak, że OZE straciły wsparcie (rekord 16 godzin ujemnych w dobie, 22.10.2023)', wydawca:'Forsal.pl', typ:'media', weryf:'fragment z wyszukiwarki', dostep:'2026-10-07',
+    url:'https://forsal.pl/biznes/ekologia/artykuly/9328054,przez-pomylke-prad-potanial-tak-ze-oze-stracily-wsparcie.html' },
+  { id:'AXPO_2026', nazwa:'Darmowy prąd dla firm? MŚP mogą zyskiwać na ujemnych cenach energii (komunikat prasowy 15.04.2026)', wydawca:'Axpo Polska', typ:'komunikat firmy', weryf:'fragment z wyszukiwarki', dostep:'2026-10-07',
+    url:'https://www.axpo.com/content/dam/axpo19/poland/materialy-prasowe/Darmowy%20pra%CC%A8d%20dla%20firm%20-%20MS%CC%81P%20moga%CC%A8%20zyskiwac%CC%81%20na%20ujemnych%20cenach%20energii.pdf' },
+  { id:'GLOBENERGIA', nazwa:'Rekordowa liczba godzin z ujemnymi cenami energii! (za Montel Analytics)', wydawca:'Globenergia.pl', typ:'media', weryf:'fragment z wyszukiwarki', dostep:'2026-10-07',
+    url:'https://globenergia.pl/rekordowa-liczba-godzin-z-ujemnymi-cenami-energii-europa-pod-presja-taniego-pradu/' },
+  { id:'AKADEMIA_FV', nazwa:'Ujemne ceny energii elektrycznej (liczba godzin RCE z ujemną ceną, od 2023)', wydawca:'Akademia Fotowoltaiki', typ:'media', weryf:'fragment z wyszukiwarki', dostep:'2026-10-07',
+    url:'https://akademia-fotowoltaiki.pl/ujemne-ceny-energii-elektrycznej/' },
+  { id:'PVMAG_IEO', nazwa:'Poland deploys 4 GW of PV in 2024 (dane IEO: ok. 600 GWh curtailmentu, prawie 200 h cen ujemnych)', wydawca:'pv magazine / IEO', typ:'branżowe', weryf:'fragment z wyszukiwarki', dostep:'2026-10-07',
+    url:'https://pv-magazine.com/2025/01/24/poland-deploys-4-gw-of-pv-in-2024' },
+  { id:'GW_URE_2023', nazwa:'Redysponowanie na polskim rynku energii. URE przekazał dane (sprawozdanie za 2023)', wydawca:'Gramwzielone.pl (za URE)', typ:'media', weryf:'fragment z wyszukiwarki', dostep:'2026-10-07',
+    url:'https://www.gramwzielone.pl/trendy/20295101/redysponowanie-na-polskim-rynku-energii-ure-przekazal-dane' },
+  { id:'URE_2024', nazwa:'Rynek energii elektrycznej: sprawozdanie Prezesa URE dotyczące mechanizmów redysponowania w 2024 r. (komunikat, publikacja 27.10.2025)', wydawca:'Urząd Regulacji Energetyki', typ:'oficjalne', weryf:'dokument otwarty', dostep:'2026-10-07',
+    url:'https://www.ure.gov.pl/pl/urzad/informacje-ogolne/aktualnosci/12923,Rynek-energii-elektrycznej-sprawozdanie-Prezesa-URE-dotyczace-mechanizmow-redysp.html' },
+  { id:'GW_URE_2024', nazwa:'Operatorzy wyłączają fotowoltaikę. Redukcje wzrosły o 2362% (sprawozdanie URE za 2024)', wydawca:'Gramwzielone.pl (za URE)', typ:'media', weryf:'dokument otwarty', dostep:'2026-10-07',
+    url:'https://www.gramwzielone.pl/?p=20338935' },
+  { id:'ENERAD_URE_2024', nazwa:'Redysponowanie energii w 2024 r.: rekordowe ograniczenia OZE (potwierdza 597,26 GWh PV)', wydawca:'Enerad.pl (za URE)', typ:'media', weryf:'fragment z wyszukiwarki', dostep:'2026-10-07',
+    url:'https://enerad.pl/redysponowanie-energii-w-2024-r-rekordowe-ograniczenia-oze-i-zmiany-na-rynku-bilansujacym/' },
+  { id:'URE_SPRAW', nazwa:'Sprawozdanie Prezesa URE dot. redysponowania za 2023 r. (wolumeny w MWh; pierwsze takie sprawozdanie)', wydawca:'Urząd Regulacji Energetyki', typ:'oficjalne', weryf:'dokument otwarty', dostep:'2026-10-07',
+    url:'https://www.ure.gov.pl/download/9/15075/Sprawozdanie-redysponowanie.pdf' },
+  { id:'GW_PSE_731', nazwa:'Właścicielom fotowoltaiki grozi upadłość. PSE odpowiada (731 GWh w 2024, 74 GWh w 2023)', wydawca:'Gramwzielone.pl', typ:'media', weryf:'fragment z wyszukiwarki', dostep:'2026-10-07',
+    url:'https://www.gramwzielone.pl/?p=20321602' },
+  { id:'PARKIET_PSE', nazwa:'Koniec łatwego zarobku na fotowoltaice (PSE: 912 GWh w 2024, w tym 749 GWh PV)', wydawca:'Parkiet', typ:'media', weryf:'fragment z wyszukiwarki', dostep:'2026-10-07',
+    url:'https://www.parkiet.com/energetyka/art42720541-koniec-latwego-zarobku-na-fotowoltaice-bedzie-konsolidacja' },
+  { id:'GW_PV_2023', nazwa:'Wyłączenia źródeł OZE a obowiązek aukcyjny (pierwsze nierynkowe wyłączenie PV: 23.04.2023)', wydawca:'Gramwzielone.pl (za URE)', typ:'media', weryf:'fragment z wyszukiwarki', dostep:'2026-10-07',
+    url:'https://www.gramwzielone.pl/trendy/20202825/wylaczenia-zrodel-oze-a-obowiazek-aukcyjny-przypomnienie-ure' },
+  { id:'GW_WIATR_2022', nazwa:'Noworoczna przerwa farm wiatrowych w Polsce (PSE: ograniczenia wiatru 26–27.12.2022 o 400–800 MW oraz 31.12–1.01)', wydawca:'Gramwzielone.pl', typ:'media', weryf:'dokument otwarty', dostep:'2026-10-07',
+    url:'https://www.gramwzielone.pl/energia-wiatrowa/109726/noworoczna-przerwa-farm-wiatrowych-w-polsce-nawet-3-gw' },
+  { id:'ENERAD_AXPO', nazwa:'Rekordowa liczba godzin z ujemnymi cenami energii w Polsce (Axpo; dane URE: 186 h w 2024, 251 h w I poł. 2025; pierwsze ujemne na fixingu 1: 15.10.2023)', wydawca:'Enerad.pl (za Axpo/URE)', typ:'media', weryf:'fragment z wyszukiwarki', dostep:'2026-10-07',
+    url:'https://enerad.pl/rekordowa-liczba-godzin-z-ujemnymi-cenami-energii-w-polsce-wyzwania-dla-wytworcow-oze/' },
+  { id:'BRUEGEL_2025', nazwa:'EU renewables value tracker (arkusz Data: CF, MV dla PL; MV = średnia cena ważona generacją, EUR/MWh; wersja z 3.12.2025, dane do 2024)', wydawca:'Bruegel', typ:'opracowanie naukowe', weryf:'dokument otwarty', dostep:'2026-10-07',
+    url:'https://www.bruegel.org/dataset/eu-renewables-value-tracker' },
+  { id:'ACER_2024', nazwa:'ACER CHEST: średnie roczne ceny day-ahead 2024 (PL: 96,30 EUR/MWh, −14% r/r; obliczenia ACER na danych ENTSO-E)', wydawca:'ACER', typ:'oficjalne', weryf:'dokument otwarty', dostep:'2026-10-07',
+    url:'https://aegis.acer.europa.eu/chest/dataitems/731/view' },
+  { id:'ENERGYCHARTS_AUTOR', nazwa:'Energy-Charts (Fraunhofer ISE): roczne capture rate PL 2019–2022; wartości podane przez autora projektu, bez dostępu do API i bez weryfikacji niezależnej', wydawca:'Fraunhofer ISE (wg autora projektu)', typ:'dane od autora (niezweryfikowane)', weryf:'docelowe, niepobrane', dostep:'2026-10-07',
+    url:'https://www.energy-charts.info' },
+  { id:'KSE_2022', nazwa:'Raport 2022 KSE: zestawienie danych ilościowych (tabela 1.1: moc zainstalowana, 6.1: produkcja); plik dostarczony przez autora', wydawca:'PSE S.A.', typ:'oficjalne', weryf:'dokument otwarty', dostep:'2026-10-07',
+    url:'https://www.pse.pl' },
+  { id:'ENTSOE', nazwa:'ENTSO-E Transparency Platform (ceny day-ahead i generacja wg typu źródła)', wydawca:'ENTSO-E', typ:'oficjalne', weryf:'docelowe, niepobrane', dostep:'2026-10-07',
+    url:'https://transparency.entsoe.eu/' },
+  { id:'LINKEDIN_ZW', nazwa:'Wpis analityczny o capture factor wiatru w Polsce (ok. 0,88–0,89 w 2023–2024)', wydawca:'G. Ziembicki, LinkedIn', typ:'media (niska wiarygodność)', weryf:'fragment z wyszukiwarki', dostep:'2026-10-07',
+    url:'https://pl.linkedin.com/in/gabriel-ziembicki' }
+];
+
+/* Format długi: jeden rekord = jedna liczba (lub jawna luka: wartosc=null z opisem w uwaga).
+   seria: 'glowna' (używana na wykresach) | 'kontrolna' (porównanie z innym źródłem).
+   jakosc: 'pierwotne' | 'wtorne' | 'pochodne' | 'brak'. */
+const DANE_C = [
+  // --- Średnia roczna cena RDN, zł/MWh ---
+  { rok:2019, wskaznik:'rdn_cena_sr', seria:'glowna', wartosc:230,    jednostka:'zł/MWh', jakosc:'wtorne',    zrodlo:'MINPAN_2023', uwaga:'RDN-Base wg TGE; definicja średniej może różnić się od ważonej wolumenem' },
+  { rok:2020, wskaznik:'rdn_cena_sr', seria:'glowna', wartosc:210,    jednostka:'zł/MWh', jakosc:'wtorne',    zrodlo:'MINPAN_2023', uwaga:'jw.' },
+  { rok:2021, wskaznik:'rdn_cena_sr', seria:'glowna', wartosc:401.17, jednostka:'zł/MWh', jakosc:'pochodne',  zrodlo:'GW_TGE_2022', uwaga:'796,17 − 395,00 (przyrost 2022 vs 2021 podany przez TGE)' },
+  { rok:2021, wskaznik:'rdn_cena_sr', seria:'kontrolna', wartosc:402, jednostka:'zł/MWh', jakosc:'wtorne',   zrodlo:'MINPAN_2023', uwaga:'RDN-Base; zgodne z wartością pochodną' },
+  { rok:2022, wskaznik:'rdn_cena_sr', seria:'glowna', wartosc:796.17, jednostka:'zł/MWh', jakosc:'pochodne',  zrodlo:'TGE_2023',    uwaga:'533,62 + 262,55 (komunikat TGE za 2023); zgodne z cytatem TGE w GW_TGE_2022' },
+  { rok:2022, wskaznik:'rdn_cena_sr', seria:'kontrolna', wartosc:796.17, jednostka:'zł/MWh', jakosc:'wtorne', zrodlo:'GW_TGE_2022', uwaga:'cytat TGE w mediach' },
+  { rok:2023, wskaznik:'rdn_cena_sr', seria:'glowna', wartosc:533.62, jednostka:'zł/MWh', jakosc:'pierwotne', zrodlo:'TGE_2023',    uwaga:'średnioważona cena BASE na DAM; potwierdza też komunikat TGE za 2024 (424,94 + 108,68)' },
+  { rok:2023, wskaznik:'rdn_cena_sr', seria:'kontrolna', wartosc:533.62, jednostka:'zł/MWh', jakosc:'wtorne', zrodlo:'GW_TGE_2023', uwaga:'cytat TGE w mediach' },
+  { rok:2024, wskaznik:'rdn_cena_sr', seria:'glowna', wartosc:424.94, jednostka:'zł/MWh', jakosc:'pierwotne', zrodlo:'TGE_2024',    uwaga:'„średnioważona cena BASE na RDN”; spadek o 108,68 vs 2023' },
+
+  // --- Godziny z ujemną ceną na RDN ---
+  { rok:2019, wskaznik:'ujemne_godziny', seria:'glowna', wartosc:0, jednostka:'h/rok', jakosc:'wtorne', zrodlo:'BANKIER_PAP', uwaga:'pierwsze ujemne ceny na RDN w historii: 11.06.2023' },
+  { rok:2020, wskaznik:'ujemne_godziny', seria:'glowna', wartosc:0, jednostka:'h/rok', jakosc:'wtorne', zrodlo:'BANKIER_PAP', uwaga:'jw.' },
+  { rok:2021, wskaznik:'ujemne_godziny', seria:'glowna', wartosc:0, jednostka:'h/rok', jakosc:'wtorne', zrodlo:'BANKIER_PAP', uwaga:'jw.' },
+  { rok:2022, wskaznik:'ujemne_godziny', seria:'glowna', wartosc:0, jednostka:'h/rok', jakosc:'wtorne', zrodlo:'BANKIER_PAP', uwaga:'jw.' },
+  { rok:2023, wskaznik:'ujemne_godziny', seria:'glowna', wartosc:19,  jednostka:'h/rok', jakosc:'wtorne', zrodlo:'AXPO_2026', uwaga:'seria Axpo; prawdopodobnie fixing 1 (pierwsze ujemne 15.10.2023, ENERAD_AXPO) — przy fixingu 2 sama doba 22.10.2023 miała 16 ujemnych godzin (FORSAL_2023), więc to dolne oszacowanie; definicja niepotwierdzona' },
+  { rok:2024, wskaznik:'ujemne_godziny', seria:'glowna', wartosc:186, jednostka:'h/rok', jakosc:'wtorne', zrodlo:'AXPO_2026', uwaga:'seria Axpo; tę samą liczbę podaje Enerad jako dane URE (ENERAD_AXPO)' },
+  { rok:2023, wskaznik:'ujemne_godziny', seria:'kontrolna', wartosc:32,  jednostka:'h/rok', jakosc:'wtorne', zrodlo:'AKADEMIA_FV', uwaga:'godziny RCE (rynek bilansujący), inna definicja' },
+  { rok:2024, wskaznik:'ujemne_godziny', seria:'kontrolna', wartosc:197, jednostka:'h/rok', jakosc:'wtorne', zrodlo:'GLOBENERGIA', uwaga:'Montel Analytics, day-ahead' },
+  { rok:2024, wskaznik:'ujemne_godziny', seria:'kontrolna', wartosc:199, jednostka:'h/rok', jakosc:'wtorne', zrodlo:'AKADEMIA_FV', uwaga:'godziny RCE (rynek bilansujący)' },
+  { rok:2024, wskaznik:'ujemne_godziny', seria:'kontrolna', wartosc:200, jednostka:'h/rok', jakosc:'wtorne', zrodlo:'PVMAG_IEO',   uwaga:'IEO: „prawie 200 godzin” (wartość zaokrąglona)' },
+
+  // --- Redysponowanie nierynkowe: razem na polecenie OSP (seria główna) ---
+  { rok:2019, wskaznik:'curt_osp_razem', seria:'glowna', wartosc:null, jednostka:'GWh/rok', jakosc:'brak', zrodlo:'URE_SPRAW', uwaga:'brak oficjalnej serii (sprawozdania URE od 2023); nierynkowe ograniczenia wiatru zaczęły się 12.2022 (GW_WIATR_2022), więc wartość prawdopodobnie bliska zeru, ale nieudokumentowana — nie przyjęto zera' },
+  { rok:2020, wskaznik:'curt_osp_razem', seria:'glowna', wartosc:null, jednostka:'GWh/rok', jakosc:'brak', zrodlo:'URE_SPRAW', uwaga:'jw.' },
+  { rok:2021, wskaznik:'curt_osp_razem', seria:'glowna', wartosc:null, jednostka:'GWh/rok', jakosc:'brak', zrodlo:'URE_SPRAW', uwaga:'jw.' },
+  { rok:2022, wskaznik:'curt_osp_razem', seria:'glowna', wartosc:null, jednostka:'GWh/rok', jakosc:'brak', zrodlo:'GW_WIATR_2022', uwaga:'pierwsze polecenia dla wiatru 26–27.12.2022 (400–800 MW) i 31.12.2022; wolumen roczny nieznany; uzupełnić z raportów PSE' },
+  { rok:2023, wskaznik:'curt_osp_razem', seria:'glowna', wartosc:66.072,  jednostka:'GWh/rok', jakosc:'pierwotne', zrodlo:'URE_SPRAW', uwaga:'66 072 MWh wg sprawozdania URE za 2023; w tym wiatr 41,816 GWh' },
+  { rok:2024, wskaznik:'curt_osp_razem', seria:'glowna', wartosc:722.36, jednostka:'GWh/rok', jakosc:'pierwotne', zrodlo:'URE_2024', uwaga:'suma: PV 597,26 + wiatr 125,1 (komunikat URE podaje składniki, nie sumę)' },
+  { rok:2023, wskaznik:'curt_osp_razem', seria:'kontrolna', wartosc:74,  jednostka:'GWh/rok', jakosc:'wtorne', zrodlo:'GW_PSE_731', uwaga:'dane PSE podane w mediach; inny zakres lub moment pomiaru' },
+  { rok:2024, wskaznik:'curt_osp_razem', seria:'kontrolna', wartosc:731, jednostka:'GWh/rok', jakosc:'wtorne', zrodlo:'GW_PSE_731', uwaga:'dane PSE podane w mediach (w tym 597 GWh PV)' },
+  { rok:2024, wskaznik:'curt_osp_razem', seria:'kontrolna', wartosc:912, jednostka:'GWh/rok', jakosc:'wtorne', zrodlo:'PARKIET_PSE', uwaga:'wg PSE za Parkietem „z przyczyn bilansowych”; rozbieżność niewyjaśniona' },
+
+  // --- Składowe OSP ---
+  { rok:2023, wskaznik:'curt_osp_pv',    seria:'glowna', wartosc:24.256, jednostka:'GWh/rok', jakosc:'pierwotne', zrodlo:'URE_SPRAW', uwaga:'24 256 MWh wg sprawozdania URE za 2023' },
+  { rok:2024, wskaznik:'curt_osp_pv',    seria:'glowna', wartosc:597.26, jednostka:'GWh/rok', jakosc:'pierwotne', zrodlo:'URE_2024', uwaga:'w tym 595,17 GWh z bilansowania, 2,09 GWh z ograniczeń sieciowych (ENERAD_URE_2024)' },
+  { rok:2023, wskaznik:'curt_osp_wiatr', seria:'glowna', wartosc:41.816, jednostka:'GWh/rok', jakosc:'pierwotne', zrodlo:'URE_SPRAW', uwaga:'41 816 MWh wg sprawozdania URE za 2023' },
+  { rok:2024, wskaznik:'curt_osp_wiatr', seria:'glowna', wartosc:125.1,  jednostka:'GWh/rok', jakosc:'pierwotne', zrodlo:'URE_2024', uwaga:'komunikat URE o sprawozdaniu za 2024; pełny PDF sprawozdania nieotwarty' },
+  { rok:2024, wskaznik:'curt_osp_pv', seria:'kontrolna', wartosc:600, jednostka:'GWh/rok', jakosc:'wtorne', zrodlo:'PVMAG_IEO', uwaga:'IEO: ok. 600 GWh curtailmentu PV (wartość zaokrąglona); zgodne z URE' },
+  { rok:2024, wskaznik:'curt_osp_pv', seria:'kontrolna', wartosc:749, jednostka:'GWh/rok', jakosc:'wtorne', zrodlo:'PARKIET_PSE', uwaga:'PSE za Parkietem (w ramach 912 GWh); rozbieżność z URE niewyjaśniona' },
+
+  // --- Składowe OSD (z własnej inicjatywy operatorów dystrybucyjnych) ---
+  { rok:2023, wskaznik:'curt_osd_pv',    seria:'glowna', wartosc:3.228, jednostka:'GWh/rok', jakosc:'pierwotne', zrodlo:'URE_SPRAW', uwaga:'3 228 MWh wg sprawozdania URE za 2023; razem OSD 4 162 MWh' },
+  { rok:2024, wskaznik:'curt_osd_pv',    seria:'glowna', wartosc:24.12, jednostka:'GWh/rok', jakosc:'pierwotne', zrodlo:'URE_2024', uwaga:'' },
+  { rok:2023, wskaznik:'curt_osd_wiatr', seria:'glowna', wartosc:0.934, jednostka:'GWh/rok', jakosc:'pierwotne', zrodlo:'URE_SPRAW', uwaga:'934 MWh wg sprawozdania URE za 2023' },
+  { rok:2024, wskaznik:'curt_osd_wiatr', seria:'glowna', wartosc:2.8,   jednostka:'GWh/rok', jakosc:'pierwotne', zrodlo:'URE_2024', uwaga:'' },
+
+  // --- Kontekst: moc wiatrowych i innych OZE w KSE (Raport 2022 KSE, tabela 1.1) ---
+  { rok:2020, wskaznik:'moc_wiatr_inne_oze_mw', seria:'glowna', wartosc:10229, jednostka:'MW', jakosc:'pierwotne', zrodlo:'KSE_2022', uwaga:'stan 31.12; kategoria PSE „elektrownie wiatrowe i inne odnawialne”' },
+  { rok:2021, wskaznik:'moc_wiatr_inne_oze_mw', seria:'glowna', wartosc:15086, jednostka:'MW', jakosc:'pierwotne', zrodlo:'KSE_2022', uwaga:'stan 31.12; kategoria PSE „elektrownie wiatrowe i inne odnawialne”' },
+  { rok:2022, wskaznik:'moc_wiatr_inne_oze_mw', seria:'glowna', wartosc:21578, jednostka:'MW', jakosc:'pierwotne', zrodlo:'KSE_2022', uwaga:'stan 31.12; kategoria PSE „elektrownie wiatrowe i inne odnawialne”' },
+  // --- Capture price (MV) z zbioru Bruegla, EUR/MWh: cena rynkowa ważona godzinową generacją ---
+  { rok:2019, wskaznik:'capture_price_pv_eur', seria:'glowna', wartosc:null, jednostka:'EUR/MWh', jakosc:'brak', zrodlo:'BRUEGEL_2025', uwaga:'brak wiersza PV dla PL w 2019 r. w zbiorze Bruegla' },
+  { rok:2020, wskaznik:'capture_price_pv_eur', seria:'glowna', wartosc:52.15, jednostka:'EUR/MWh', jakosc:'pierwotne', zrodlo:'BRUEGEL_2025', uwaga:'MV; współczynnik wykorzystania mocy CF = 0.0729' },
+  { rok:2021, wskaznik:'capture_price_pv_eur', seria:'glowna', wartosc:82.01, jednostka:'EUR/MWh', jakosc:'pierwotne', zrodlo:'BRUEGEL_2025', uwaga:'MV; współczynnik wykorzystania mocy CF = 0.0743' },
+  { rok:2022, wskaznik:'capture_price_pv_eur', seria:'glowna', wartosc:150.94, jednostka:'EUR/MWh', jakosc:'pierwotne', zrodlo:'BRUEGEL_2025', uwaga:'MV; współczynnik wykorzystania mocy CF = 0.0959' },
+  { rok:2023, wskaznik:'capture_price_pv_eur', seria:'glowna', wartosc:100.85, jednostka:'EUR/MWh', jakosc:'pierwotne', zrodlo:'BRUEGEL_2025', uwaga:'MV; współczynnik wykorzystania mocy CF = 0.0919' },
+  { rok:2024, wskaznik:'capture_price_pv_eur', seria:'glowna', wartosc:72.02, jednostka:'EUR/MWh', jakosc:'pierwotne', zrodlo:'BRUEGEL_2025', uwaga:'MV; współczynnik wykorzystania mocy CF = 0.0978' },
+  { rok:2019, wskaznik:'capture_price_wiatr_eur', seria:'glowna', wartosc:49.47, jednostka:'EUR/MWh', jakosc:'pierwotne', zrodlo:'BRUEGEL_2025', uwaga:'MV, wiatr lądowy; CF = 0.2863' },
+  { rok:2020, wskaznik:'capture_price_wiatr_eur', seria:'glowna', wartosc:43.63, jednostka:'EUR/MWh', jakosc:'pierwotne', zrodlo:'BRUEGEL_2025', uwaga:'MV, wiatr lądowy; CF = 0.2909' },
+  { rok:2021, wskaznik:'capture_price_wiatr_eur', seria:'glowna', wartosc:82.72, jednostka:'EUR/MWh', jakosc:'pierwotne', zrodlo:'BRUEGEL_2025', uwaga:'MV, wiatr lądowy; CF = 0.2650' },
+  { rok:2022, wskaznik:'capture_price_wiatr_eur', seria:'glowna', wartosc:139.46, jednostka:'EUR/MWh', jakosc:'pierwotne', zrodlo:'BRUEGEL_2025', uwaga:'MV, wiatr lądowy; CF = 0.2696' },
+  { rok:2023, wskaznik:'capture_price_wiatr_eur', seria:'glowna', wartosc:97.33, jednostka:'EUR/MWh', jakosc:'pierwotne', zrodlo:'BRUEGEL_2025', uwaga:'MV, wiatr lądowy; CF = 0.2812' },
+  { rok:2024, wskaznik:'capture_price_wiatr_eur', seria:'glowna', wartosc:84.23, jednostka:'EUR/MWh', jakosc:'pierwotne', zrodlo:'BRUEGEL_2025', uwaga:'MV, wiatr lądowy; CF = 0.2828' },
+  // --- Stosunek PV do wiatru (nie wymaga mianownika) ---
+  { rok:2019, wskaznik:'pv_do_wiatru_mv', seria:'glowna', wartosc:null, jednostka:'wsp.', jakosc:'brak', zrodlo:'BRUEGEL_2025', uwaga:'brak PV w 2019 r.' },
+  { rok:2020, wskaznik:'pv_do_wiatru_mv', seria:'glowna', wartosc:1.195, jednostka:'wsp.', jakosc:'pochodne', zrodlo:'BRUEGEL_2025', uwaga:'MV PV ÷ MV wiatru' },
+  { rok:2021, wskaznik:'pv_do_wiatru_mv', seria:'glowna', wartosc:0.991, jednostka:'wsp.', jakosc:'pochodne', zrodlo:'BRUEGEL_2025', uwaga:'MV PV ÷ MV wiatru' },
+  { rok:2022, wskaznik:'pv_do_wiatru_mv', seria:'glowna', wartosc:1.082, jednostka:'wsp.', jakosc:'pochodne', zrodlo:'BRUEGEL_2025', uwaga:'MV PV ÷ MV wiatru' },
+  { rok:2023, wskaznik:'pv_do_wiatru_mv', seria:'glowna', wartosc:1.036, jednostka:'wsp.', jakosc:'pochodne', zrodlo:'BRUEGEL_2025', uwaga:'MV PV ÷ MV wiatru' },
+  { rok:2024, wskaznik:'pv_do_wiatru_mv', seria:'glowna', wartosc:0.855, jednostka:'wsp.', jakosc:'pochodne', zrodlo:'BRUEGEL_2025', uwaga:'MV PV ÷ MV wiatru' },
+  // --- Mianownik capture rate: średnia cena day-ahead w PL ---
+  { rok:2023, wskaznik:'dayahead_sr_eur', seria:'glowna', wartosc:111.98, jednostka:'EUR/MWh', jakosc:'pochodne', zrodlo:'ACER_2024', uwaga:'96,30 ÷ (1 − 0,14); ACER podaje zmianę r/r zaokrągloną do 1 p.p., więc błąd ok. ±0,6%' },
+  { rok:2024, wskaznik:'dayahead_sr_eur', seria:'glowna', wartosc:96.3, jednostka:'EUR/MWh', jakosc:'pierwotne', zrodlo:'ACER_2024', uwaga:'dane ACER na podstawie ENTSO-E' },
+  // --- Capture rate = capture price ÷ średnia cena day-ahead; luka tam, gdzie brak mianownika ---
+  { rok:2019, wskaznik:'capture_pv', seria:'glowna', wartosc:1.01, jednostka:'wsp.', jakosc:'wtorne', zrodlo:'ENERGYCHARTS_AUTOR', uwaga:'wartość podana przez autora projektu jako poziom Energy-Charts; niezweryfikowana, nie otwarto danych źródłowych' },
+  { rok:2020, wskaznik:'capture_pv', seria:'glowna', wartosc:1.0, jednostka:'wsp.', jakosc:'wtorne', zrodlo:'ENERGYCHARTS_AUTOR', uwaga:'wartość podana przez autora projektu jako poziom Energy-Charts; niezweryfikowana, nie otwarto danych źródłowych' },
+  { rok:2021, wskaznik:'capture_pv', seria:'glowna', wartosc:0.98, jednostka:'wsp.', jakosc:'wtorne', zrodlo:'ENERGYCHARTS_AUTOR', uwaga:'wartość podana przez autora projektu jako poziom Energy-Charts; niezweryfikowana, nie otwarto danych źródłowych' },
+  { rok:2022, wskaznik:'capture_pv', seria:'glowna', wartosc:0.91, jednostka:'wsp.', jakosc:'wtorne', zrodlo:'ENERGYCHARTS_AUTOR', uwaga:'wartość podana przez autora projektu jako poziom Energy-Charts; niezweryfikowana, nie otwarto danych źródłowych' },
+  { rok:2023, wskaznik:'capture_pv', seria:'glowna', wartosc:0.901, jednostka:'wsp.', jakosc:'pochodne', zrodlo:'BRUEGEL_2025', uwaga:'capture price PV ÷ dayahead_sr_eur (ACER, wartość pochodna)' },
+  { rok:2024, wskaznik:'capture_pv', seria:'glowna', wartosc:0.748, jednostka:'wsp.', jakosc:'pochodne', zrodlo:'BRUEGEL_2025', uwaga:'capture price PV ÷ dayahead_sr_eur (ACER)' },
+  { rok:2019, wskaznik:'capture_wiatr', seria:'glowna', wartosc:0.93, jednostka:'wsp.', jakosc:'wtorne', zrodlo:'ENERGYCHARTS_AUTOR', uwaga:'wartość podana przez autora projektu jako poziom Energy-Charts; niezweryfikowana, nie otwarto danych źródłowych' },
+  { rok:2020, wskaznik:'capture_wiatr', seria:'glowna', wartosc:0.92, jednostka:'wsp.', jakosc:'wtorne', zrodlo:'ENERGYCHARTS_AUTOR', uwaga:'wartość podana przez autora projektu jako poziom Energy-Charts; niezweryfikowana, nie otwarto danych źródłowych' },
+  { rok:2021, wskaznik:'capture_wiatr', seria:'glowna', wartosc:0.94, jednostka:'wsp.', jakosc:'wtorne', zrodlo:'ENERGYCHARTS_AUTOR', uwaga:'wartość podana przez autora projektu jako poziom Energy-Charts; niezweryfikowana, nie otwarto danych źródłowych' },
+  { rok:2022, wskaznik:'capture_wiatr', seria:'glowna', wartosc:0.92, jednostka:'wsp.', jakosc:'wtorne', zrodlo:'ENERGYCHARTS_AUTOR', uwaga:'wartość podana przez autora projektu jako poziom Energy-Charts; niezweryfikowana, nie otwarto danych źródłowych' },
+  { rok:2023, wskaznik:'capture_wiatr', seria:'glowna', wartosc:0.869, jednostka:'wsp.', jakosc:'pochodne', zrodlo:'BRUEGEL_2025', uwaga:'capture price wiatru ÷ dayahead_sr_eur (ACER, wartość pochodna)' },
+  { rok:2024, wskaznik:'capture_wiatr', seria:'glowna', wartosc:0.875, jednostka:'wsp.', jakosc:'pochodne', zrodlo:'BRUEGEL_2025', uwaga:'capture price wiatru ÷ dayahead_sr_eur (ACER)' },
+  { rok:2023, wskaznik:'capture_wiatr', seria:'kontrolna', wartosc:0.885, jednostka:'wsp.', jakosc:'pochodne', zrodlo:'LINKEDIN_ZW', uwaga:'zakres 0,88–0,89; punkt środkowy; baza = średnia ważona generacją, nie baseload; źródło niskiej wiarygodności; zgodne co do rzędu wielkości z wyliczeniem z Bruegla i ACER' },
+  { rok:2024, wskaznik:'capture_wiatr', seria:'kontrolna', wartosc:0.885, jednostka:'wsp.', jakosc:'pochodne', zrodlo:'LINKEDIN_ZW', uwaga:'jw.' }
+].map((r, i) => Object.freeze({ id: 'C' + String(i + 1).padStart(3, '0'), ...r }));
+
+/* ---------- Walidacja ---------- */
+function walidacjaC() {
+  const T = [];
+  const add = (nazwa, wynik, opis) => T.push({ nazwa, wynik, opis });
+  const ids = new Set(ZRODLA_C.map(z => z.id));
+  const glowna = (w, r) => DANE_C.find(d => d.wskaznik === w && d.rok === r && d.seria === 'glowna');
+  const bliskie = (a, b, tol) => Math.abs(a - b) <= tol;
+
+  // 1. klucz zrodlo
+  const brakZr = DANE_C.filter(d => !d.zrodlo || !ids.has(d.zrodlo));
+  add('Każdy rekord ma źródło z rejestru', brakZr.length ? 'fail' : 'ok',
+      brakZr.length ? 'brak źródła: ' + brakZr.map(d => d.id).join(', ') : DANE_C.length + ' rekordów, wszystkie powiązane z ZRODLA_C');
+
+  // 2. zakres lat
+  const zleLata = DANE_C.filter(d => !LATA.includes(d.rok));
+  add('Lata w zakresie 2019–2024', zleLata.length ? 'fail' : 'ok', zleLata.length ? 'poza zakresem: ' + zleLata.map(d => d.id).join(', ') : 'ok');
+
+  // 3. unikalność klucza
+  const seen = new Set(); const dup = [];
+  DANE_C.forEach(d => { const k = [d.rok, d.wskaznik, d.seria, d.zrodlo, d.wartosc].join('|'); if (seen.has(k)) dup.push(d.id); seen.add(k); });
+  add('Brak zduplikowanych rekordów', dup.length ? 'fail' : 'ok', dup.length ? dup.join(', ') : 'ok');
+
+  // 4. typy wartości i uzasadnienie luk
+  const zleTypy = DANE_C.filter(d => d.wartosc !== null && !Number.isFinite(d.wartosc));
+  const lukiBezOpisu = DANE_C.filter(d => d.wartosc === null && !d.uwaga);
+  add('Wartości liczbowe lub jawna luka z opisem', (zleTypy.length || lukiBezOpisu.length) ? 'fail' : 'ok',
+      (zleTypy.length || lukiBezOpisu.length) ? [...zleTypy, ...lukiBezOpisu].map(d => d.id).join(', ') : 'ok');
+
+  // 5. pokrycie siatki rok × wskaźnik: dokładnie jedna seria główna
+  const wymagane = ['rdn_cena_sr', 'ujemne_godziny', 'curt_osp_razem', 'capture_price_pv_eur', 'capture_price_wiatr_eur', 'pv_do_wiatru_mv', 'capture_pv', 'capture_wiatr'];
+  const zlePokrycie = [];
+  wymagane.forEach(w => LATA.forEach(r => { const n = DANE_C.filter(d => d.wskaznik === w && d.rok === r && d.seria === 'glowna').length; if (n !== 1) zlePokrycie.push(w + ' ' + r + ' (' + n + ')'); }));
+  add('Dokładnie jedna seria główna na komórkę (rok × wskaźnik)', zlePokrycie.length ? 'fail' : 'ok',
+      zlePokrycie.length ? zlePokrycie.join('; ') : wymagane.length * LATA.length + ' komórek');
+
+  // 6. łańcuch arytmetyczny cen RDN (przyrosty podane przez TGE)
+  const p = r => glowna('rdn_cena_sr', r).wartosc;
+  const lancuch = [
+    ['2021 = 2022 − 395,00 (TGE)', bliskie(p(2021), p(2022) - 395.00, 0.01)],
+    ['2023 = 2022 − 262,55 (TGE)', bliskie(p(2023), p(2022) - 262.55, 0.01)],
+    ['2024 = 2023 − 108,68 (TGE)', bliskie(p(2024), p(2023) - 108.68, 0.01)]
+  ];
+  const zleL = lancuch.filter(x => !x[1]).map(x => x[0]);
+  add('Spójność arytmetyczna cen RDN z przyrostami TGE', zleL.length ? 'fail' : 'ok', zleL.length ? 'niezgodne: ' + zleL.join('; ') : lancuch.map(x => x[0]).join(' · '));
+
+  // 7. sumy składowych redysponowania
+  const g = (w, r) => { const x = glowna(w, r); return x ? x.wartosc : NaN; };
+  const sumy = [
+    ['OSP 2023: PV + wiatr = razem', bliskie(g('curt_osp_pv', 2023) + g('curt_osp_wiatr', 2023), g('curt_osp_razem', 2023), 0.011)],
+    ['OSP 2024: PV + wiatr = razem', bliskie(g('curt_osp_pv', 2024) + g('curt_osp_wiatr', 2024), g('curt_osp_razem', 2024), 0.011)],
+    ['OSD 2023: PV + wiatr = 4,16 (URE)', bliskie(g('curt_osd_pv', 2023) + g('curt_osd_wiatr', 2023), 4.16, 0.011)],
+    ['OSD 2024: PV + wiatr = 26,92', bliskie(g('curt_osd_pv', 2024) + g('curt_osd_wiatr', 2024), 26.92, 0.011)]
+  ];
+  const zleS = sumy.filter(x => !x[1]).map(x => x[0]);
+  add('Sumy składowych redysponowania', zleS.length ? 'fail' : 'ok', zleS.length ? 'niezgodne: ' + zleS.join('; ') : 'wszystkie 4 sumy zgodne');
+
+  // 8. zgodność z deklarowanymi przez URE dynamikami r/r (tolerancja 1% wartości mnożnika)
+  const dyn = [
+    ['OSP PV +2362%', g('curt_osp_pv', 2024) / g('curt_osp_pv', 2023), 24.62],
+    ['OSP wiatr +199%', g('curt_osp_wiatr', 2024) / g('curt_osp_wiatr', 2023), 2.99],
+    ['OSD PV +647%', g('curt_osd_pv', 2024) / g('curt_osd_pv', 2023), 7.47],
+    ['OSD wiatr +200%', g('curt_osd_wiatr', 2024) / g('curt_osd_wiatr', 2023), 3.00]
+  ];
+  const zleD = dyn.filter(x => Math.abs(x[1] - x[2]) / x[2] > 0.01).map(x => x[0] + ' (wyliczono ×' + x[1].toFixed(2) + ')');
+  add('Zgodność z dynamiką r/r podaną przez URE', zleD.length ? 'warn' : 'ok', zleD.length ? zleD.join('; ') : 'cztery dynamiki odtworzone z danych (±1%)');
+
+  // 9. rozbieżności między źródłami (serie kontrolne vs główna)
+  const roz = [];
+  DANE_C.filter(d => d.seria === 'kontrolna' && d.wartosc !== null && ['ujemne_godziny', 'curt_osp_razem', 'curt_osp_pv'].includes(d.wskaznik)).forEach(d => {
+    const m = glowna(d.wskaznik, d.rok);
+    if (m && m.wartosc > 0 && Math.abs(d.wartosc - m.wartosc) / m.wartosc > 0.10) roz.push(WSK[d.wskaznik].nazwa.split(',')[0] + ' ' + d.rok + ': ' + d.wartosc + ' (' + d.zrodlo + ') vs ' + m.wartosc);
+  });
+  add('Rozbieżności >10% między serią główną a kontrolną', roz.length ? 'warn' : 'ok', roz.length ? roz.join('; ') : 'brak');
+
+  // 10. luki
+  const luki = DANE_C.filter(d => d.seria === 'glowna' && d.wartosc === null);
+  const komorek = wymagane.length * LATA.length;
+  const poW = {}; luki.forEach(d => { (poW[d.wskaznik] = poW[d.wskaznik] || []).push(d.rok); });
+  add('Luki w serii głównej', luki.length ? 'warn' : 'ok',
+      luki.length ? luki.length + ' z ' + komorek + ' komórek puste: ' + Object.keys(poW).map(k => k + ' ' + poW[k].join(', ')).join('; ') : 'brak luk');
+
+  // 11. kompletność i weryfikacja rejestru źródeł
+  const niepelne = ZRODLA_C.filter(z => !z.url || !z.wydawca || !z.typ || !z.dostep);
+  add('Rejestr źródeł kompletny (url, wydawca, typ, data dostępu)', niepelne.length ? 'fail' : 'ok', niepelne.length ? niepelne.map(z => z.id).join(', ') : ZRODLA_C.length + ' źródeł');
+  const uzywane = new Set(DANE_C.map(d => d.zrodlo));
+  const nieotw = ZRODLA_C.filter(z => uzywane.has(z.id) && z.weryf !== 'dokument otwarty');
+  add('Źródła użyte w danych, których dokumentu nie otwarto w całości', nieotw.length ? 'warn' : 'ok',
+      nieotw.length ? nieotw.length + ' z ' + [...uzywane].length + ': wartości oparte o cytaty/fragmenty; zalecana weryfikacja ręczna (priorytet: godziny ujemne, ceny TGE 2019–2020, capture rate 2019–2022 od autora)' : 'wszystkie otwarte');
+
+  // 12. capture rate, stosunek PV/wiatr i mianownik
+  const zleCap = [];
+  [2023, 2024].forEach(r => {
+    const b = glowna('dayahead_sr_eur', r).wartosc;
+    [['capture_pv', 'capture_price_pv_eur'], ['capture_wiatr', 'capture_price_wiatr_eur']].forEach(([cr, mv]) => {
+      const w = glowna(cr, r).wartosc, calc = glowna(mv, r).wartosc / b;
+      if (!Number.isFinite(w) || Math.abs(w - calc) > 0.002 || w <= 0 || w > 1.5) zleCap.push(cr + ' ' + r);
+    });
+  });
+  add('Capture rate = capture price ÷ średnia cena day-ahead (±0,002)', zleCap.length ? 'fail' : 'ok', zleCap.length ? zleCap.join(', ') : 'PV i wiatr, 2023–2024');
+  const zleRat = [];
+  LATA.forEach(r => {
+    const a = glowna('capture_price_pv_eur', r).wartosc, b = glowna('capture_price_wiatr_eur', r).wartosc, x = glowna('pv_do_wiatru_mv', r).wartosc;
+    if (a === null || b === null) { if (x !== null) zleRat.push(r); } else if (x === null || Math.abs(x - a / b) > 0.001) zleRat.push(r);
+  });
+  add('Stosunek PV/wiatr zgodny z capture price (±0,001)', zleRat.length ? 'fail' : 'ok', zleRat.length ? 'niezgodne lata: ' + zleRat.join(', ') : '2020–2024');
+  add('Mianownik 2023 zgodny z −14% r/r podanym przez ACER (±0,01)',
+      Math.abs(glowna('dayahead_sr_eur', 2023).wartosc - glowna('dayahead_sr_eur', 2024).wartosc / 0.86) <= 0.01 ? 'ok' : 'fail',
+      '96,30 ÷ 0,86; zaokrąglenie ACER do 1 p.p. daje niepewność ok. ±0,6%');
+
+  // 13. kontrola krzyżowa: capture rate od autora (2019–2022) vs stosunek PV/wiatr z Bruegla
+  const roz2 = [];
+  LATA.forEach(r => {
+    const p = glowna('capture_pv', r).wartosc, w = glowna('capture_wiatr', r).wartosc, x = glowna('pv_do_wiatru_mv', r).wartosc;
+    if (p === null || w === null || x === null) return;
+    const dev = (p / w) / x - 1;
+    if (Math.abs(dev) > 0.05) roz2.push(r + ': PV÷wiatr ' + (p / w).toFixed(2) + ' vs ' + x.toFixed(2) + ' (' + (dev > 0 ? '+' : '') + (dev * 100).toFixed(0) + '%)');
+  });
+  add('Capture rate (PV÷wiatr) zgodny z Bruegiem (±5%)', roz2.length ? 'warn' : 'ok', roz2.length ? 'niezgodne lata: ' + roz2.join('; ') + '. Wartości 2019–2022 pochodzą od autora i są niezweryfikowane.' : '2020–2024');
+
+  const licz = w => T.filter(t => t.wynik === w).length;
+  return { testy: T, ok: licz('ok'), warn: licz('warn'), fail: licz('fail'), luki: luki.length, komorek };
+}
+/* Alias wymagany przez standard modułów A/B. Nazwa „status” koliduje z window.status,
+   więc definiujemy ją jawnie na obiekcie globalnym. */
+window.walidacjaC = walidacjaC;
+
+
+(function () {
+  const $ = id => document.getElementById('c-' + id);
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const fmt = (n, d = 0) => n == null ? '—' : n.toLocaleString('pl-PL', { minimumFractionDigits: d, maximumFractionDigits: d });
+  const mapa = (w, seria = 'glowna') => { const o = {}; DANE_C.filter(d => d.wskaznik === w && d.seria === seria).forEach(d => { o[d.rok] = d; }); return o; };
+
+  function skalaY(maxRaw) {
+    const rough = maxRaw / 4, p = Math.pow(10, Math.floor(Math.log10(rough))), n = rough / p;
+    const step = (n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10) * p, max = Math.ceil(maxRaw / step) * step, ticks = [];
+    for (let v = 0; v <= max + 1e-9; v += step) ticks.push(v);
+    return { max, ticks };
+  }
+  let W = 640, H = 300, IW, IH, BAND, BW; const M = { l: 50, r: 12, t: 30, b: 30 };
+  function setDims(w) { W = Math.max(300, Math.min(1000, w)); H = W < 480 ? 250 : 300; M.l = W < 480 ? 42 : 50; IW = W - M.l - M.r; IH = H - M.t - M.b; BAND = IW / LATA.length; BW = BAND * 0.58; }
+  setDims(640);
+  const cx = i => M.l + BAND * (i + 0.5);
+  const open = lab => `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(lab)}">`;
+  function osie(sk, jed) {
+    let s = `<text class="ax" x="${M.l}" y="14">${esc(jed)}</text>`;
+    sk.ticks.forEach(v => { const y = M.t + IH * (1 - v / sk.max); s += `<line class="grid" x1="${M.l}" x2="${W - M.r}" y1="${y}" y2="${y}"/><text class="ax" x="${M.l - 7}" y="${y + 4}" text-anchor="end">${fmt(v)}</text>`; });
+    LATA.forEach((r, i) => { s += `<text class="ax" x="${cx(i)}" y="${H - 10}" text-anchor="middle">${r}</text>`; });
+    return s;
+  }
+
+  function wykresRDN() {
+    const d = mapa('rdn_cena_sr'), sk = skalaY(Math.max(...LATA.map(r => d[r].wartosc)));
+    const y = v => M.t + IH * (1 - v / sk.max);
+    let s = open('Średnia roczna cena RDN 2019–2024, zł/MWh') + osie(sk, 'zł/MWh');
+    LATA.forEach((r, i) => {
+      const x = d[r], h = IH * x.wartosc / sk.max;
+      s += `<rect class="bar-price ${x.jakosc === 'pierwotne' ? '' : 'bar-soft'}" x="${cx(i) - BW / 2}" y="${y(x.wartosc)}" width="${BW}" height="${h}" rx="3"><title>${r}: ${fmt(x.wartosc, 2)} zł/MWh (${esc(x.jakosc)}; ${esc(x.zrodlo)})</title></rect>`;
+      s += `<text class="val" x="${cx(i)}" y="${y(x.wartosc) - 6}" text-anchor="middle">${fmt(x.wartosc, x.wartosc % 1 ? 2 : 0)}</text>`;
+    });
+    $('w-rdn').innerHTML = s + '</svg>';
+  }
+
+  function notaKontr(rok, wsk, jed, wyjasnienie) {
+    const k = DANE_C.filter(x => x.wskaznik === wsk && x.seria === 'kontrolna' && x.rok === rok && x.wartosc !== null);
+    if (!k.length) return '';
+    return ' Kontrola: ' + k.map(x => fmt(x.wartosc, 0) + ' ' + jed + ' (' + esc(x.zrodlo) + ')').join(', ') + '. ' + wyjasnienie + '.';
+  }
+
+  function wykresNeg() {
+    const d = mapa('ujemne_godziny'), k = DANE_C.filter(x => x.wskaznik === 'ujemne_godziny' && x.seria === 'kontrolna' && x.wartosc !== null);
+    const sk = skalaY(Math.max(...LATA.map(r => d[r].wartosc), ...k.map(x => x.wartosc)) * 1.12), y = v => M.t + IH * (1 - v / sk.max);
+    const pokaz = $('chk-kontrolne').checked;
+    let s = open('Godziny z ujemną ceną na RDN 2019–2024') + osie(sk, 'godzin w roku');
+    LATA.forEach((r, i) => {
+      const x = d[r];
+      s += `<rect class="bar-neg" x="${cx(i) - BW / 2}" y="${y(x.wartosc)}" width="${BW}" height="${Math.max(IH * x.wartosc / sk.max, 0)}" rx="3"><title>${r}: ${x.wartosc} h (${esc(x.zrodlo)})${notaKontr(r, 'ujemne_godziny', 'h', 'Inne źródła podają inne wartości, bo różnią się definicją (fixing 1 vs fixing 2, godziny vs kwadranse)')}</title></rect>`;
+      s += `<text class="val" x="${cx(i)}" y="${y(x.wartosc) - 6}" text-anchor="middle">${x.wartosc}</text>`;
+    });
+    if (pokaz) {
+      const licznik = {};
+      k.forEach(x => { const i = LATA.indexOf(x.rok); const n = licznik[x.rok] = (licznik[x.rok] || 0); licznik[x.rok]++;
+        s += `<circle class="marker" cx="${cx(i) + (n - 1) * 11}" cy="${y(x.wartosc)}" r="4.5"><title>kontrola ${x.rok}: ${x.wartosc} h (${esc(x.zrodlo)}; ${esc(x.uwaga)})</title></circle>`; });
+    }
+    $('w-neg').innerHTML = s + '</svg><div class="legend"><span><i class="sw" style="background:var(--c-neg)"></i>seria główna (Axpo)</span>' + (pokaz ? '<span>○ serie kontrolne (inne źródła)</span>' : '') + '</div>';
+  }
+
+  function wykresCurt() {
+    const t = mapa('curt_osp_razem'), pv = mapa('curt_osp_pv'), wi = mapa('curt_osp_wiatr');
+    const sk = skalaY(Math.max(...LATA.filter(r => t[r].wartosc !== null).map(r => t[r].wartosc)) * 1.1), y = v => M.t + IH * (1 - v / sk.max);
+    let s = open('Nierynkowe redysponowanie OZE na polecenie OSP, GWh rocznie') + osie(sk, 'GWh w roku');
+    LATA.forEach((r, i) => {
+      if (t[r].wartosc === null) {
+        const h = IH * 0.2;
+        s += `<rect class="gap" x="${cx(i) - BW / 2}" y="${M.t + IH - h}" width="${BW}" height="${h}" rx="3"><title>${r}: ND (brak danych). Oficjalna sprawozdawczość URE o redysponowaniu zaczyna się od 2023 r.; luka nie oznacza wartości zero.</title></rect><text class="gaptxt" x="${cx(i)}" y="${M.t + IH - h / 2 + 4}" text-anchor="middle">ND</text>`;
+        return;
+      }
+      const hp = IH * pv[r].wartosc / sk.max, hw = IH * wi[r].wartosc / sk.max;
+      s += `<rect class="bar-wind" x="${cx(i) - BW / 2}" y="${M.t + IH - hw}" width="${BW}" height="${hw}"><title>${r} wiatr: ${fmt(wi[r].wartosc, 1)} GWh (URE). Razem OSP: ${fmt(t[r].wartosc, 1)} GWh.${notaKontr(r, 'curt_osp_razem', 'GWh', 'Dane operatywne PSE cytowane w mediach są wyższe; zakres i metodyka nie są ustalone, seria główna to sprawozdania URE')}</title></rect>`;
+      s += `<rect class="bar-pv" x="${cx(i) - BW / 2}" y="${M.t + IH - hw - hp}" width="${BW}" height="${hp}" rx="3"><title>${r} PV: ${fmt(pv[r].wartosc, 1)} GWh (URE).${notaKontr(r, 'curt_osp_pv', 'GWh', 'Dane operatywne PSE cytowane w mediach są wyższe; seria główna to sprawozdania URE')}</title></rect>`;
+      s += `<text class="val" x="${cx(i)}" y="${y(t[r].wartosc) - 6}" text-anchor="middle">${fmt(t[r].wartosc, 1)}</text>`;
+    });
+    $('w-curt').innerHTML = s + '</svg>';
+  }
+
+  function wykresCapture() {
+    const a = mapa('capture_price_pv_eur'), b = mapa('capture_price_wiatr_eur');
+    const wart = [...LATA.map(r => a[r].wartosc), ...LATA.map(r => b[r].wartosc)].filter(v => v !== null);
+    const sk = skalaY(Math.max(...wart) * 1.1), y = v => M.t + IH * (1 - v / sk.max);
+    let s = open('Capture price PV i wiatru w Polsce 2019–2024, EUR/MWh') + osie(sk, 'EUR/MWh');
+    [[a, 'pv', 'PV', -9], [b, 'wind', 'Wiatr', 17]].forEach(([d, k, n, dy]) => {
+      let path = '', pen = false, pts = '';
+      LATA.forEach((r, i) => {
+        const v = d[r].wartosc;
+        if (v === null) { pen = false; return; }
+        path += (pen ? 'L' : 'M') + cx(i) + ' ' + y(v) + ' '; pen = true;
+        pts += `<circle class="dot-${k}" cx="${cx(i)}" cy="${y(v)}" r="4"><title>${n} ${r}: ${fmt(v, 2)} EUR/MWh (${esc(d[r].zrodlo)})</title></circle><text class="val" x="${cx(i)}" y="${y(v) + dy}" text-anchor="middle">${fmt(v, 0)}</text>`;
+      });
+      s += `<path class="line-${k}" d="${path}"/>` + pts;
+    });
+    $('w-cap').innerHTML = s + '</svg>';
+  }
+
+  function siatkaCapture() {
+    const wiersze = [['capture_pv', 'Capture rate PV', 2], ['capture_wiatr', 'Capture rate wiatr', 2], ['pv_do_wiatru_mv', 'PV ÷ wiatr', 2]];
+    let h = '<div class="h"></div>' + LATA.map(r => `<div class="h">${r}</div>`).join('');
+    wiersze.forEach(([w, n, dec]) => {
+      const d = mapa(w);
+      h += `<div class="r">${n}</div>` + LATA.map(r => d[r].wartosc === null ? `<div title="ND: ${esc(d[r].uwaga)}">ND</div>` : `<div class="v${d[r].jakosc === 'wtorne' ? ' unv' : ''}" title="${esc(d[r].uwaga)}">${fmt(d[r].wartosc, dec)}${d[r].jakosc === 'wtorne' ? '*' : ''}</div>`).join('');
+    });
+    $('cap').innerHTML = h;
+    $('cap-note').innerHTML = 'Capture rate PV spada z 1,01 (2019) do 0,75 (2024), a w 2023–2024 gwałtownie: z 0,90 do 0,75. PV traci też względem wiatru (stosunek capture price PV do wiatru: 1,20 w 2020 → 0,86 w 2024). Wiatr utrzymuje 0,87–0,94. <b>* Wartości 2019–2022 (przerywana ramka): szacunki referencyjne wg benchmarków Energy-Charts (Fraunhofer ISE); przyjęte jako seria pomocnicza o podwyższonej niepewności z uwagi na różnice metodyczne względem zbioru Bruegel (szczegóły w panelu walidacji).</b> Wartości 2023–2024 obliczono na danych Bruegel i ACER.';
+  }
+
+  function kpi(st) {
+    const p = mapa('rdn_cena_sr'), n = mapa('ujemne_godziny'), c = mapa('curt_osp_razem'), cp = mapa('curt_osp_pv'), cr = mapa('capture_pv'), rt = mapa('pv_do_wiatru_mv');
+    const dRDN = (p[2024].wartosc - p[2022].wartosc) / p[2022].wartosc * 100;
+    const tile = (l, v, d) => `<div class="tile"><div class="l">${l}</div><div class="v">${v}</div><div class="d">${d}</div></div>`;
+    $('kpi').innerHTML =
+      tile('Cena RDN 2024 vs 2022', fmt(dRDN, 1) + '%', `${fmt(p[2022].wartosc, 2)} → ${fmt(p[2024].wartosc, 2)} zł/MWh`) +
+      tile('Godziny ujemne 2024', fmt(n[2024].wartosc) + ' h', `2022: ${n[2022].wartosc} h · 2023: ${n[2023].wartosc} h (seria Axpo)`) +
+      tile('Redysponowanie OSP 2024', fmt(c[2024].wartosc, 0) + ' GWh', `×${fmt(c[2024].wartosc / c[2023].wartosc, 1)} vs 2023 · PV ×${fmt(cp[2024].wartosc / cp[2023].wartosc, 1)}`) +
+      tile('Capture rate PV 2024', fmt(cr[2024].wartosc, 2), `2023: ${fmt(cr[2023].wartosc, 2)} · PV ÷ wiatr: ${fmt(rt[2020].wartosc, 2)} (2020) → ${fmt(rt[2024].wartosc, 2)} (2024)`) +
+      tile('Luki w serii głównej', st.luki + ' / ' + st.komorek, 'redysponowanie 2019–2022 oraz PV 2019 (Bruegel)');
+  }
+
+  function h5() {
+    $('h5-tresc').textContent = '„' + H5_C.tresc + '”';
+    $('h5-operacj').innerHTML = '<p class="note">Operacjonalizacja w Module C: <b>kanibalizacja</b> = capture rate i stosunek PV do wiatru (sekcja 4); <b>skokowy wzrost godzin ujemnych</b> (sekcja 2); <b>curtailment</b> = nierynkowe redysponowanie na polecenie OSP (sekcja 3). Przyrost mocy PV i wiatru po 2021 r. opisuje Moduł B. Ocena: <span class="pill ok">' + esc(H5_C.ocena) + '</span> zakres dowodów w sekcji 5.</p>';
+  }
+
+  function wnioski() {
+    const moc = r => DANE_C.find(d => d.wskaznik === 'moc_wiatr_inne_oze_mw' && d.rok === r && d.seria === 'glowna').wartosc;
+    const n = mapa('ujemne_godziny'), c = mapa('curt_osp_razem'), cp = mapa('curt_osp_pv'), cr = mapa('capture_pv'), cw = mapa('capture_wiatr'), rt = mapa('pv_do_wiatru_mv');
+    $('wnioski').innerHTML =
+      `<p><span class="pill ok">${esc(H5_C.ocena)}</span><b>Ocena H5 (wg formuły przyjętej w projekcie)</b></p><ul class="m">` +
+      `<li><b>Wymiar rynkowy / cenowy:</b> capture rate PV spadł z ${fmt(cr[2019].wartosc, 2)}* (2019) i ${fmt(cr[2023].wartosc, 2)} (2023) do ${fmt(cr[2024].wartosc, 2)} (2024), a PV traci wartość względem wiatru: stosunek ich capture price wyniósł ${fmt(rt[2020].wartosc, 2)} w 2020 i ${fmt(rt[2024].wartosc, 2)} w 2024 (kanibalizacja profilu słonecznego). Liczba godzin z cenami ujemnymi na RDN wzrosła z ${n[2022].wartosc} h (2022) do ${n[2024].wartosc} h (2024; ${n[2023].wartosc} h w 2023). Potwierdza to erozję przychodów wytwórców.</li>` +
+      `<li><b>Wymiar techniczny / sieciowy:</b> nierynkowe redysponowanie na polecenie OSP wzrosło z ${fmt(c[2023].wartosc, 0)} GWh (2023) do ${fmt(c[2024].wartosc, 0)} GWh (2024) wg URE, czyli ×${fmt(c[2024].wartosc / c[2023].wartosc, 1)} (PV ×${fmt(cp[2024].wartosc / cp[2023].wartosc, 1)}). To twardy dowód na deficyt elastyczności KSE i fizyczne niedopasowanie generacji do popytu.</li></ul>` +
+      `<h3>Zakres dowodów i zastrzeżenia</h3><ul class="m">` +
+      `<li><b>Silne wsparcie empiryczne dotyczy 2023–2024:</b> capture rate z Bruegla i ACER (mianownik 2023 wyliczony z podanej zmiany −14% r/r), godziny ujemne i redysponowanie URE. Capture rate 2019–2022 (oznaczone *) to szacunki referencyjne wg benchmarków Energy-Charts, przyjęte jako seria pomocnicza o podwyższonej niepewności; nie zgadzają się dokładnie ze stosunkiem PV do wiatru z Bruegla.</li>` +
+      `<li><b>Charakter zjawiska (interpretacja autora, nie wynik testu):</b> zjawiska nabrały dynamiki dopiero po przekroczeniu ok. 15 GW wiatrowych i innych OZE w KSE (${fmt(moc(2021) / 1000, 1)} GW na koniec 2021 r.). Dane nie wyznaczają ostrego progu: przy ${fmt(moc(2022) / 1000, 1)} GW na koniec 2022 r. nie było jeszcze godzin ujemnych, a capture rate PV spadł nieznacznie (do 0,91*). Prawdopodobnie efekt przesłaniały wtedy wysokie ceny z kryzysu energetycznego. Skutki są wyraźne od 2023 r.</li>` +
+      `<li>Spadek capture rate dotyczy w danych PV. Capture rate wiatru nie spadł: ${fmt(cw[2023].wartosc, 2)} w 2023 i ${fmt(cw[2024].wartosc, 2)} w 2024.</li>` +
+      `<li>Średnie roczne nie pokazują mechanizmu „szczytu południowego”; potwierdzają go jakościowo źródła (polecenia redukcji PV w godzinach ok. 11–18, ujemne ceny w godzinach ok. 10–17), nie dane tego modułu.</li>` +
+      `<li>Przyrost mocy PV i wiatru jest przedmiotem Modułu B. Moduł C zawiera tylko trzy wartości mocy (kategoria PSE „wiatrowe i inne odnawialne”, 2020–2022) jako kontekst do progu ok. 15 GW; kategoria obejmuje m.in. PV.</li>` +
+      `<li>Godziny ujemne: definicje różnią się między źródłami, a wartość za 2023 r. to prawdopodobnie dolne oszacowanie. Redysponowanie za 2024 r. oparto na komunikacie URE o sprawozdaniu (nie na pełnym PDF), a PSE w mediach podaje wyższe wartości (patrz panel walidacji danych na górze modułu).</li></ul>`;
+  }
+
+  function metodologia() {
+    $('metodologia').innerHTML = `<ul class="m">
+<li><b>Cena RDN:</b> 2023–2024 to średnia ważona wolumenem z komunikatów TGE (otwartych w całości); 2022 wyliczono z przyrostu −262,55 podanego przez TGE i jest zgodne z cytatem 796,17. Dla 2019–2020 średnie roczne RDN-Base z opracowania wtórnego (zmienna definicja średniej); 2021 jest wartością pochodną z przyrostu podanego przez TGE (kontrola: 402 zł/MWh w opracowaniu IGSMiE PAN).</li>
+<li><b>Godziny ujemne:</b> trzy różne definicje funkcjonują w źródłach (godzinowe fixingi RDN, okresy 15-minutowe, RCE na rynku bilansującym). Seria główna to jedno spójne źródło (Axpo, 2023–2024); pozostałe służą kontroli. Na RDN są dwa fixingi: pierwsze ujemne ceny pojawiły się na fixingu 2 (11.06.2023), a na fixingu 1 dopiero 15.10.2023. Wartość 19 h dla 2023 prawdopodobnie dotyczy fixingu 1, bo przy fixingu 2 sama doba 22.10.2023 miała 16 ujemnych godzin (plus 5 h 11.06.2023); jest więc dolnym oszacowaniem, a definicja nie jest potwierdzona w źródle. Zera dla 2019–2022 wynikają z faktu, że przed czerwcem 2023 ujemne ceny na RDN nie wystąpiły.</li>
+<li><b>Założenie wstępne do skorygowania:</b> skok liczby godzin ujemnych w latach 2023–2024 nie wynika z „unijnych limitów cenowych”. Minimalna cena −500 EUR/MWh obowiązuje na RDN od 2019 r.; źródła wiążą zjawisko ze wzrostem mocy PV i niskim popytem (weekendy, święta). Moduł nie twierdzi więc o przyczynie regulacyjnej.</li>
+<li><b>Redysponowanie:</b> sprawozdania Prezesa URE rozróżniają polecenia OSP i działania OSD; rok 2023 jest pierwszym rokiem serii. Wartości 2023 sprawdzono w samym sprawozdaniu URE (podane w MWh); 2024 oparto na komunikacie URE o sprawozdaniu za 2024 (otwarty w całości), a nie na pełnym PDF sprawozdania. Pierwsze nierynkowe polecenia dla wiatru wydano 26–27.12.2022 (400–800 MW); dla lat 2019–2021 nie znaleziono udokumentowanych zdarzeń, ale nie przyjęto zera. Zero oznaczałoby twierdzenie o braku zjawiska, którego nie da się wykazać, a dla 2022 r. jest sprzeczne z udokumentowanymi poleceniami z grudnia; luki oznaczono „ND” (brak danych). Wartości PSE w mediach (74 / 731 / 912 GWh, w tym 749 GWh PV) różnią się od URE (66,07 / 722,36; PV 597,26); rozbieżność nie jest rozstrzygnięta i jest widoczna w panelu walidacji danych.</li>
+<li><b>Capture price i capture rate:</b> capture price to „market value” z zbioru Bruegla, czyli średnia cena rynkowa ważona godzinową generacją (ENTSO-E; PLN→EUR po dziennych kursach ECB). Arkusz ReadMe zbioru ma puste definicje, więc opis zmiennych pochodzi ze strony zbioru. Capture rate = capture price ÷ średnia cena day-ahead (ACER na danych ENTSO-E): 96,30 EUR/MWh w 2024; dla 2023 mianownik wyliczono z podanej przez ACER zmiany −14% (niepewność ok. ±0,6%). Dla 2019–2022 brak mianownika, a PV nie ma wiersza w 2019 r. Przeliczenie walut nie wpływa na stosunki PV do wiatru.</li>
+<li><b>Capture rate 2019–2022:</b> szacunki referencyjne wg benchmarków Energy-Charts (Fraunhofer ISE): PV 1,01 / 1,00 / 0,98 / 0,91; wiatr 0,93 / 0,92 / 0,94 / 0,92. Seria pomocnicza o podwyższonej niepewności: nie zweryfikowano jej na pierwotnym zbiorze (brak dostępu do API w trakcie prac). Kontrola krzyżowa ze stosunkiem PV do wiatru z Bruegla daje rozbieżności 5–10% w latach 2020–2022 (patrz panel walidacji danych na górze modułu), więc wartości są zaznaczone gwiazdką i przerywaną ramką.</li>
+<li><b>Jakość źródeł:</b> w całości otwarto komunikaty TGE za 2023 i 2024, sprawozdanie URE za 2023 oraz streszczenie sprawozdania URE za 2024; reszta wartości opiera się na cytatach i fragmentach publikacji (kolumna „weryfikacja”). Ceny 2019–2020 i godziny ujemne (poza kontrolą krzyżową) wymagają ręcznego potwierdzenia przed publikacją w portfolio.</li>
+<li><b>Nie obliczono:</b> udziału curtailmentu w generacji ani strat finansowych wytwórców, bo nie ma w module źródłowych danych o generacji i cenach realizacji.</li></ul>`;
+  }
+
+  function tabele() {
+    const f = $('filtr'); f.innerHTML = '<option value="">wszystkie</option>' + Object.keys(WSK).map(k => `<option value="${k}">${esc(WSK[k].nazwa)}</option>`).join('');
+    const rys = () => {
+      const w = f.value, rows = DANE_C.filter(d => !w || d.wskaznik === w);
+      $('tab-dane').innerHTML = '<thead><tr><th>ID</th><th>Rok</th><th>Wskaźnik</th><th>Seria</th><th>Wartość</th><th>Jakość</th><th>Źródło</th><th>Uwaga</th></tr></thead><tbody>' +
+        rows.map(d => `<tr><td>${d.id}</td><td>${d.rok}</td><td>${esc(d.wskaznik)}</td><td>${d.seria}</td><td class="n">${d.wartosc === null ? '—' : fmt(d.wartosc, d.wartosc % 1 ? 2 : 0)} ${esc(d.jednostka)}</td><td>${d.jakosc}</td><td><a href="#c-z-${d.zrodlo}">${d.zrodlo}</a></td><td>${esc(d.uwaga)}</td></tr>`).join('') + '</tbody>';
+    };
+    f.addEventListener('change', rys); rys();
+    $('tab-zrodla').innerHTML = '<thead><tr><th>ID</th><th>Źródło</th><th>Wydawca</th><th>Typ</th><th>Weryfikacja</th><th>Dostęp</th></tr></thead><tbody>' +
+      ZRODLA_C.map(z => `<tr id="c-z-${z.id}"><td>${z.id}</td><td><a href="${esc(z.url)}" target="_blank" rel="noopener noreferrer">${esc(z.nazwa)}</a></td><td>${esc(z.wydawca)}</td><td>${esc(z.typ)}</td><td>${esc(z.weryf)}</td><td>${z.dostep}</td></tr>`).join('') + '</tbody>';
+  }
+
+  function pasek(st) {
+    const glowny = st.fail ? 'fail' : st.warn ? 'warn' : 'ok', ikona = { ok: '✓', warn: '!', fail: '✗' };
+    $('status-bar').innerHTML = `<details><summary><span class="pill ${glowny}">${st.fail ? 'BŁĘDY' : st.warn ? 'OSTRZEŻENIA' : 'OK'}</span>Walidacja danych: ${st.ok} ok · ${st.warn} ostrzeżeń · ${st.fail} błędów · ${DANE_C.length} rekordów · ${ZRODLA_C.length} źródeł</summary><ul class="tests">` +
+      st.testy.map(t => `<li><span class="pill ${t.wynik}">${ikona[t.wynik]}</span>${esc(t.nazwa)}<span class="opis">${esc(t.opis)}</span></li>`).join('') + '</ul></details>';
+  }
+
+  function motyw() {
+    const b = $('theme'), r = document.documentElement, kolej = ['auto', 'light', 'dark'], nazwy = { auto: 'auto', light: 'jasny', dark: 'ciemny' };
+    let i = 0;
+    b.addEventListener('click', () => { i = (i + 1) % 3; if (kolej[i] === 'auto') r.removeAttribute('data-theme'); else r.setAttribute('data-theme', kolej[i]); b.textContent = 'Motyw: ' + nazwy[kolej[i]]; });
+  }
+
+  const st = walidacjaC();
+  h5(); pasek(st); kpi(st); wykresRDN(); wykresNeg(); wykresCurt(); wykresCapture(); siatkaCapture(); wnioski(); metodologia(); tabele();
+  $('chk-kontrolne').addEventListener('change', wykresNeg);
+  (function () {
+    const probe = $('w-rdn'); let last = 0;
+    function chk() { const w = probe.clientWidth; if (w && w !== last) { last = w; setDims(w); wykresRDN(); wykresNeg(); wykresCurt(); wykresCapture(); } }
+    if (typeof ResizeObserver !== 'undefined') new ResizeObserver(() => requestAnimationFrame(chk)).observe(probe);
+    window.addEventListener('resize', chk);
+  })();
+})();
+
+})();
+</script>
+<script>
+(function(){
+"use strict";
+var VIEWS=[
+  {k:'start',l:'Start',s:'Start',t:'',i:'<path d="M3 11l9-8 9 8M5 10v10h14V10"/>'},
+  {k:'a',l:'A · System',s:'Moduł A',t:' · Moduł A: system',i:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>'},
+  {k:'b',l:'B · Technologie',s:'Moduł B',t:' · Moduł B: technologie',i:'<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>'},
+  {k:'c',l:'C · Rynek',s:'Moduł C',t:' · Moduł C: rynek',i:'<path d="M3 17l6-6 4 4 8-8M15 7h6v6"/>'}
+];
+var BASE='Konrad Grycner | Analiza OZE w Polsce 2018–2024';
+var reduce=false;try{reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+var $=function(id){return document.getElementById(id);};
+var cur=null,counted=false;
+var containers=[{el:$('dtabs'),mobile:false},{el:$('brow'),mobile:true}];
+
+function build(){
+  containers.forEach(function(c){
+    var ind=document.createElement('span');ind.className='ind';c.el.appendChild(ind);c.ind=ind;c.btns=[];
+    VIEWS.forEach(function(v){
+      var b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.setAttribute('aria-selected','false');b.setAttribute('data-view',v.k);
+      b.innerHTML=c.mobile?'<svg viewBox="0 0 24 24" aria-hidden="true">'+v.i+'</svg><span>'+v.s+'</span>':v.l;
+      b.addEventListener('click',function(){go(v.k);});
+      c.el.appendChild(b);c.btns.push(b);
+    });
+  });
+}
+function moveInd(){
+  containers.forEach(function(c){
+    var active=null;c.btns.forEach(function(b){if(b.getAttribute('data-view')===cur)active=b;});
+    if(!active||!active.offsetWidth)return;
+    c.ind.style.width=active.offsetWidth+'px';
+    c.ind.style.transform='translateX('+active.offsetLeft+'px)';
+  });
+}
+function parse(){
+  var h=(location.hash||'').replace('#','');var p=h.split('/');
+  var ok=VIEWS.some(function(v){return v.k===p[0];});
+  return ok?{k:p[0],sub:p[1]||null}:null;
+}
+function go(k){
+  if(('#'+k)!==location.hash){try{location.hash=k;}catch(e){}}
+  apply(k,null);
+}
+function fireResize(){
+  try{window.dispatchEvent(new Event('resize'));}catch(e){}
+}
+function count(el){
+  var to=parseFloat(el.getAttribute('data-to')),dec=parseInt(el.getAttribute('data-dec')||'0',10),pre=el.getAttribute('data-pre')||'',suf=el.getAttribute('data-suf')||'';
+  var f=new Intl.NumberFormat('pl-PL',{minimumFractionDigits:dec,maximumFractionDigits:dec});
+  if(reduce){el.textContent=pre+f.format(to)+suf;return;}
+  var t0=performance.now(),d=1100;
+  function step(t){var p=Math.min(1,(t-t0)/d),e=1-Math.pow(1-p,3);el.textContent=pre+f.format(to*e)+suf;if(p<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);
+}
+function apply(k,sub){
+  if(k!==cur){
+    cur=k;
+    VIEWS.forEach(function(v){var el=$('view-'+v.k);if(el)el.classList.toggle('active',v.k===k);});
+    containers.forEach(function(c){c.btns.forEach(function(b){b.setAttribute('aria-selected',b.getAttribute('data-view')===k?'true':'false');});});
+    var vd=VIEWS.filter(function(v){return v.k===k;})[0];
+    document.title=BASE+(vd?vd.t:'');
+    try{window.scrollTo({top:0,behavior:'instant'});}catch(e){window.scrollTo(0,0);}
+    moveInd();
+    /* widok przestał być display:none: wymuś przeliczenie szerokości wykresów w modułach B i C */
+    fireResize();
+    requestAnimationFrame(fireResize);
+    var vel=$('view-'+k);if(vel){try{vel.focus({preventScroll:true});}catch(e){}}
+    if(k==='a'&&window.PortfolioA){requestAnimationFrame(function(){window.PortfolioA.redraw();});}
+    if(k==='start'&&!counted){counted=true;Array.prototype.forEach.call(document.querySelectorAll('#view-start .cnt'),count);}
+    updateProg();
+  }
+  if(k==='a'&&sub&&window.PortfolioA){window.PortfolioA.show(sub);}
+}
+window.addEventListener('hashchange',function(){var p=parse();if(p)apply(p.k,p.sub);});
+window.addEventListener('subtab',function(e){
+  if(!e.detail||e.detail.view!=='a'||cur!=='a')return;
+  var s=e.detail.sub,h=(s&&s!=='overview')?'#a/'+s:'#a';
+  try{if(location.hash!==h)history.replaceState(null,'',h);}catch(err){}
+});
+document.addEventListener('click',function(e){
+  var t=e.target.closest?e.target.closest('[data-go]'):null;
+  if(!t)return;
+  e.preventDefault();go(t.getAttribute('data-go'));
+});
+
+/* postęp przewijania */
+var bar=$('progBar');
+function updateProg(){
+  var h=document.documentElement,max=h.scrollHeight-h.clientHeight;
+  bar.style.transform='scaleX('+(max>0?Math.min(1,window.pageYOffset/max):0)+')';
+}
+window.addEventListener('scroll',updateProg,{passive:true});
+window.addEventListener('resize',function(){moveInd();updateProg();});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(moveInd);
+
+/* motyw: auto -> jasny -> ciemny */
+(function(){
+  var btn=$('themeBtn'),lbl=$('themeLbl'),root=document.documentElement;
+  var order=['auto','light','dark'],names={auto:'Auto',light:'Jasny',dark:'Ciemny'},mode='auto';
+  try{var s=localStorage.getItem('kg-theme');if(order.indexOf(s)>-1)mode=s;}catch(e){}
+  function set(m){
+    mode=m;
+    if(m==='auto')root.removeAttribute('data-theme');else root.setAttribute('data-theme',m);
+    lbl.textContent=names[m];
+    try{localStorage.setItem('kg-theme',m);}catch(e){}
+    if(window.PortfolioA)window.PortfolioA.redraw();
+  }
+  btn.addEventListener('click',function(){set(order[(order.indexOf(mode)+1)%3]);});
+  set(mode);
+})();
+
+build();
+var p0=parse();
+apply(p0?p0.k:'start',p0?p0.sub:null);
+})();
+
+</script>
+</body>
+</html>
